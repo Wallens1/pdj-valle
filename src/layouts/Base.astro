@@ -11,7 +11,8 @@ interface Props {
   pieColor?: string; // clase de capítulo para el pie
 }
 const { titulo, descripcion = site.descripcion, pieColor = 'c-indigo-hondo' } = Astro.props;
-const ruta = Astro.url.pathname.replace(/\/$/, '') || '/';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const ruta = Astro.url.pathname.slice(base.length).replace(/\/$/, '') || '/';
 const actual = (href: string) => (href === '/' ? ruta === '/' : ruta.startsWith(href));
 const abiertos = pendientes.filter((p) => p.estado !== 'aprobado').length;
 const [usuario, dominio] = site.correo.split('@');

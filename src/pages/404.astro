@@ -1,10 +1,76 @@
 ---
+// GitHub Pages sirve este archivo (404.html) para cualquier ruta que no exista.
 import Base from '../layouts/Base.astro';
-import CabezaPagina from '../components/CabezaPagina.astro';
+import Garabato from '../components/Garabato.astro';
 import Flecha from '../components/Flecha.astro';
+
+const atajos = [
+  { href: '/', titulo: 'Inicio', texto: 'Quiénes somos y qué hacemos', color: 'c-lima' },
+  { href: '/abc', titulo: 'El ABC', texto: 'Tus derechos, con la ley en la mano', color: 'c-coral' },
+  { href: '/territorio#tu-municipio', titulo: 'Tu municipio', texto: 'Cómo funciona tu plataforma', color: 'c-teal' },
+  { href: '/contacto', titulo: 'Escríbenos', texto: 'Si buscabas algo que no está', color: 'c-azul' },
+];
 ---
-<Base titulo="Página no encontrada">
-  <CabezaPagina lineas={['Uy, esta', 'no existe']} entrada="La página que buscas se movió o nunca estuvo. Vuelve al inicio y sigue el parche." color="c-coral" nota="error 404">
-    <a class="boton" href="/">Volver al inicio <Flecha /></a>
-  </CabezaPagina>
+<Base titulo="Página no encontrada" descripcion="Esta página no existe. Vuelve al inicio de la Plataforma Departamental de Juventudes del Valle.">
+  <section class="capitulo c-indigo perdido" aria-labelledby="perdido-titulo">
+    <div class="contenedor perdido__rejilla">
+      <div class="perdido__numero" aria-hidden="true">
+        <span style="--i:0">4</span>
+        <span class="perdido__cero" style="--i:1"><Garabato forma="espiral" class="perdido__espiral girar" /></span>
+        <span style="--i:2">4</span>
+      </div>
+      <div class="perdido__texto">
+        <h1 id="perdido-titulo" class="titulo-xl">
+          <span class="linea-mascara" style="--l:0"><span>Uy, por aquí</span></span>
+          <span class="linea-mascara" style="--l:1"><span>no es el parche</span></span>
+        </h1>
+        <p class="entrada">La página que buscas se movió o nunca existió. Sin acta, no existe… y esta no tiene acta.</p>
+        <p class="mano">pero tranqui, te llevamos de vuelta</p>
+        <a class="boton boton--lima" href="/">Volver al inicio <Flecha /></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="capitulo capitulo--auto c-papel atajos" aria-labelledby="atajos-titulo">
+    <div class="contenedor">
+      <h2 id="atajos-titulo" class="titulo-l">O ve directo a</h2>
+      <ul class="atajos__lista" role="list" data-revelar>
+        {atajos.map((a) => (
+          <li>
+            <a class:list={['atajo', a.color]} href={a.href}>
+              <span class="atajo__titulo">{a.titulo}</span>
+              <span>{a.texto}</span>
+              <Flecha class="atajo__flecha" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
 </Base>
+
+<style>
+  .perdido { display: flex; align-items: center; overflow: hidden; }
+  .perdido__rejilla { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(24px, 5vw, 80px); align-items: center; }
+  .perdido__numero { display: flex; align-items: center; font-size: clamp(7rem, 22vw, 22rem); font-weight: 800; letter-spacing: -0.08em; line-height: 0.8; color: var(--lima); }
+  .perdido__numero > span { display: inline-block; animation: rebota 2.6s var(--ease-rebote) infinite; animation-delay: calc(var(--i) * 0.18s); }
+  @keyframes rebota { 0%, 60%, 100% { transform: translateY(0) rotate(0); } 30% { transform: translateY(-0.08em) rotate(-4deg); } }
+  .perdido__cero { position: relative; width: 0.72em; height: 0.8em; margin-inline: 0.02em; }
+  .perdido__cero :global(.perdido__espiral) { inset: 0; width: 100%; height: 100%; color: var(--coral); }
+  .perdido__cero :global(.perdido__espiral path) { stroke-width: 9; }
+  .perdido__texto { display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+  .perdido__texto .mano { transform: rotate(-3deg); }
+
+  .atajos__lista { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .atajo { position: relative; display: flex; flex-direction: column; gap: 8px; min-height: 200px; padding: 24px; border-radius: var(--radio); background: var(--fondo); color: var(--texto); text-decoration: none; transition: transform 0.4s var(--ease-rebote); }
+  .atajo:hover { transform: translateY(-8px) rotate(-1.5deg); }
+  .atajo__titulo { font-size: var(--t-l); font-weight: 800; letter-spacing: -0.02em; }
+  .atajo :global(.atajo__flecha) { width: 28px; height: 28px; margin-top: auto; transition: transform 0.4s var(--ease-rebote); }
+  .atajo:hover :global(.atajo__flecha) { transform: translateX(8px); }
+
+  @media (max-width: 900px) {
+    .perdido__rejilla { grid-template-columns: 1fr; }
+    .atajos__lista { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) { .atajos__lista { grid-template-columns: 1fr; } .atajo { min-height: 0; } }
+</style>
