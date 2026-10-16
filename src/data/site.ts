@@ -3,7 +3,7 @@ export const site = {
   nombreLargo: 'Plataforma Departamental de Juventudes del Valle del Cauca',
   descripcion:
     'Somos el espacio autónomo donde los procesos juveniles de los 42 territorios del Valle del Cauca se encuentran para proponer, vigilar y decidir sobre lo que nos afecta.',
-  correo: 'hola@pdjvalle.co', // ejemplo · PH-05
+  correo: 'pdjvalledelcauca@gmail.com',
   redes: [
     { nombre: 'Instagram', url: '#', usuario: '@pdjvalle' }, // ejemplo · PH-05
     { nombre: 'TikTok', url: '#', usuario: '@pdjvalle' },
