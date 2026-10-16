@@ -4,26 +4,26 @@ export type Pendiente = {
   id: string;
   titulo: string;
   pagina: string; // ruta donde aparece
-  falta: string; // qué necesitamos de la Plataforma
+  falta: string; // qué necesito de la Plataforma
   tipo: 'texto' | 'foto' | 'dato' | 'documento' | 'contacto' | 'funcion';
   estado: Estado;
 };
 
 export const pendientes: Pendiente[] = [
   { id: 'PH-01', titulo: 'Mensaje de bienvenida', pagina: '/', tipo: 'texto', estado: 'pendiente',
-    falta: 'El saludo de la portada lo escribimos nosotros de ejemplo. Mándennos el de ustedes, cortico.' },
+    falta: 'El saludo de la portada lo escribí yo de ejemplo. Mándenme el de ustedes, cortico.' },
   { id: 'PH-02', titulo: 'Foto principal', pagina: '/', tipo: 'foto', estado: 'pendiente',
     falta: 'Una foto bien bonita de ustedes en sesión. Que se vea grande y que los que salen estén de acuerdo.' },
   { id: 'PH-03', titulo: 'Plataformas activas', pagina: '/', tipo: 'dato', estado: 'pendiente',
     falta: '¿Cuántas plataformas municipales están funcionando hoy en el Valle? Si saben de dónde sale el dato, mejor.' },
   { id: 'PH-04', titulo: 'Agenda', pagina: '/agenda', tipo: 'dato', estado: 'pendiente',
-    falta: 'Las fechas que están son inventadas. Pásennos las reales: cuándo, dónde y de qué se va a hablar.' },
+    falta: 'Las fechas que están son inventadas. Pásenme las reales: cuándo, dónde y de qué se va a hablar.' },
   { id: 'PH-05', titulo: 'Redes y contacto', pagina: '/contacto', tipo: 'contacto', estado: 'pendiente',
-    falta: 'El correo y las redes que aparecen son de mentiras. Pásennos los de verdad.' },
+    falta: 'El correo y las redes que aparecen son de mentiras. Pásenme los de verdad.' },
   { id: 'PH-06', titulo: 'Misión', pagina: '/quienes-somos', tipo: 'texto', estado: 'pendiente',
-    falta: 'Esta misión es un borrador. Cámbienla por la que aprueben o dígannos si les sirve así.' },
+    falta: 'Esta misión es un borrador. Cámbienla por la que aprueben o díganme si les sirve así.' },
   { id: 'PH-07', titulo: 'Visión', pagina: '/quienes-somos', tipo: 'texto', estado: 'pendiente',
-    falta: 'Igual que la misión: es borrador. Nos dicen si va así o la cambian.' },
+    falta: 'Igual que la misión: es borrador. Me dicen si va así o la cambian.' },
   { id: 'PH-08', titulo: 'Fotos del equipo', pagina: '/quienes-somos', tipo: 'foto', estado: 'pendiente',
     falta: 'Una foto de cada uno (mejor vertical), de qué municipio es y qué hace en la Plataforma.' },
   { id: 'PH-09', titulo: 'Cómo se conforma', pagina: '/abc', tipo: 'dato', estado: 'pendiente',
@@ -33,7 +33,7 @@ export const pendientes: Pendiente[] = [
   { id: 'PH-11', titulo: 'Contacto de cada municipio', pagina: '/territorio', tipo: 'contacto', estado: 'pendiente',
     falta: 'De cada plataforma municipal: si está activa, desde cuándo, y a quién se le puede escribir.' },
   { id: 'PH-12', titulo: 'Reglamento', pagina: '/documentos', tipo: 'documento', estado: 'pendiente',
-    falta: 'Pásennos el reglamento interno en PDF.' },
+    falta: 'Pásenme el reglamento interno en PDF.' },
   { id: 'PH-13', titulo: 'Plan de acción', pagina: '/documentos', tipo: 'documento', estado: 'pendiente',
     falta: 'El plan de acción en PDF y la fecha en que lo aprobaron.' },
   { id: 'PH-14', titulo: 'Actas', pagina: '/documentos', tipo: 'documento', estado: 'pendiente',
@@ -43,7 +43,7 @@ export const pendientes: Pendiente[] = [
   { id: 'PH-16', titulo: 'Galería', pagina: '/', tipo: 'foto', estado: 'pendiente',
     falta: 'Entre 6 y 12 fotos de jornadas en distintos municipios, diciendo quién las tomó.' },
   { id: 'PH-17', titulo: 'Voces del Valle', pagina: '/quienes-somos', tipo: 'texto', estado: 'pendiente',
-    falta: 'Frases de jóvenes reales (nombre y municipio). No vamos a poner ninguna inventada.' },
+    falta: 'Frases de jóvenes reales (nombre y municipio). No voy a poner ninguna inventada.' },
   { id: 'PH-18', titulo: 'Dirección de la página', pagina: '/contacto', tipo: 'contacto', estado: 'pendiente',
     falta: 'Falta decidir la dirección final de la página y el correo oficial.' },
   { id: 'PH-19', titulo: 'Cuentas para subir documentos', pagina: '/documentos', tipo: 'funcion', estado: 'pendiente',

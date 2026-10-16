@@ -3,33 +3,33 @@ import Base from '../layouts/Base.astro';
 import CabezaPagina from '../components/CabezaPagina.astro';
 import { pendientes } from '../data/pendientes';
 
-const etiquetas = { pendiente: 'Falta', 'en-revision': 'Lo estamos viendo', aprobado: 'Listo' } as const;
+const etiquetas = { pendiente: 'Falta', 'en-revision': 'Lo estoy viendo', aprobado: 'Listo' } as const;
 const tipos = { texto: 'Texto', foto: 'Foto', dato: 'Dato', documento: 'Documento', contacto: 'Contacto', funcion: 'Algo nuevo' } as const;
 const cuenta = (e: string) => pendientes.filter((p) => p.estado === e).length;
 ---
 <Base titulo="Revisión" descripcion="Lo que todavía falta en la página.">
   <CabezaPagina
     lineas={['Registro de', 'revisión']}
-    entrada="Aquí está todo lo que todavía es de ejemplo o que nos falta. Ustedes nos dicen y lo vamos cambiando."
+    entrada="Aquí está todo lo que todavía es de ejemplo o que me falta. Ustedes me dicen y lo voy cambiando."
     color="c-tinta"
     nota="las notas amarillas salen de aquí"
   />
 
   <section class="capitulo capitulo--auto c-papel registro" aria-labelledby="registro-titulo">
     <div class="contenedor">
-      <h2 id="registro-titulo" class="titulo-xl">¿Cómo vamos?</h2>
+      <h2 id="registro-titulo" class="titulo-xl">¿Cómo va?</h2>
       <div class="resumen" data-revelar>
         <div class="c-coral"><span>{cuenta('pendiente')}</span>faltan</div>
-        <div class="c-lima"><span>{cuenta('en-revision')}</span>lo estamos viendo</div>
+        <div class="c-lima"><span>{cuenta('en-revision')}</span>lo estoy viendo</div>
         <div class="c-teal"><span>{cuenta('aprobado')}</span>listos</div>
       </div>
 
       <div class="como">
-        <h3 class="titulo-l">¿Cómo nos mandan los cambios?</h3>
+        <h3 class="titulo-l">¿Cómo me mandan los cambios?</h3>
         <ol>
           <li>Recorran la página con las notas amarillas prendidas (el botón de abajo a la izquierda).</li>
-          <li>Mándennos lo que va, diciendo el código de la nota. Por ejemplo: «<strong>PH-04</strong>: la sesión es el 12 de marzo en Tuluá».</li>
-          <li>Si quieren cambiar algo que no tiene nota, dígannos en qué página está y qué frase es.</li>
+          <li>Mándenme lo que va, diciendo el código de la nota. Por ejemplo: «<strong>PH-04</strong>: la sesión es el 12 de marzo en Tuluá».</li>
+          <li>Si quieren cambiar algo que no tiene nota, díganme en qué página está y qué frase es.</li>
           <li>Cuando algo queda listo, su nota desaparece.</li>
         </ol>
       </div>
