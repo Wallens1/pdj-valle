@@ -1,0 +1,7 @@
+# Fotos, logos y el PDF del ABC (escaneado): no aportan relaciones al grafo
+public/img/
+public/docs/
+assets/
+
+# Skills y configuración de agentes: no son parte del sitio
+.claude/

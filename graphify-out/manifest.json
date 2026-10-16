@@ -1,0 +1,200 @@
+{
+  "astro.config.mjs": {
+    "mtime": 1792183442.6716928,
+    "seen": 1792183539.726902,
+    "ast_hash": "a1e2501973718f60a2a23c959e2db038",
+    "semantic_hash": "a1e2501973718f60a2a23c959e2db038"
+  },
+  "package.json": {
+    "mtime": 1792127891.1320465,
+    "seen": 1792183416.6488633,
+    "ast_hash": "08e51bc3060824e01e9b2eb5ee59a14a",
+    "semantic_hash": "08e51bc3060824e01e9b2eb5ee59a14a"
+  },
+  "src/components/Agenda.astro": {
+    "mtime": 1792128373.5516572,
+    "seen": 1792183416.6488633,
+    "ast_hash": "e88d4124e397b3e56caee2584253b03c",
+    "semantic_hash": "e88d4124e397b3e56caee2584253b03c"
+  },
+  "src/components/Buscador.astro": {
+    "mtime": 1792183442.6716928,
+    "seen": 1792183539.726902,
+    "ast_hash": "bc1c16333f9b0858e3b09dbcda039b5d",
+    "semantic_hash": "bc1c16333f9b0858e3b09dbcda039b5d"
+  },
+  "src/components/CabezaPagina.astro": {
+    "mtime": 1792183442.672901,
+    "seen": 1792183539.726902,
+    "ast_hash": "63681114622c972423a671845d63ca42",
+    "semantic_hash": "63681114622c972423a671845d63ca42"
+  },
+  "src/components/CtaBanda.astro": {
+    "mtime": 1792183442.672901,
+    "seen": 1792183539.726902,
+    "ast_hash": "d2aaf904873bc31335ee85e15e02e848",
+    "semantic_hash": "d2aaf904873bc31335ee85e15e02e848"
+  },
+  "src/components/Faq.astro": {
+    "mtime": 1792129104.2066853,
+    "seen": 1792183416.6488633,
+    "ast_hash": "11d6b7444d7fb6f23eacf09219bed26a",
+    "semantic_hash": "11d6b7444d7fb6f23eacf09219bed26a"
+  },
+  "src/components/Flecha.astro": {
+    "mtime": 1792128193.1916323,
+    "seen": 1792183416.6488633,
+    "ast_hash": "14d5ffa3a203944b8a0b82f3ab3d240b",
+    "semantic_hash": "14d5ffa3a203944b8a0b82f3ab3d240b"
+  },
+  "src/components/Garabato.astro": {
+    "mtime": 1792183442.673973,
+    "seen": 1792183539.726902,
+    "ast_hash": "f6a767db86fb99b8548faad8fd73c092",
+    "semantic_hash": "f6a767db86fb99b8548faad8fd73c092"
+  },
+  "src/components/Pendiente.astro": {
+    "mtime": 1792183442.673973,
+    "seen": 1792183539.726902,
+    "ast_hash": "1d5f366d29d2ea8df110a654b0b2b0e7",
+    "semantic_hash": "1d5f366d29d2ea8df110a654b0b2b0e7"
+  },
+  "src/components/Titular.astro": {
+    "mtime": 1792183442.673973,
+    "seen": 1792183539.726902,
+    "ast_hash": "a63daea1f9aa2abdb28bf72af7e48967",
+    "semantic_hash": "a63daea1f9aa2abdb28bf72af7e48967"
+  },
+  "src/data/abc.ts": {
+    "mtime": 1792183442.6752162,
+    "seen": 1792183539.726902,
+    "ast_hash": "b5104877a9f1a5fc937ab9415167b61c",
+    "semantic_hash": "b5104877a9f1a5fc937ab9415167b61c"
+  },
+  "src/data/agenda.ts": {
+    "mtime": 1792183442.6752162,
+    "seen": 1792183539.726902,
+    "ast_hash": "9eabbb2a8bfd1a7b69a62858587893f0",
+    "semantic_hash": "9eabbb2a8bfd1a7b69a62858587893f0"
+  },
+  "src/data/documentos.ts": {
+    "mtime": 1792183442.676227,
+    "seen": 1792183539.726902,
+    "ast_hash": "ad6705268e33333051238106c269d60f",
+    "semantic_hash": "ad6705268e33333051238106c269d60f"
+  },
+  "src/data/pendientes.ts": {
+    "mtime": 1792183442.6774883,
+    "seen": 1792183539.726902,
+    "ast_hash": "f0b940cecab018b9fdddbbc3f5f4c235",
+    "semantic_hash": "f0b940cecab018b9fdddbbc3f5f4c235"
+  },
+  "src/data/site.ts": {
+    "mtime": 1792183442.6774883,
+    "seen": 1792183539.726902,
+    "ast_hash": "59eb6c386cc69ea93c10970fe881368e",
+    "semantic_hash": "59eb6c386cc69ea93c10970fe881368e"
+  },
+  "src/data/territorio.ts": {
+    "mtime": 1792183442.6774883,
+    "seen": 1792183539.726902,
+    "ast_hash": "d54c0ebc9af87ad0166a95e62e9f7dca",
+    "semantic_hash": "d54c0ebc9af87ad0166a95e62e9f7dca"
+  },
+  "src/layouts/Base.astro": {
+    "mtime": 1792183442.6789877,
+    "seen": 1792183539.726902,
+    "ast_hash": "1e7b0ac1433d7fb6857b69611343671b",
+    "semantic_hash": "1e7b0ac1433d7fb6857b69611343671b"
+  },
+  "src/middleware.ts": {
+    "mtime": 1792183442.6789877,
+    "seen": 1792183539.726902,
+    "ast_hash": "649fe60c9eeac94d67f98d1d00164493",
+    "semantic_hash": "649fe60c9eeac94d67f98d1d00164493"
+  },
+  "src/pages/404.astro": {
+    "mtime": 1792183442.6789877,
+    "seen": 1792183539.726902,
+    "ast_hash": "e4679001f90f5144c281e8497df4531d",
+    "semantic_hash": "e4679001f90f5144c281e8497df4531d"
+  },
+  "src/pages/abc.astro": {
+    "mtime": 1792183442.680329,
+    "seen": 1792183539.726902,
+    "ast_hash": "8e2653715444ebdbe194018abddc0c87",
+    "semantic_hash": "8e2653715444ebdbe194018abddc0c87"
+  },
+  "src/pages/agenda.astro": {
+    "mtime": 1792128751.1427867,
+    "seen": 1792183416.6488633,
+    "ast_hash": "d2792eb5f9461a01e5977e65e1cb2822",
+    "semantic_hash": "d2792eb5f9461a01e5977e65e1cb2822"
+  },
+  "src/pages/contacto.astro": {
+    "mtime": 1792183442.680329,
+    "seen": 1792183539.726902,
+    "ast_hash": "46faaf55cef8262e50fab332d38b285f",
+    "semantic_hash": "46faaf55cef8262e50fab332d38b285f"
+  },
+  "src/pages/documentos.astro": {
+    "mtime": 1792128867.8097825,
+    "seen": 1792183416.6488633,
+    "ast_hash": "b3b31ceeafcb9b824a886fbcc689be75",
+    "semantic_hash": "b3b31ceeafcb9b824a886fbcc689be75"
+  },
+  "src/pages/index.astro": {
+    "mtime": 1792183442.6815124,
+    "seen": 1792183539.726902,
+    "ast_hash": "f142bf9d7246a93ef0b8d7eba6ed9f38",
+    "semantic_hash": "f142bf9d7246a93ef0b8d7eba6ed9f38"
+  },
+  "src/pages/quienes-somos.astro": {
+    "mtime": 1792183442.6826043,
+    "seen": 1792183539.726902,
+    "ast_hash": "915fcddc01555fe8da700dca793e6260",
+    "semantic_hash": "915fcddc01555fe8da700dca793e6260"
+  },
+  "src/pages/revision.astro": {
+    "mtime": 1792183442.6826043,
+    "seen": 1792183539.726902,
+    "ast_hash": "a79b51bcd002e0b18c232781906b55c8",
+    "semantic_hash": "a79b51bcd002e0b18c232781906b55c8"
+  },
+  "src/pages/territorio.astro": {
+    "mtime": 1792138488.94311,
+    "seen": 1792183416.6488633,
+    "ast_hash": "5771ddcdf5c223f7bbf8c770c4de111b",
+    "semantic_hash": "5771ddcdf5c223f7bbf8c770c4de111b"
+  },
+  "src/scripts/motion.ts": {
+    "mtime": 1792183442.6826043,
+    "seen": 1792183539.726902,
+    "ast_hash": "3c1c870adcbc928537478a2d9f7457e7",
+    "semantic_hash": "3c1c870adcbc928537478a2d9f7457e7"
+  },
+  ".github/workflows/pages.yml": {
+    "mtime": 1792135729.6987283,
+    "seen": 1792183416.6488633,
+    "ast_hash": "430e2443d904f9e677b68829b44331ae",
+    "semantic_hash": "430e2443d904f9e677b68829b44331ae"
+  },
+  "README.md": {
+    "mtime": 1792133359.9278631,
+    "seen": 1792183416.6488633,
+    "ast_hash": "8713b6764d10427c9a2fa8a516564fe0",
+    "semantic_hash": "8713b6764d10427c9a2fa8a516564fe0"
+  },
+  ".taste-skill/direction.json": {
+    "mtime": 1792127772.918358,
+    "seen": 1792183539.726902,
+    "ast_hash": "df8c447765d58c481156b6796e82b84c",
+    "semantic_hash": "df8c447765d58c481156b6796e82b84c"
+  },
+  "CLAUDE.md": {
+    "mtime": 1792183442.6716928,
+    "seen": 1792183539.726902,
+    "ast_hash": "56d264e9374f89d5372ba3d64a6fc9b1",
+    "semantic_hash": "56d264e9374f89d5372ba3d64a6fc9b1"
+  }
+}
