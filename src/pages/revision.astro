@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+import CabezaPagina from '../components/CabezaPagina.astro';
+import { pendientes } from '../data/pendientes';
+
+const etiquetas = { pendiente: 'Pendiente', 'en-revision': 'En revisión', aprobado: 'Aprobado' } as const;
+const tipos = { texto: 'Texto', foto: 'Foto', dato: 'Dato', documento: 'Documento', contacto: 'Contacto', funcion: 'Función' } as const;
+const cuenta = (e: string) => pendientes.filter((p) => p.estado === e).length;
+---
+<Base titulo="Revisión" descripcion="Registro de contenidos pendientes de aval por parte de la Plataforma.">
+  <CabezaPagina
+    lineas={['Registro de', 'revisión']}
+    entrada="Todo lo que en el sitio está como ejemplo o falta por entregar. La Plataforma avala cada punto y lo cerramos aquí."
+    color="c-tinta"
+    nota="cada nota amarilla del sitio sale de esta lista"
+  />
+
+  <section class="capitulo capitulo--auto c-papel registro" aria-labelledby="registro-titulo">
+    <div class="contenedor">
+      <h2 id="registro-titulo" class="titulo-xl">Estado del sitio</h2>
+      <div class="resumen" data-revelar>
+        <div class="c-coral"><span>{cuenta('pendiente')}</span>pendientes</div>
+        <div class="c-lima"><span>{cuenta('en-revision')}</span>en revisión</div>
+        <div class="c-teal"><span>{cuenta('aprobado')}</span>aprobados</div>
+      </div>
+
+      <div class="como">
+        <h3 class="titulo-l">Cómo hacer correcciones</h3>
+        <ol>
+          <li>Navega el sitio con las notas amarillas visibles (botón abajo a la izquierda).</li>
+          <li>Para cada nota, envía el contenido real o la corrección citando su código, por ejemplo <strong>PH-04</strong>.</li>
+          <li>Para cambios en textos que no tienen nota, indica la página y la frase exacta.</li>
+          <li>Cuando el punto queda aprobado, desaparece su nota del sitio.</li>
+        </ol>
+      </div>
+
+      <div class="tabla-envoltura">
+        <table class="tabla-registro">
+          <caption class="sr-only">Pendientes del sitio</caption>
+          <thead><tr><th scope="col">Código</th><th scope="col">Qué falta</th><th scope="col">Tipo</th><th scope="col">Página</th><th scope="col">Estado</th></tr></thead>
+          <tbody>
+            {pendientes.map((p) => (
+              <tr id={p.id}>
+                <th scope="row">{p.id}</th>
+                <td><strong>{p.titulo}</strong><br />{p.falta}</td>
+                <td>{tipos[p.tipo]}</td>
+                <td><a href={p.pagina}>{p.pagina}</a></td>
+                <td><span class:list={['estado', `estado--${p.estado}`]}>{etiquetas[p.estado]}</span></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .resumen { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 32px 0 56px; }
+  .resumen > div { padding: 24px; border-radius: var(--radio); background: var(--fondo); color: var(--texto); font-weight: 700; font-size: 1.1rem; }
+  .resumen span { display: block; font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 800; letter-spacing: -0.06em; line-height: 0.9; }
+  .como { padding: 28px; border-radius: var(--radio); background: var(--nota); margin-bottom: 40px; max-width: 760px; }
+  .como ol { margin: 12px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 6px; }
+  .tabla-envoltura { overflow-x: auto; border-radius: var(--radio); background: var(--papel-2); }
+  .tabla-registro { width: 100%; min-width: 760px; border-collapse: collapse; }
+  .tabla-registro th, .tabla-registro td { text-align: left; vertical-align: top; padding: 16px 18px; }
+  .tabla-registro thead th { background: var(--tinta); color: var(--papel); }
+  .tabla-registro tbody tr:nth-child(even) { background: #ebe6db; }
+  .tabla-registro tbody tr:target { background: var(--nota); animation: marca 1.2s var(--ease-salida); }
+  @keyframes marca { from { transform: scale(1.01); } }
+  .tabla-registro tbody th { font-weight: 800; white-space: nowrap; }
+  .estado { display: inline-block; padding: 4px 12px; border-radius: 999px; font-weight: 700; font-size: 0.9rem; white-space: nowrap; }
+  .estado--pendiente { background: var(--coral); }
+  .estado--en-revision { background: var(--lima); }
+  .estado--aprobado { background: var(--teal); color: var(--papel); }
+  @media (max-width: 700px) { .resumen { grid-template-columns: 1fr; } }
+</style>

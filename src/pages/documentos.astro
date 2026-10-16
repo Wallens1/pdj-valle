@@ -1,0 +1,118 @@
+---
+import Base from '../layouts/Base.astro';
+import CabezaPagina from '../components/CabezaPagina.astro';
+import Titular from '../components/Titular.astro';
+import Pendiente from '../components/Pendiente.astro';
+import Flecha from '../components/Flecha.astro';
+import { documentos } from '../data/documentos';
+
+const colores: Record<string, string> = { Guía: 'var(--lima)', Reglamento: 'var(--coral)', Plan: 'var(--azul)', Acta: 'var(--menta)', Norma: 'var(--papel-2)' };
+---
+<Base titulo="Documentos" descripcion="Biblioteca pública de la Plataforma Departamental de Juventudes del Valle: ABC, reglamento, plan de acción, actas y normas.">
+  <CabezaPagina
+    lineas={['Todo, por', 'escrito']}
+    entrada="Si no está en acta, no existe ante la Procuraduría. Aquí publicamos lo que la Plataforma decide hacer público."
+    color="c-azul"
+    nota="consulta, descarga y comparte"
+  />
+
+  <section class="capitulo capitulo--auto c-papel biblioteca" aria-labelledby="biblio-titulo">
+    <div class="contenedor">
+      <div class="biblioteca__cabeza">
+        <Titular lineas={['Biblioteca', 'pública']} id="biblio-titulo" />
+        <div class="biblioteca__filtros" role="group" aria-label="Filtrar por tipo" data-filtros>
+          <button type="button" aria-pressed="true" data-filtro="todos">Todos</button>
+          {[...new Set(documentos.map((d) => d.tipo))].map((t) => <button type="button" aria-pressed="false" data-filtro={t}>{t}</button>)}
+        </div>
+      </div>
+      <ul class="docs" role="list" data-revelar>
+        {documentos.map((d) => (
+          <li class:list={['doc', !d.href && 'doc--pendiente']} data-tipo={d.tipo}>
+            <span class="doc__tipo" style={`--c:${colores[d.tipo]}`}>{d.tipo}</span>
+            <div class="doc__cuerpo">
+              <h3>{d.titulo}</h3>
+              <p class="chico">{d.fecha}{d.peso && ` · ${d.peso}`}</p>
+            </div>
+            {d.href ? (
+              <a class="boton" href={d.href} {...(d.externo ? { target: '_blank', rel: 'noopener' } : { download: true })}>
+                {d.externo ? 'Abrir' : 'Descargar'} <Flecha /><span class="sr-only">: {d.titulo}</span>
+              </a>
+            ) : (
+              <Pendiente id={d.pendiente!} lado="derecha" />
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Fase 2: acceso de plataformados -->
+  <section class="capitulo capitulo--auto c-indigo-hondo acceso" aria-labelledby="acceso-titulo">
+    <div class="contenedor rejilla">
+      <div class="acceso__texto">
+        <Titular lineas={['Muy pronto:', 'tu cuenta']} id="acceso-titulo" class="titulo-gigante" />
+        <p class="entrada">Cada plataforma municipal podrá entrar con su cuenta, subir actas y documentos, y la vocería los aprobará antes de publicarlos.</p>
+        <Pendiente id="PH-19" />
+      </div>
+      <div class="acceso__maqueta" aria-hidden="true" data-revelar="escala">
+        <div class="acceso__ventana">
+          <p class="acceso__ventana-titulo">Ingreso de plataformados</p>
+          <span class="acceso__campo">correo@plataforma.co</span>
+          <span class="acceso__campo">••••••••</span>
+          <span class="boton boton--lima acceso__falso">Entrar</span>
+          <p class="mano">disponible en la fase 2</p>
+        </div>
+        <ol class="acceso__pasos">
+          <li>Subes el acta</li>
+          <li>La vocería revisa</li>
+          <li>Se publica aquí</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const g = document.querySelector<HTMLElement>('[data-filtros]');
+  if (g) {
+    const bots = Array.from(g.querySelectorAll<HTMLButtonElement>('button'));
+    const docs = Array.from(document.querySelectorAll<HTMLElement>('.doc'));
+    bots.forEach((b) => b.addEventListener('click', () => {
+      bots.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      const f = b.dataset.filtro;
+      docs.forEach((d) => { d.hidden = !(f === 'todos' || d.dataset.tipo === f); });
+    }));
+  }
+</script>
+
+<style>
+  .biblioteca__cabeza { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
+  .biblioteca__filtros { display: flex; flex-wrap: wrap; gap: 6px; }
+  .biblioteca__filtros button { min-height: 44px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--papel-2); color: var(--tinta); font: 700 1rem var(--f-texto); cursor: pointer; transition: transform 0.3s var(--ease-rebote), background-color 0.2s, color 0.2s; }
+  .biblioteca__filtros button:hover { transform: translateY(-3px); }
+  .biblioteca__filtros button[aria-pressed='true'] { background: var(--tinta); color: var(--papel); }
+  .docs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .doc { display: grid; grid-template-columns: 140px 1fr auto; gap: 24px; align-items: center; padding: 18px 18px 18px 22px; border-radius: var(--radio); background: var(--papel-2); transition: transform 0.35s var(--ease-rebote); }
+  .doc:hover { transform: translateX(8px); }
+  .doc[hidden] { display: none; }
+  .doc__tipo { justify-self: start; padding: 6px 14px; border-radius: 999px; background: var(--c); font-weight: 700; font-size: 0.95rem; }
+  .doc__cuerpo h3 { font-size: var(--t-l); letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 4px; }
+  .doc__cuerpo .chico { color: var(--tinta-suave); }
+  .doc--pendiente { background: #f7f3ea; }
+  .doc .pendiente { max-width: 30ch; }
+
+  .acceso__texto { grid-column: 1 / 7; display: flex; flex-direction: column; gap: 28px; align-items: flex-start; }
+  .acceso__maqueta { grid-column: 8 / 13; display: flex; flex-direction: column; gap: 16px; }
+  .acceso__ventana { padding: 32px; border-radius: var(--radio); background: var(--papel); color: var(--tinta); display: flex; flex-direction: column; gap: 12px; transform: rotate(-2deg); }
+  .acceso__ventana-titulo { font-size: var(--t-l); font-weight: 800; letter-spacing: -0.02em; }
+  .acceso__campo { padding: 14px 18px; border-radius: 14px; background: var(--papel-2); color: var(--tinta-suave); }
+  .acceso__falso { justify-content: center; pointer-events: none; }
+  .acceso__ventana .mano { color: var(--coral); }
+  .acceso__pasos { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; counter-reset: p; }
+  .acceso__pasos li { padding: 16px; border-radius: 18px; background: var(--indigo); font-weight: 700; line-height: 1.2; }
+  @media (max-width: 900px) {
+    .doc { grid-template-columns: 1fr; gap: 12px; }
+    .acceso__texto, .acceso__maqueta { grid-column: 1 / -1; }
+    .acceso__maqueta { margin-top: 40px; }
+  }
+</style>

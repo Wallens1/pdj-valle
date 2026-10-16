@@ -1,0 +1,363 @@
+---
+import Base from '../layouts/Base.astro';
+import Titular from '../components/Titular.astro';
+import Pendiente from '../components/Pendiente.astro';
+import Garabato from '../components/Garabato.astro';
+import Flecha from '../components/Flecha.astro';
+import Buscador from '../components/Buscador.astro';
+import Agenda from '../components/Agenda.astro';
+import Faq from '../components/Faq.astro';
+import CtaBanda from '../components/CtaBanda.astro';
+import { funciones } from '../data/abc';
+import { site } from '../data/site';
+
+const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incidente', 'Juvenil', 'Veedora', 'Propositiva'];
+---
+<Base titulo={site.nombre}>
+  <!-- ============ PORTADA: mosaico del Valle + titular ============ -->
+  <section class="portada" aria-labelledby="titulo-portada">
+    <div class="mosaico" data-revelar="escala">
+      <figure class="m m--a foto-viva"><img src="/img/foto-jornada-departamental.webp" alt="Delegación del Valle en una jornada departamental, reunida frente a la mesa de sesión" width="1200" height="521" fetchpriority="high" /></figure>
+      <div class="m m--b c-coral">
+        <Garabato forma="espiral" class="m__espiral girar" />
+        <p class="mano">42 territorios,<br />una sola voz</p>
+      </div>
+      <figure class="m m--c foto-viva"><img src="/img/foto-delegacion.webp" alt="Integrantes de la Plataforma sonriendo en un encuentro" width="1200" height="521" /></figure>
+      <div class="m m--d c-lima"><span class="m__cifra">1622</span><span class="chico">la ley que nos hace sujetos políticos</span></div>
+      <div class="m m--e c-teal"><Garabato forma="estrella" class="m__estrella flotar" /></div>
+      <figure class="m m--f foto-viva"><img src="/img/territorio-tulua.webp" alt="Panorámica de Tuluá con la cordillera al fondo" width="1600" height="900" /></figure>
+      <div class="m m--g c-indigo"><span class="m__cifra">6</span><span class="chico">subregiones</span></div>
+      <figure class="m m--h foto-viva"><img src="/img/territorio-puente.webp" alt="Muelle y lanchas en Buenaventura" width="1200" height="1600" /></figure>
+      <div class="m m--i hueco-foto"><Pendiente id="PH-02" /></div>
+    </div>
+
+    <div class="contenedor rejilla portada__texto">
+      <p class="portada__entrada">
+        La Plataforma Departamental de Juventudes reúne a los procesos juveniles del Valle del Cauca para proponer, vigilar y concertar lo que se decide sobre nosotros.
+      </p>
+      <div class="portada__titulo">
+        <h1 id="titulo-portada" class="titulo-gigante">
+          <span class="linea-mascara" style="--l:0"><span>Somos la voz</span></span>
+          <span class="linea-mascara" style="--l:1"><span>joven del <span class="subrayado">Valle<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 14 C 50 4, 120 4, 197 12" /></svg></span></span></span>
+        </h1>
+        <div class="portada__acciones" data-revelar>
+          <a class="boton boton--indigo" href="#tu-municipio">Encuentra tu plataforma <Flecha /></a>
+          <a class="enlace" href="/abc">Lee el ABC de las plataformas</a>
+        </div>
+        <p class="mano portada__nota" aria-hidden="true">¡llegaste al parche!</p>
+        <Garabato forma="flecha-curva" class="portada__flecha" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BIENVENIDA / QUIÉNES SOMOS ============ -->
+  <section class="capitulo c-indigo bienvenida" aria-labelledby="bienvenida-titulo">
+    <div class="contenedor rejilla">
+      <div class="bienvenida__texto">
+        <Titular lineas={['Qué bueno', 'que llegaste']} id="bienvenida-titulo" class="titulo-gigante" />
+        <div class="texto bienvenida__cuerpo" data-revelar>
+          <p class="entrada">Somos jóvenes de los 42 territorios del Valle que decidimos no esperar a que otros hablen por nosotros.</p>
+          <p>La Plataforma es un escenario autónomo de encuentro y articulación de procesos juveniles: organizaciones formales, colectivos sin registro y parches de barrio. Nos reconoce el artículo 60 de la Ley 1622 de 2013 y somos interlocutores válidos ante la Gobernación, las alcaldías y el país.</p>
+          <p>No somos una oficina de la administración ni firmamos convenios: proponemos, hacemos veeduría y concertamos la agenda juvenil del departamento.</p>
+          <a class="boton boton--lima" href="/quienes-somos">Conoce quiénes somos <Flecha /></a>
+        </div>
+      </div>
+      <div class="bienvenida__visual">
+        <img class="bienvenida__ilustra" src="/img/ilustra-grupo.webp" alt="Ilustración de cinco jóvenes diversos saludando juntos" width="1200" height="521" loading="lazy" data-deriva="0.06" />
+        <Pendiente id="PH-01" lado="derecha" />
+        <Garabato forma="rayos" class="bienvenida__rayos" />
+      </div>
+    </div>
+    <div class="cinta bienvenida__cinta" aria-hidden="true">
+      <div class="cinta__pista">
+        {[...palabras, ...palabras].map((p) => <span>{p} <svg class="cinta__punto" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 4 L60 38 L96 50 L60 62 L50 96 L40 62 L4 50 L40 38 Z" /></svg></span>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CIFRAS ============ -->
+  <section class="capitulo capitulo--auto c-papel cifras" aria-labelledby="cifras-titulo">
+    <div class="contenedor">
+      <Titular lineas={['El Valle, en cifras']} id="cifras-titulo" class="titulo-xl cifras__titulo" />
+    </div>
+    <div class="cifras__mosaico" data-revelar>
+      <figure class="cifras__foto foto-viva">
+        <img src="/img/foto-delegacion.webp" alt="Jóvenes de la Plataforma del Valle en un encuentro departamental" width="1200" height="521" loading="lazy" />
+        <figcaption class="chico">Delegación del Valle en jornada departamental.</figcaption>
+      </figure>
+      <div class="cifras__tile c-teal">
+        <span class="cifras__num" data-contar="42">42</span>
+        <p>territorios con derecho a plataforma propia: 40 municipios y 2 distritos especiales.</p>
+      </div>
+      <div class="cifras__tile c-lima">
+        <span class="cifras__num" data-contar="86.9" data-decimales="1" data-sufijo=" %">86,9 %</span>
+        <p>de los municipios del país reportan plataforma (Procuraduría, 2023). El reto: que estén activas.</p>
+        <Pendiente id="PH-03" lado="derecha" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CÓMO CRECEMOS ============ -->
+  <section class="capitulo capitulo--auto c-papel-2 crecer" aria-labelledby="crecer-titulo">
+    <div class="contenedor">
+      <div class="crecer__fila">
+        <div class="crecer__cabeza">
+          <Titular lineas={['Así crecemos:', 'de tu barrio al país']} id="crecer-titulo" class="titulo-xl" />
+          <p class="texto" style="margin-top:20px">Cada nivel se construye sobre el anterior, por delegación y con paridad.</p>
+        </div>
+        <div class="crecer__tiles" data-revelar>
+          <div class="crecer__tile c-coral t1"><span class="crecer__dato">1 vez<br />al mes</span><Garabato forma="espiral" class="crecer__espiral" style="width:30%" /></div>
+          <div class="crecer__tile c-teal t2"><span class="crecer__dato">2 veces<br />al año</span><Garabato forma="espiral" class="crecer__espiral" style="width:45%" /></div>
+          <div class="crecer__tile c-indigo t3"><span class="crecer__dato">Todo<br />el país</span><Garabato forma="espiral" class="crecer__espiral" style="width:62%" /></div>
+        </div>
+      </div>
+      <ol class="crecer__pasos" data-revelar role="list">
+        <li><h3>Municipal o distrital</h3><p>Los procesos juveniles de tu territorio. Se registra ante la Personería y sesiona cada mes.</p></li>
+        <li><h3>Departamental</h3><p>Dos delegados por plataforma o por subregión, un hombre y una mujer. Registro ante la Procuraduría Regional.</p></li>
+        <li><h3>Nacional</h3><p>Dos delegados por cada Departamental y Distrital. Así llega el Valle a la agenda del país.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ LO QUE PODEMOS HACER ============ -->
+  <section class="capitulo c-viridian poderes" aria-labelledby="poderes-titulo">
+    <div class="contenedor">
+      <div class="poderes__mosaico" data-revelar>
+        <div class="p p--titulo c-viridian-hondo">
+          <Titular lineas={['Lo que la ley', 'nos deja hacer']} id="poderes-titulo" class="titulo-xl" />
+          <a class="enlace" href="/abc#potestades">Las 7 funciones, una por una</a>
+        </div>
+        <figure class="p p--foto"><img src="/img/ilustra-construir.webp" alt="Ilustración de jóvenes armando juntos figuras geométricas de colores" width="1200" height="521" loading="lazy" /></figure>
+        <div class="p p--cifra c-lima"><span class="p__num">7</span><span>funciones legales, artículo 62 de la Ley 1622</span></div>
+        <ul class="p p--lista c-menta" role="list">
+          {funciones.slice(0, 4).map((f) => <li>{f.verbo}</li>)}
+        </ul>
+        <p class="p p--frase c-coral">Dos veedores en la Comisión de Concertación, que debe sesionar mínimo cuatro veces al año.</p>
+        <p class="p p--frase2 c-indigo">No ejecutamos recursos: proponemos, vigilamos y concertamos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LA PIEZA VIVA: ENCUENTRA TU PLATAFORMA ============ -->
+  <section class="capitulo capitulo--auto c-lima tu-municipio" id="tu-municipio" aria-labelledby="buscador-titulo">
+    <div class="contenedor">
+      <div class="tu-municipio__cabeza">
+        <Titular lineas={['¿De dónde eres?']} id="buscador-titulo" class="titulo-gigante" />
+        <Garabato forma="circulo" class="tu-municipio__circulo" />
+      </div>
+      <Buscador />
+    </div>
+  </section>
+
+  <Agenda />
+
+  <!-- ============ GALERÍA DE PALABRAS ============ -->
+  <section class="capitulo capitulo--auto c-tinta muro" aria-labelledby="muro-titulo">
+    <h2 id="muro-titulo" class="sr-only">Lo que nos mueve</h2>
+    <div class="muro__rejilla" data-revelar="escala">
+      <div class="w c-lima"><span>Voz</span><small>propia</small></div>
+      <figure class="w w--foto"><img src="/img/territorio-palmira.webp" alt="Parques y calles de Palmira" width="1600" height="1600" loading="lazy" /></figure>
+      <div class="w c-coral"><span>1H+1M</span><small>paridad</small></div>
+      <div class="w c-teal"><span>Veedores</span><small>de lo público</small></div>
+      <div class="w c-indigo"><span>42</span><small>territorios</small></div>
+      <div class="w c-menta"><span>Agenda</span><small>juvenil</small></div>
+      <figure class="w w--foto"><img src="/img/territorio-el.webp" alt="Iglesias y tejados de El Dovio entre montañas" width="1600" height="1200" loading="lazy" /></figure>
+      <div class="w c-azul"><span>Pacto</span><small>CONPES 4040</small></div>
+      <div class="w c-viridian"><span>Ruta</span><small>Joven del Valle</small></div>
+      <figure class="w w--foto"><img src="/img/ilustra-flores.webp" alt="Ilustración de jóvenes entre flores gigantes de colores" width="1200" height="521" loading="lazy" /></figure>
+      <div class="w c-coral"><span>Acta</span><small>o no existió</small></div>
+      <div class="w hueco-foto"><Pendiente id="PH-16" /></div>
+    </div>
+  </section>
+
+  <Faq />
+
+  <!-- ============ LO ÚLTIMO Y ALIADOS (pendientes) ============ -->
+  <section class="capitulo capitulo--auto c-papel-2 ultimo" aria-labelledby="ultimo-titulo">
+    <div class="contenedor rejilla">
+      <div class="ultimo__cabeza">
+        <Titular lineas={['Lo último', 'del parche']} id="ultimo-titulo" class="titulo-xl" />
+        <Pendiente id="PH-15" />
+      </div>
+      <ol class="ultimo__lista" role="list" data-revelar>
+        <li><span class="ultimo__fecha">[Fecha]</span><span class="ultimo__titular">[Logro o noticia reciente de la Plataforma]</span><span class="hueco-foto ultimo__img" aria-hidden="true"></span></li>
+        <li><span class="ultimo__fecha">[Fecha]</span><span class="ultimo__titular">[Segundo logro: una acción de veeduría o incidencia]</span><span class="hueco-foto ultimo__img" aria-hidden="true"></span></li>
+        <li><span class="ultimo__fecha">[Fecha]</span><span class="ultimo__titular">[Tercer logro: un encuentro en territorio]</span><span class="hueco-foto ultimo__img" aria-hidden="true"></span></li>
+      </ol>
+      <div class="aliados">
+        <p class="titulo-l">Con el respaldo de</p>
+        <div class="aliados__logos">
+          {['Gobernación', 'Secretaría', 'Procuraduría', 'Cooperación'].map((a) => <span class="hueco-foto aliados__logo">[Logo {a}]</span>)}
+        </div>
+        <Pendiente id="PH-20" lado="derecha" />
+      </div>
+    </div>
+  </section>
+
+  <CtaBanda palabra="Súmate" frase="Tu proceso juvenil puede ser parte de la Plataforma, sea formal, no formal o informal." href="/contacto" />
+</Base>
+
+<style>
+  /* --- Portada --- */
+  .portada { padding-bottom: clamp(56px, 7vw, 110px); }
+  .mosaico {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    height: clamp(360px, 52svh, 620px);
+  }
+  .m { margin: 0; position: relative; overflow: hidden; background: var(--fondo); color: var(--texto); display: flex; flex-direction: column; justify-content: flex-end; padding: 16px; }
+  .m img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .m--a { grid-column: 1 / 3; grid-row: 1; padding: 0; }
+  .m--b { grid-column: 3; grid-row: 1 / 3; justify-content: flex-start; }
+  .m--c { grid-column: 4; grid-row: 1; padding: 0; }
+  .m--d { grid-column: 5; grid-row: 1; gap: 4px; }
+  .m--e { grid-column: 6; grid-row: 1; align-items: center; justify-content: center; }
+  .m--f { grid-column: 1; grid-row: 2; padding: 0; }
+  .m--g { grid-column: 2; grid-row: 2; gap: 2px; }
+  .m--h { grid-column: 4 / 6; grid-row: 2; padding: 0; }
+  .m--i { grid-column: 6; grid-row: 2; border-radius: 0; min-height: 0; padding: 10px; }
+  .m--i .pendiente { font-size: 0.78rem; max-width: 100%; }
+  .m--b .mano { color: var(--tinta); font-size: clamp(1.4rem, 2.1vw, 2.2rem); }
+  .m--b :global(.m__espiral) { right: -18%; bottom: -12%; width: 120%; color: var(--tinta); opacity: 0.9; }
+  .m--e :global(.m__estrella) { position: relative; width: 56%; color: var(--lima); }
+  .m__cifra { font-size: clamp(2.4rem, 4.6vw, 4.8rem); font-weight: 800; letter-spacing: -0.06em; line-height: 0.85; }
+
+  .portada__texto { margin-top: clamp(40px, 6vw, 96px); align-items: start; }
+  .portada__entrada { grid-column: 1 / 5; font-size: 1.25rem; line-height: 1.4; font-weight: 500; max-width: 30ch; padding-top: 0.6em; }
+  .portada__titulo { grid-column: 6 / 13; position: relative; }
+  .portada__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; margin-top: clamp(28px, 3vw, 44px); }
+  .portada__nota { position: absolute; right: 2%; top: -1.6em; transform: rotate(-6deg); color: var(--coral); font-size: clamp(1.6rem, 2.4vw, 2.4rem); }
+  .portada__titulo :global(.portada__flecha) { right: -10px; top: 0.2em; width: 70px; color: var(--coral); transform: translate(10%, 30%) rotate(10deg); display: none; }
+  .subrayado { --acento: var(--coral); }
+
+  /* --- Bienvenida --- */
+  .bienvenida { overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: 72px; }
+  .bienvenida__texto { grid-column: 1 / 8; }
+  .bienvenida__cuerpo { display: flex; flex-direction: column; gap: 18px; margin-top: 40px; align-items: flex-start; }
+  .bienvenida__visual { grid-column: 8 / 13; align-self: center; position: relative; display: flex; flex-direction: column; align-items: flex-end; gap: 20px; }
+  .bienvenida__ilustra { width: 100%; border-radius: var(--radio); transform: rotate(3deg); background: var(--papel); }
+  .bienvenida__visual :global(.bienvenida__rayos) { width: 90px; left: -30px; top: -60px; color: var(--lima); }
+  .bienvenida__cinta { font-size: clamp(2.4rem, 6vw, 5.5rem); font-weight: 800; letter-spacing: -0.04em; color: var(--lima); line-height: 1.1; }
+  .cinta__punto { display: inline-block; width: 0.55em; height: 0.55em; fill: var(--coral); vertical-align: middle; margin-inline: 0.35em; }
+
+  /* --- Cifras --- */
+  .cifras { padding-bottom: 0; }
+  .cifras :global(.cifras__titulo) { margin-bottom: 40px; }
+  .cifras__mosaico { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr; min-height: min(66vw, 860px); }
+  .cifras__foto { grid-row: 1 / 3; margin: 0; position: relative; }
+  .cifras__foto img { width: 100%; height: 100%; object-fit: cover; }
+  .cifras__foto figcaption { position: absolute; left: 16px; bottom: 16px; background: var(--papel); padding: 6px 12px; border-radius: 999px; font-weight: 600; }
+  .cifras__tile { padding: 28px; display: flex; flex-direction: column; gap: 12px; position: relative; background: var(--fondo); color: var(--texto); }
+  .cifras__num { font-size: clamp(3.5rem, 6vw, 6.5rem); font-weight: 800; letter-spacing: -0.06em; line-height: 0.85; font-variant-numeric: tabular-nums; }
+  .cifras__tile p { max-width: 28ch; font-size: 1.08rem; }
+  .cifras__tile .pendiente { margin-top: auto; align-self: flex-start; }
+
+  /* --- Crecer --- */
+  .crecer__fila { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 10px; align-items: end; }
+  .crecer__cabeza { grid-column: 1 / 8; grid-row: 1; align-self: start; }
+  .crecer__tiles { grid-column: 1 / 13; grid-row: 1; display: grid; grid-template-columns: 3fr 4fr 5fr; gap: 10px; align-items: end; }
+  .crecer__tile { position: relative; border-radius: var(--radio); background: var(--fondo); color: var(--texto); padding: 22px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; transition: transform 0.4s var(--ease-rebote); }
+  .crecer__tile:hover { transform: translateY(-8px) rotate(-1deg); }
+  .crecer__tile.t1 { height: 30vh; min-height: 200px; }
+  .crecer__tile.t2 { height: 44vh; min-height: 280px; }
+  .crecer__tile.t3 { height: 60vh; min-height: 380px; }
+  .crecer__fila { grid-template-rows: auto; }
+  .crecer__cabeza { position: relative; z-index: 1; padding-bottom: calc(30vh + 40px); }
+  .crecer__dato { font-size: clamp(1.6rem, 2.6vw, 2.6rem); font-weight: 800; letter-spacing: -0.04em; line-height: 0.95; }
+  .crecer__tile :global(.crecer__espiral) { position: relative; align-self: flex-end; color: currentColor; opacity: 0.9; }
+  .crecer__pasos { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: 3fr 4fr 5fr; gap: 10px; }
+  .crecer__pasos h3 { font-size: 1.3rem; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .crecer__pasos p { color: var(--tinta-suave); max-width: 36ch; }
+
+  /* --- Poderes --- */
+  .poderes__mosaico {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-auto-rows: 96px;
+    gap: 8px;
+    grid-template-areas:
+      't t t t t t f f f f f f'
+      't t t t t t f f f f f f'
+      't t t t t t f f f f f f'
+      'c c c l l l f f f f f f'
+      'c c c l l l f f f f f f'
+      'c c c l l l s s s s s s'
+      'z z z z z z s s s s s s'
+      'z z z z z z s s s s s s';
+  }
+  .p { margin: 0; border-radius: var(--radio); padding: 24px; background: var(--fondo); color: var(--texto); overflow: hidden; position: relative; }
+  .p--titulo { grid-area: t; display: flex; flex-direction: column; justify-content: space-between; }
+  .p--foto { grid-area: f; padding: 0; background: var(--papel); }
+  .p--foto img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease-salida); }
+  .p--foto:hover img { transform: scale(1.05) rotate(1deg); }
+  .p--cifra { grid-area: c; display: flex; flex-direction: column; gap: 8px; font-weight: 600; }
+  .p__num { font-size: clamp(4rem, 7vw, 7rem); font-weight: 800; letter-spacing: -0.06em; line-height: 0.8; }
+  .p--lista { grid-area: l; list-style: none; display: flex; flex-direction: column; gap: 4px; font-size: clamp(1.1rem, 1.6vw, 1.45rem); font-weight: 700; letter-spacing: -0.02em; }
+  .p--lista li::before { content: '→ '; color: var(--viridian); }
+  .p--frase { grid-area: s; font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.12; }
+  .p--frase2 { grid-area: z; font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.12; }
+
+  /* --- Buscador --- */
+  .tu-municipio__cabeza { position: relative; margin-bottom: 48px; display: inline-block; }
+  .tu-municipio__cabeza :global(.tu-municipio__circulo) { inset: -18% -6% -22% -5%; width: 112%; height: 140%; color: var(--indigo); }
+
+  /* --- Muro --- */
+  .muro { padding: 8px; }
+  .muro__rejilla { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .w { aspect-ratio: 1; margin: 0; position: relative; display: grid; place-items: center; background: var(--fondo); color: var(--texto); border-radius: var(--radio); overflow: hidden; transition: transform 0.45s var(--ease-rebote); }
+  .w:hover { transform: rotate(-2deg) scale(0.98); }
+  .w span { font-size: clamp(2rem, 4.4vw, 5.2rem); font-weight: 800; letter-spacing: -0.06em; line-height: 0.9; text-align: center; }
+  .w small { position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; font-size: 0.95rem; font-weight: 600; }
+  .w--foto img { width: 100%; height: 100%; object-fit: cover; }
+  .w.hueco-foto { min-height: 0; }
+
+  /* --- Lo último --- */
+  .ultimo__cabeza { grid-column: 1 / 5; display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
+  .ultimo__lista { grid-column: 5 / 13; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .ultimo__lista li { display: grid; grid-template-columns: 110px 1fr 120px; gap: 20px; align-items: center; padding: 14px 14px 14px 24px; background: var(--papel); border-radius: var(--radio); }
+  .ultimo__fecha { font-weight: 700; color: var(--tinta-suave); }
+  .ultimo__titular { font-size: var(--t-l); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+  .ultimo__img { min-height: 90px; border-radius: 16px; padding: 0; }
+  .aliados { grid-column: 1 / 13; margin-top: 64px; display: flex; flex-direction: column; gap: 18px; }
+  .aliados__logos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .aliados__logo { min-height: 110px; font-weight: 700; color: var(--tinta-suave); }
+
+  @media (max-width: 900px) {
+    .mosaico { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); height: auto; aspect-ratio: 1 / 1.05; }
+    .m--a { grid-column: 1 / 3; grid-row: 1; }
+    .m--b { grid-column: 3; grid-row: 1 / 3; }
+    .m--c { display: none; }
+    .m--d { grid-column: 1; grid-row: 2; }
+    .m--e { display: none; }
+    .m--f { grid-column: 2; grid-row: 2; }
+    .m--g { grid-column: 1; grid-row: 3; }
+    .m--h { grid-column: 2 / 4; grid-row: 3; }
+    .m--i { display: none; }
+    .portada__entrada, .portada__titulo { grid-column: 1 / -1; }
+    .portada__titulo { order: -1; }
+    .portada__nota { position: static; display: block; margin-top: 18px; }
+    .bienvenida__texto, .bienvenida__visual { grid-column: 1 / -1; }
+    .bienvenida__visual { margin-top: 32px; }
+    .cifras__mosaico { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; min-height: 0; }
+    .cifras__foto { grid-column: 1 / -1; grid-row: 1; aspect-ratio: 4 / 3; }
+    .crecer__fila, .crecer__tiles { display: flex; flex-direction: column; align-items: stretch; }
+    .crecer__cabeza { padding-bottom: 28px; }
+    .crecer__tile.t1, .crecer__tile.t2, .crecer__tile.t3 { height: auto; }
+    .crecer__tile.t1 { min-height: 34vw; } .crecer__tile.t2 { min-height: 46vw; } .crecer__tile.t3 { min-height: 62vw; }
+    .crecer__pasos { grid-template-columns: 1fr; }
+    .poderes__mosaico { grid-template-columns: 1fr 1fr; grid-auto-rows: auto; grid-template-areas: 't t' 'f f' 'c l' 's s' 'z z'; }
+    .p--foto { aspect-ratio: 16 / 9; }
+    .p--cifra, .p--lista { aspect-ratio: 1; }
+    .muro__rejilla { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    .w span { font-size: 9.5vw; }
+    .ultimo__cabeza, .ultimo__lista { grid-column: 1 / -1; }
+    .ultimo__lista li { grid-template-columns: 1fr; }
+    .ultimo__img { display: none; }
+    .aliados__logos { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 560px) {
+    .cifras__mosaico { grid-template-columns: 1fr; }
+    .w span { font-size: 9vw; }
+  }
+</style>

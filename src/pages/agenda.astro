@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import CabezaPagina from '../components/CabezaPagina.astro';
+import Agenda from '../components/Agenda.astro';
+import Titular from '../components/Titular.astro';
+import CtaBanda from '../components/CtaBanda.astro';
+---
+<Base titulo="Agenda" descripcion="Sesiones, Comisión de Concertación, encuentros subregionales y talleres de la Plataforma Departamental de Juventudes del Valle.">
+  <CabezaPagina
+    lineas={['Agenda', 'juvenil']}
+    entrada="Sesiones ordinarias, Comisión de Concertación, encuentros por subregión y talleres. Si es público, aquí está."
+    color="c-coral"
+    nota="anótalo, que esto se mueve"
+    imagen={{ src: '/img/ilustra-construir.webp', alt: 'Ilustración de jóvenes construyendo juntos figuras de colores', w: 1200, h: 521 }}
+  />
+
+  <Agenda conBoton={false} />
+
+  <section class="capitulo capitulo--auto c-teal ritmo" aria-labelledby="ritmo-titulo">
+    <div class="contenedor rejilla">
+      <div class="ritmo__cabeza">
+        <Titular lineas={['El ritmo que', 'marca la ley']} id="ritmo-titulo" class="titulo-xl" />
+      </div>
+      <dl class="ritmo__lista" data-revelar>
+        <div><dt>Plataforma municipal o distrital</dt><dd>1 vez al mes, mínimo</dd></div>
+        <div><dt>Plataforma Departamental</dt><dd>2 veces al año, mínimo</dd></div>
+        <div><dt>Comisión de Concertación y Decisión</dt><dd>4 veces al año, convocada por el Gobernador</dd></div>
+        <div><dt>Extraordinarias</dt><dd>Según el reglamento interno</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <CtaBanda palabra="Invita" frase="¿Organizas algo juvenil en tu municipio? Mándanos la info para publicarla." href="/contacto" color="c-lima" />
+</Base>
+
+<style>
+  .ritmo__cabeza { grid-column: 1 / 6; }
+  .ritmo__lista { grid-column: 6 / 13; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  .ritmo__lista > div { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center; padding: 22px 26px; border-radius: var(--radio); background: rgb(255 255 255 / 0.14); transition: transform 0.3s var(--ease-rebote), background-color 0.2s; }
+  .ritmo__lista > div:hover { transform: translateX(-8px); background: rgb(255 255 255 / 0.22); }
+  .ritmo__lista dt { font-weight: 600; }
+  .ritmo__lista dd { margin: 0; font-size: var(--t-l); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+  @media (max-width: 900px) {
+    .ritmo__cabeza, .ritmo__lista { grid-column: 1 / -1; }
+    .ritmo__lista { margin-top: 32px; }
+    .ritmo__lista > div { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>

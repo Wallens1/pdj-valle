@@ -1,0 +1,176 @@
+---
+import Base from '../layouts/Base.astro';
+import CabezaPagina from '../components/CabezaPagina.astro';
+import Titular from '../components/Titular.astro';
+import Pendiente from '../components/Pendiente.astro';
+import Garabato from '../components/Garabato.astro';
+import CtaBanda from '../components/CtaBanda.astro';
+import Flecha from '../components/Flecha.astro';
+import { siEres, noEres, integrantes } from '../data/abc';
+import { equipo } from '../data/site';
+
+const tintes = ['var(--indigo)', 'var(--teal)', 'var(--coral)', 'var(--lima)', 'var(--viridian)', 'var(--azul)'];
+const iniciales = (n: string) => n.split(' ').filter(Boolean).slice(0, 2).map((p) => p[0]).join('');
+---
+<Base titulo="Quiénes somos" descripcion="Quiénes somos: la Plataforma Departamental de Juventudes del Valle del Cauca, qué es, qué no es y quiénes la integran.">
+  <CabezaPagina
+    lineas={['Jóvenes que', 'se organizan']}
+    entrada="Un escenario autónomo donde los procesos juveniles del Valle se encuentran, se articulan y hablan con una sola voz ante el Estado."
+    color="c-teal"
+    nota="autónomos, diversos y con la ley de nuestro lado"
+    imagen={{ src: '/img/foto-delegacion.webp', alt: 'Integrantes de la Plataforma del Valle reunidos y sonriendo', w: 1200, h: 521 }}
+  />
+
+  <!-- Misión y visión -->
+  <section class="capitulo capitulo--auto c-papel mv" aria-labelledby="mv-titulo">
+    <div class="contenedor rejilla">
+      <h2 id="mv-titulo" class="sr-only">Misión y visión</h2>
+      <div class="mv__bloque mv__mision" data-revelar>
+        <p class="titulo-xl">Misión</p>
+        <p class="entrada">[Borrador] Articular a los procesos juveniles de los 42 territorios del Valle para incidir en las decisiones públicas que afectan a la juventud, con autonomía, paridad y control social.</p>
+        <Pendiente id="PH-06" />
+      </div>
+      <div class="mv__bloque mv__vision" data-revelar>
+        <p class="titulo-xl">Visión</p>
+        <p class="entrada">[Borrador] En 2030, ser la instancia juvenil de referencia del suroccidente colombiano, con plataformas activas en todos los municipios del Valle y un rubro propio de juventud en el Plan de Desarrollo.</p>
+        <Pendiente id="PH-07" lado="derecha" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Qué sí somos / qué no somos -->
+  <section class="capitulo capitulo--auto c-indigo identidad" aria-labelledby="identidad-titulo">
+    <div class="contenedor">
+      <Titular lineas={['Qué sí somos', 'y qué no']} id="identidad-titulo" class="titulo-gigante" />
+      <div class="identidad__columnas">
+        <ul class="identidad__si" role="list" data-revelar="izq">
+          {siEres.map((s) => <li><span class="identidad__marca" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg></span>{s}</li>)}
+        </ul>
+        <ul class="identidad__no" role="list" data-revelar>
+          {noEres.map((s) => <li><span class="identidad__marca" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg></span><span class="sr-only">No somos: </span>{s}</li>)}
+        </ul>
+      </div>
+      <p class="entrada identidad__corto" data-revelar-solo>En corto: la Plataforma decide su agenda y su reglamento; la administración pone la logística. Ninguna hace el trabajo de la otra.</p>
+    </div>
+  </section>
+
+  <!-- Quién puede integrarla + paridad -->
+  <section class="capitulo capitulo--auto c-papel-2 integran" aria-labelledby="integran-titulo">
+    <div class="contenedor rejilla">
+      <div class="integran__cabeza">
+        <Titular lineas={['Cualquier proceso', 'juvenil cuenta']} id="integran-titulo" class="titulo-xl" />
+        <p class="texto" style="margin-top:20px">Con o sin papeles. Lo que importa es que exista y se mueva en el territorio.</p>
+      </div>
+      <div class="integran__tipos" data-revelar>
+        {integrantes.map((t, i) => (
+          <div class:list={['integran__tipo', ['c-lima', 'c-coral', 'c-azul'][i]]} style={`--alto:${[260, 320, 380][i]}px`}>
+            <h3 class="titulo-l">{t.tipo}</h3>
+            <p>{t.texto}</p>
+          </div>
+        ))}
+      </div>
+      <div class="paridad c-tinta" data-revelar>
+        <p class="paridad__cifra">1H + 1M</p>
+        <div>
+          <h3 class="titulo-l">Regla de paridad</h3>
+          <p>Cada delegación de la Plataforma a otro nivel lleva obligatoriamente un hombre y una mujer. No es una recomendación: una delegación sin paridad puede ser objetada en el registro.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Equipo -->
+  <section class="capitulo capitulo--auto c-papel equipo" aria-labelledby="equipo-titulo">
+    <div class="contenedor">
+      <div class="equipo__cabeza">
+        <h2 id="equipo-titulo" class="titulo-xl">El equipo</h2>
+        <p class="mano">las personas detrás del ABC 2026</p>
+        <Pendiente id="PH-08" lado="derecha" />
+      </div>
+      <ul class="equipo__rejilla" role="list" data-revelar>
+        {equipo.map((n, i) => (
+          <li>
+            <div class="equipo__retrato" style={`--tinte:${tintes[i % tintes.length]}`} aria-hidden="true">
+              <img src="/img/ilustra-retratos.webp" alt="" width="1200" height="461" loading="lazy" style={`object-position:${(i % 8) * 14}% ${i % 2 ? 100 : 0}%`} />
+              <span>{iniciales(n)}</span>
+            </div>
+            <p class="equipo__nombre">{n}</p>
+            <p class="chico equipo__rol">[Municipio · rol]</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Voces -->
+  <section class="capitulo capitulo--auto c-viridian voces" aria-labelledby="voces-titulo">
+    <div class="contenedor rejilla">
+      <div class="voces__cabeza">
+        <Titular lineas={['Voces', 'del Valle']} id="voces-titulo" class="titulo-gigante" />
+        <Garabato forma="flecha" class="voces__flecha" />
+      </div>
+      <div class="voces__citas" data-revelar>
+        <blockquote class="voces__cita c-lima"><p>«[Frase real de una persona plataformada sobre lo que ha cambiado en su municipio.]»</p><footer>[Nombre] · [Municipio]</footer></blockquote>
+        <blockquote class="voces__cita c-papel"><p>«[Segunda frase real: qué ganó al participar.]»</p><footer>[Nombre] · [Municipio]</footer></blockquote>
+        <Pendiente id="PH-17" />
+      </div>
+    </div>
+  </section>
+
+  <CtaBanda palabra="Únete" frase="¿Tu colectivo quiere hacer parte? Escríbenos y te contamos la ruta." href="/contacto" color="c-lima" />
+</Base>
+
+<style>
+  .mv__bloque { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+  .mv__mision { grid-column: 1 / 7; }
+  .mv__vision { grid-column: 7 / 13; margin-top: clamp(40px, 8vw, 140px); }
+  .mv__bloque .titulo-xl { color: var(--indigo); }
+
+  .identidad__columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 56px; }
+  .identidad ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .identidad li { display: flex; gap: 16px; align-items: center; padding: 20px 24px; border-radius: var(--radio); font-size: var(--t-l); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; transition: transform 0.35s var(--ease-rebote); }
+  .identidad li:hover { transform: scale(1.02) rotate(-0.6deg); }
+  .identidad__si li { background: var(--lima); color: var(--tinta); }
+  .identidad__no li { background: var(--indigo-hondo); color: var(--papel); }
+  .identidad__marca { flex-shrink: 0; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--tinta); color: var(--lima); font-size: 1.2rem; }
+  .identidad__no .identidad__marca { background: var(--coral); color: var(--tinta); }
+  .identidad__corto { margin-top: 48px; max-width: 44ch; }
+
+  .integran__cabeza { grid-column: 1 / 6; }
+  .integran__tipos { grid-column: 6 / 13; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; align-items: end; }
+  .integran__tipo { min-height: var(--alto); padding: 24px; border-radius: var(--radio); background: var(--fondo); color: var(--texto); display: flex; flex-direction: column; justify-content: space-between; gap: 16px; transition: transform 0.4s var(--ease-rebote); }
+  .integran__tipo:hover { transform: translateY(-10px); }
+  .paridad { grid-column: 1 / 13; margin-top: 56px; display: grid; grid-template-columns: auto 1fr; gap: clamp(24px, 4vw, 64px); align-items: center; padding: clamp(28px, 4vw, 56px); border-radius: var(--radio); background: var(--fondo); color: var(--texto); }
+  .paridad__cifra { font-size: clamp(3.4rem, 9vw, 9rem); font-weight: 800; letter-spacing: -0.06em; line-height: 0.85; color: var(--lima); }
+  .paridad p:not(.paridad__cifra) { max-width: 52ch; margin-top: 10px; }
+
+  .equipo__cabeza { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px 32px; margin-bottom: 40px; }
+  .equipo__cabeza .mano { color: var(--coral); }
+  .equipo__cabeza .pendiente { margin-left: auto; }
+  .equipo__rejilla { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 36px 12px; }
+  .equipo__retrato { position: relative; aspect-ratio: 4 / 5; border-radius: var(--radio); overflow: hidden; background: var(--tinte); transition: transform 0.4s var(--ease-rebote), border-radius 0.4s; }
+  .equipo__retrato img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.15); mix-blend-mode: multiply; opacity: 0.85; transform: scale(2.6); }
+  .equipo__retrato span { position: absolute; left: 12px; bottom: 10px; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.04em; color: var(--papel); mix-blend-mode: normal; }
+  li:hover .equipo__retrato { transform: rotate(-2deg) scale(1.03); border-radius: 50px; }
+  .equipo__nombre { margin-top: 10px; font-weight: 700; font-size: 1rem; line-height: 1.2; }
+  .equipo__rol { color: var(--tinta-suave); }
+
+  .voces__cabeza { grid-column: 1 / 6; position: relative; }
+  .voces__cabeza :global(.voces__flecha) { width: 160px; right: 0; bottom: -60px; color: var(--lima); }
+  .voces__citas { grid-column: 6 / 13; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+  .voces__cita { margin: 0; padding: 28px 32px; border-radius: var(--radio); background: var(--fondo); color: var(--texto); font-size: var(--t-l); font-weight: 600; line-height: 1.25; letter-spacing: -0.015em; }
+  .voces__cita:nth-child(2) { margin-left: 10%; transform: rotate(1deg); }
+  .voces__cita footer { margin-top: 14px; font-size: 1rem; font-weight: 700; }
+
+  @media (max-width: 900px) {
+    .mv__mision, .mv__vision, .integran__cabeza, .integran__tipos, .voces__cabeza, .voces__citas { grid-column: 1 / -1; }
+    .mv__vision { margin-top: 48px; }
+    .identidad__columnas { grid-template-columns: 1fr; }
+    .integran__tipos { grid-template-columns: 1fr; margin-top: 32px; }
+    .integran__tipo { min-height: 0; }
+    .paridad { grid-template-columns: 1fr; }
+    .equipo__rejilla { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .voces__cabeza { margin-bottom: 60px; }
+  }
+  @media (max-width: 560px) { .equipo__rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>

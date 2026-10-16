@@ -1,0 +1,44 @@
+---
+// Apertura de las páginas interiores: un campo de color con el titular grande,
+// una entrada corta y, si hay, una imagen que flota a la derecha.
+import Titular from './Titular.astro';
+import Garabato from './Garabato.astro';
+interface Props {
+  lineas: string[];
+  entrada: string;
+  color?: string;
+  imagen?: { src: string; alt: string; w: number; h: number };
+  nota?: string;
+}
+const { lineas, entrada, color = 'c-indigo', imagen, nota } = Astro.props;
+---
+<section class:list={['capitulo', 'capitulo--auto', 'cabeza', color]}>
+  <div class="contenedor rejilla">
+    <div class="cabeza__texto">
+      <Titular lineas={lineas} nivel="h1" class="titulo-gigante" />
+      <p class="entrada cabeza__entrada" data-revelar-solo>{entrada}</p>
+      {nota && <p class="mano cabeza__nota">{nota}</p>}
+      <slot />
+    </div>
+    {imagen && (
+      <div class="cabeza__img" data-revelar="escala">
+        <img src={imagen.src} alt={imagen.alt} width={imagen.w} height={imagen.h} data-deriva="0.05" />
+      </div>
+    )}
+  </div>
+  <Garabato forma="onda" class="cabeza__onda" />
+</section>
+
+<style>
+  .cabeza { padding-top: clamp(56px, 8vw, 120px); overflow: hidden; }
+  .cabeza__texto { grid-column: 1 / 8; display: flex; flex-direction: column; gap: 28px; align-items: flex-start; }
+  .cabeza__entrada { max-width: 36ch; }
+  .cabeza__nota { transform: rotate(-3deg); }
+  .cabeza__img { grid-column: 8 / 13; align-self: center; }
+  .cabeza__img img { width: 100%; border-radius: var(--radio); transform: rotate(2.5deg); background: var(--papel); }
+  .cabeza :global(.cabeza__onda) { left: var(--margen); bottom: 28px; width: min(320px, 50vw); }
+  @media (max-width: 900px) {
+    .cabeza__texto, .cabeza__img { grid-column: 1 / -1; }
+    .cabeza__img { margin-top: 32px; }
+  }
+</style>

@@ -1,0 +1,504 @@
+---
+import Base from '../layouts/Base.astro';
+import CabezaPagina from '../components/CabezaPagina.astro';
+import Titular from '../components/Titular.astro';
+import Pendiente from '../components/Pendiente.astro';
+import Garabato from '../components/Garabato.astro';
+import CtaBanda from '../components/CtaBanda.astro';
+import Flecha from '../components/Flecha.astro';
+import {
+  hitos, conpes, puede, niveles, rutaConformacion, funciones, comision,
+  beneficios, planTactico, autodiagnostico, exigibilidad, plantillaPeticion,
+} from '../data/abc';
+
+const capitulos = [
+  ['marco-legal', 'Marco legal'],
+  ['identidad', 'Identidad'],
+  ['estructura', 'Estructura'],
+  ['potestades', 'Potestades'],
+  ['diagnostico', 'Diagnóstico'],
+  ['beneficios', 'Beneficios'],
+  ['hoja-de-ruta', 'Hoja de ruta'],
+];
+const pdf = '/docs/abc-plataformas-juventud-valle.pdf';
+const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () => c));
+---
+<Base titulo="ABC de las plataformas" descripcion="El ABC de las Plataformas de Juventud: marco legal, identidad, estructura, potestades, diagnóstico, beneficios y hoja de ruta, edición 2026.">
+  <CabezaPagina
+    lineas={['Tu ABC de', 'plataformas']}
+    entrada="Marco legal, beneficios reales y hoja de ruta para ejercer la participación juvenil en lo municipal, lo distrital y lo departamental."
+    color="c-indigo"
+    nota="edición ampliada 2026"
+    imagen={{ src: '/img/ilustra-flores.webp', alt: 'Ilustración de jóvenes entre flores gigantes de colores', w: 1200, h: 521 }}
+  >
+    <a class="boton boton--lima" href={pdf} download>Descarga el ABC en PDF <Flecha /></a>
+  </CabezaPagina>
+
+  <nav class="indice" aria-label="Capítulos del ABC">
+    <div class="contenedor indice__fila">
+      {capitulos.map(([id, n]) => <a href={`#${id}`} data-indice={id}>{n}</a>)}
+    </div>
+  </nav>
+
+  <!-- 01 MARCO LEGAL -->
+  <section id="marco-legal" class="capitulo capitulo--auto c-papel marco" aria-labelledby="marco-titulo">
+    <div class="contenedor">
+      <div class="marco__cabeza">
+        <Titular lineas={['El ADN legal', 'de tus derechos']} id="marco-titulo" />
+        <p class="texto">Una década de conquistas concretas. Cita estos hitos en tu Plan de Acción: demuestran continuidad institucional, no una moda pasajera.</p>
+      </div>
+    </div>
+    <ol class="linea" role="list" tabindex="0" aria-label="Línea de tiempo, desplázate de lado">
+      {hitos.map((h, i) => (
+        <li class:list={['hito', ['c-indigo', 'c-teal', 'c-coral', 'c-lima', 'c-viridian', 'c-azul'][i % 6]]}>
+          <span class="hito__anio">{h.anio}</span>
+          <h3 class="titulo-l">{h.titulo}</h3>
+          <p>{h.texto}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="contenedor">
+      <p class="mano marco__desliza">← desliza la línea de tiempo →</p>
+      <div class="conpes">
+        <h3 class="titulo-xl conpes__titulo">CONPES 4040, en números</h3>
+        <div class="conpes__cifras" data-revelar>
+          {conpes.map((c) => (
+            <div class="conpes__cifra">
+              <span class="conpes__num" data-contar={c.cifra} data-decimales={c.decimales} data-sufijo={c.sufijo}>{c.cifra.toLocaleString('es-CO')}{c.sufijo}</span>
+              <p>{c.texto}</p>
+            </div>
+          ))}
+        </div>
+        <p class="chico suave">Fuente: CONPES 4040, DNP (2021). Bogotá reporta 76,4 % de cumplimiento de su Política Pública de Juventud 2019-2030 (Secretaría de Integración Social, 2025).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 IDENTIDAD -->
+  <section id="identidad" class="capitulo capitulo--auto c-coral firmar" aria-labelledby="firmar-titulo">
+    <div class="contenedor rejilla">
+      <div class="firmar__cabeza">
+        <Titular lineas={['«¿Entonces qué', 'podemos firmar?»']} id="firmar-titulo" />
+        <p class="entrada" style="margin-top:24px">La pregunta más común de una plataforma nueva. La clave: distinguir lo que tú decides de lo que la administración garantiza.</p>
+      </div>
+      <ul class="firmar__lista" role="list" data-revelar>
+        {puede.map((p) => (
+          <li class:list={[p.si ? 'si' : 'no']}>
+            <span class="firmar__chip">{p.si ? 'Sí' : 'No'}</span>{p.texto}
+          </li>
+        ))}
+      </ul>
+      <div class="firmar__caso c-tinta" data-revelar-solo>
+        <p class="mano">Caso frecuente</p>
+        <p class="titulo-l">«Nos ofrecieron un recurso, ¿lo recibimos?»</p>
+        <p>No directamente. Se canaliza por una organización formal que integre la Plataforma o por la entidad territorial de juventud, nunca a nombre de la Plataforma.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 ESTRUCTURA -->
+  <section id="estructura" class="capitulo capitulo--auto c-papel-2 estructura" aria-labelledby="estructura-titulo">
+    <div class="contenedor">
+      <div class="estructura__cabeza">
+        <Titular lineas={['Cómo escala', 'tu plataforma']} id="estructura-titulo" />
+        <Pendiente id="PH-09" lado="derecha" />
+      </div>
+      <div class="tabla-envoltura" data-revelar-solo>
+        <table class="tabla">
+          <caption class="sr-only">Niveles de la Plataforma: conformación, registro y periodicidad</caption>
+          <thead><tr><th scope="col">Nivel</th><th scope="col">Quiénes la conforman</th><th scope="col">Registro</th><th scope="col">Sesiona</th></tr></thead>
+          <tbody>
+            {niveles.map((n) => <tr><th scope="row">{n.nivel}</th><td>{n.conforma}</td><td>{n.registro}</td><td>{n.sesiona}</td></tr>)}
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="titulo-xl estructura__ruta-titulo">Ruta de conformación</h3>
+      <ol class="ruta" role="list" data-revelar>
+        {rutaConformacion.map((r, i) => (
+          <li class="ruta__paso" style={`--c:${['var(--indigo)', 'var(--teal)', 'var(--coral)', 'var(--viridian)', 'var(--azul)', 'var(--lima)'][i]}`}>
+            <span class="ruta__punto" aria-hidden="true">{i + 1}</span>
+            <h4>{r.paso}</h4>
+            <p>{r.texto}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="distritos">
+        <div class="distritos__caja c-azul" data-revelar-solo>
+          <p class="titulo-l">¿Eres de Cali o Buenaventura?</p>
+          <p>Ambos son Distritos Especiales: tu plataforma es distrital, se registra ante la Personería Distrital y participa en la Departamental como cualquier delegación de base. Verifica siempre el acto administrativo vigente de tu territorio.</p>
+        </div>
+        <div class="distritos__caja c-lima" data-revelar-solo>
+          <p class="titulo-l">Qué llevar al registro</p>
+          <p>Acta de conformación firmada, listado de organizaciones integrantes con paridad, borrador de reglamento interno y el formulario oficial diligenciado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 POTESTADES -->
+  <section id="potestades" class="capitulo capitulo--auto c-viridian potestades" aria-labelledby="potestades-titulo">
+    <div class="contenedor">
+      <Titular lineas={['Tus 7 funciones', 'legales']} id="potestades-titulo" class="titulo-gigante" />
+      <ol class="funciones" role="list" data-revelar>
+        {funciones.map((f) => (
+          <li><span class="funciones__verbo">{f.verbo}</span><span class="funciones__texto">{f.texto}</span></li>
+        ))}
+      </ol>
+
+      <div class="comision">
+        <div class="comision__texto">
+          <h3 class="titulo-xl">La Comisión no es optativa</h3>
+          <p>La Comisión de Concertación y Decisión debe sesionar mínimo 4 veces al año, convocada obligatoriamente por el Alcalde o el Gobernador (Art. 66). Ahí propones políticas, ejerces veeduría y eres interlocutor válido.</p>
+          <ul class="comision__leyenda" role="list">
+            {comision.map((c, i) => <li><span class="comision__dot" style={`--c:${['var(--azul)', 'var(--lima)', 'var(--coral)'][i]}`}></span><strong>{c.cuantos} · {c.quien}</strong> {c.texto}</li>)}
+          </ul>
+        </div>
+        <div class="comision__mesa" aria-hidden="true" data-revelar="escala">
+          {asientos.map((a, i) => (
+            <span class="comision__silla" style={`--c:${a.quien === 'Gobierno' ? 'var(--azul)' : a.quien === 'Plataforma' ? 'var(--coral)' : 'var(--lima)'};--a:${(i / asientos.length) * 360}deg`}>{a.voto ? '' : 'voz'}</span>
+          ))}
+          <span class="comision__centro">8 sillas</span>
+        </div>
+      </div>
+
+      <div class="voto c-viridian-hondo">
+        <p class="mano">¿Con voto o sin voto?</p>
+        <div class="voto__casos">
+          <div><p class="titulo-l">Consejo de Juventud posesionado</p><p>2 delegados veedores, con voz y sin voto (Art. 62, núm. 5).</p></div>
+          <div><p class="titulo-l">Consejo aún no posesionado</p><p>3 delegados asumen las funciones del Consejo, con voto (parágrafo transitorio).</p></div>
+        </div>
+        <p class="chico">No lo asumas: verifícalo por escrito con la Personería o la Procuraduría Regional (Directiva 021/2021).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 DIAGNÓSTICO -->
+  <section id="diagnostico" class="capitulo capitulo--auto c-tinta diagnostico" aria-labelledby="diag-titulo">
+    <div class="contenedor rejilla">
+      <div class="diag__cabeza">
+        <Titular lineas={['El estado real,', 'hoy']} id="diag-titulo" />
+        <p class="chico suave" style="margin-top:16px">Procuraduría General, Informe Semafórico del Sistema Nacional de Juventudes 2023 (corte dic. 2023, pub. feb. 2024).</p>
+      </div>
+      <div class="diag__cifras" data-revelar>
+        <div class="diag__cifra"><span class="diag__num" data-contar="86.9" data-decimales="1" data-sufijo=" %">86,9 %</span><p>municipios con plataforma reportada (948 de 1.091)</p></div>
+        <div class="diag__cifra"><span class="diag__num" data-contar="100" data-sufijo=" %">100 %</span><p>cobertura distrital y departamental</p></div>
+        <div class="diag__cifra diag__cifra--alerta"><span class="diag__num" data-contar="18.5" data-decimales="1" data-sufijo=" %">18,5 %</span><p>de las plataformas municipales reportadas figuran inactivas</p></div>
+      </div>
+      <div class="diag__balance">
+        <div class="balance c-menta" data-revelar-solo>
+          <h3 class="titulo-l">Fortalezas</h3>
+          <ul><li>Rango de ley estatutaria: difícil de desmontar</li><li>Paridad estricta en cada delegación</li><li>Respaldo oficial del Ministerio Público</li></ul>
+        </div>
+        <div class="balance c-coral" data-revelar-solo>
+          <h3 class="titulo-l">Desafíos</h3>
+          <ul><li>Sin rubro presupuestal autónomo propio</li><li>Sin decreto reglamentario único nacional</li><li>Vacíos en la renovación de delegados</li></ul>
+        </div>
+        <div class="balance balance--dato c-lima" data-revelar-solo>
+          <p class="diag__num">13 de 122</p>
+          <p>instancias de participación ciudadana garantizan representación juvenil. La Plataforma es una de las pocas puertas reales: úsala.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 BENEFICIOS -->
+  <section id="beneficios" class="capitulo capitulo--auto c-lima beneficios" aria-labelledby="beneficios-titulo">
+    <div class="contenedor">
+      <Titular lineas={['Qué ganas si', 'te plataformas']} id="beneficios-titulo" />
+      <div class="beneficios__pestanas" data-pestanas-b>
+        <div role="tablist" aria-label="Nivel" class="beneficios__tabs">
+          {Object.entries(beneficios).map(([k], i) => (
+            <button role="tab" id={`btab-${k}`} aria-controls={`bpanel-${k}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{k[0].toUpperCase() + k.slice(1)}</button>
+          ))}
+        </div>
+        {Object.entries(beneficios).map(([k, b], i) => (
+          <div role="tabpanel" id={`bpanel-${k}`} aria-labelledby={`btab-${k}`} hidden={i !== 0} class="beneficios__panel">
+            <h3 class="titulo-xl">{b.titulo}</h3>
+            <ul role="list">{b.items.map((it) => <li>{it}</li>)}</ul>
+            <aside class="beneficios__tip"><p class="mano">Tip práctico</p><p>{b.tip}</p></aside>
+          </div>
+        ))}
+      </div>
+      <img class="beneficios__foto" src="/img/foto-jornada-departamental.webp" alt="Delegación del Valle en jornada departamental" width="1200" height="521" loading="lazy" />
+      <p class="chico" style="margin-top:12px">Caso real: la Gobernación del Valle ha implementado, con cooperación AECID, 20 años de política pública de juventud con recursos de contrapartida propios.</p>
+    </div>
+  </section>
+
+  <!-- 07 HOJA DE RUTA -->
+  <section id="hoja-de-ruta" class="capitulo capitulo--auto c-papel hoja" aria-labelledby="hoja-titulo">
+    <div class="contenedor">
+      <Titular lineas={['Del papel', 'a la práctica']} id="hoja-titulo" class="titulo-gigante" />
+      <div class="plan" data-revelar>
+        {planTactico.map((p, i) => (
+          <div class:list={['plan__tile', ['c-teal', 'c-indigo', 'c-viridian'][i]]} style={`--alto:${[280, 340, 400][i]}px`}>
+            <p class="titulo-l">{p.plazo}</p>
+            <ul role="list">{p.tareas.map((t) => <li>{t}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+      <p class="regla" data-revelar-solo><span class="mano">Regla de oro:</span> cada acción debe quedar en acta con fecha, firma y radicado. Sin registro escrito, no existe ante la Procuraduría.</p>
+
+      <div class="auto" data-autodiagnostico>
+        <div class="auto__cabeza">
+          <h3 class="titulo-xl">Autodiagnóstico rápido</h3>
+          <p>Marca lo que tu plataforma ya tiene. Nada se envía: se queda en tu navegador.</p>
+        </div>
+        <ul class="auto__lista" role="list">
+          {autodiagnostico.map((q, i) => (
+            <li><label><input type="checkbox" name="auto" value={i} /><span class="auto__caja" aria-hidden="true"></span><span>{q}</span></label></li>
+          ))}
+        </ul>
+        <div class="auto__resultado c-indigo" aria-live="polite">
+          <p class="auto__num"><span data-auto-num>0</span>/8</p>
+          <div class="auto__barra" aria-hidden="true"><span data-auto-barra></span></div>
+          <p data-auto-msg>Empieza a marcar.</p>
+        </div>
+      </div>
+
+      <div class="exigir">
+        <h3 class="titulo-xl">Si no convocan o no responden</h3>
+        <ol class="exigir__pasos" role="list" data-revelar>
+          {exigibilidad.map((e, i) => (
+            <li style={`--c:${['var(--lima)', 'var(--coral)', 'var(--azul)'][i]}`}><p class="titulo-l">{e.paso}</p><p>{e.texto}</p></li>
+          ))}
+        </ol>
+        <div class="plantilla">
+          <div class="plantilla__cabeza">
+            <p class="titulo-l">Plantilla mínima de derecho de petición</p>
+            <button class="boton boton--indigo" type="button" data-copiar>Copiar plantilla</button>
+          </div>
+          <pre id="plantilla-texto">{plantillaPeticion}</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanda palabra="Baja" frase="Descarga el ABC completo en PDF (29 páginas) y compártelo con tu plataforma." href={pdf} color="c-coral" />
+</Base>
+
+<script>
+  // Índice: marca el capítulo visible
+  const enlaces = document.querySelectorAll<HTMLAnchorElement>('[data-indice]');
+  if (enlaces.length && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((es) => {
+      es.forEach((e) => {
+        if (!e.isIntersecting) return;
+        enlaces.forEach((a) => a.classList.toggle('activo', a.dataset.indice === e.target.id));
+        const act = document.querySelector<HTMLElement>(`[data-indice="${e.target.id}"]`);
+        act?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    enlaces.forEach((a) => { const s = document.getElementById(a.dataset.indice!); if (s) io.observe(s); });
+  }
+
+  // Pestañas de beneficios
+  document.querySelectorAll<HTMLElement>('[data-pestanas-b]').forEach((g) => {
+    const tabs = Array.from(g.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const activar = (t: HTMLButtonElement, foco = false) => {
+      tabs.forEach((x) => {
+        const s = x === t;
+        x.setAttribute('aria-selected', String(s)); x.tabIndex = s ? 0 : -1;
+        const p = document.getElementById(x.getAttribute('aria-controls')!);
+        if (p) { p.hidden = !s; if (s) { p.classList.remove('entra'); void p.offsetWidth; p.classList.add('entra'); } }
+      });
+      if (foco) t.focus();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => activar(t));
+      t.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') activar(tabs[(i + 1) % tabs.length], true);
+        if (e.key === 'ArrowLeft') activar(tabs[(i - 1 + tabs.length) % tabs.length], true);
+      });
+    });
+  });
+
+  // Autodiagnóstico
+  const auto = document.querySelector<HTMLElement>('[data-autodiagnostico]');
+  if (auto) {
+    const cajas = Array.from(auto.querySelectorAll<HTMLInputElement>('input[type=checkbox]'));
+    const num = auto.querySelector('[data-auto-num]')!;
+    const barra = auto.querySelector<HTMLElement>('[data-auto-barra]')!;
+    const msg = auto.querySelector('[data-auto-msg]')!;
+    const clave = 'pdj-autodiagnostico';
+    try { const g = JSON.parse(localStorage.getItem(clave) || '[]'); cajas.forEach((c, i) => (c.checked = !!g[i])); } catch { /* sin almacenamiento */ }
+    const pintar = () => {
+      const n = cajas.filter((c) => c.checked).length;
+      num.textContent = String(n);
+      barra.style.transform = `scaleX(${n / cajas.length})`;
+      msg.textContent = n === 0 ? 'Empieza a marcar.'
+        : n < 4 ? 'Prioriza el acta y el registro antes que cualquier otra gestión: sin eso, nada más es exigible.'
+        : n < 8 ? 'Van bien. Revisa lo que falta y llévalo al Plan de Acción.'
+        : '¡Plataforma en ejercicio pleno! Ahora a exigir rubro propio.';
+      try { localStorage.setItem(clave, JSON.stringify(cajas.map((c) => c.checked))); } catch { /* sin almacenamiento */ }
+    };
+    cajas.forEach((c) => c.addEventListener('change', pintar));
+    pintar();
+  }
+
+  // Copiar plantilla
+  const copiar = document.querySelector<HTMLButtonElement>('[data-copiar]');
+  copiar?.addEventListener('click', async () => {
+    const t = document.getElementById('plantilla-texto')?.textContent || '';
+    try { await navigator.clipboard.writeText(t); copiar.textContent = '¡Copiada!'; }
+    catch { copiar.textContent = 'Selecciónala y cópiala'; }
+    setTimeout(() => (copiar.textContent = 'Copiar plantilla'), 2200);
+  });
+</script>
+
+<style>
+  /* Índice */
+  .indice { position: sticky; top: 0; z-index: 30; background: var(--tinta); }
+  .indice__fila { display: flex; gap: 6px; overflow-x: auto; padding-block: 10px; scrollbar-width: none; }
+  .indice a { flex: 0 0 auto; padding: 9px 16px; border-radius: 999px; color: var(--papel); font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: background-color 0.2s, color 0.2s, transform 0.3s var(--ease-rebote); }
+  .indice a:hover { background: rgb(255 255 255 / 0.12); transform: translateY(-2px); }
+  .indice a.activo { background: var(--lima); color: var(--tinta); }
+
+  /* Marco legal */
+  .marco__cabeza { display: grid; grid-template-columns: 1.3fr 1fr; gap: 32px; align-items: end; margin-bottom: 48px; }
+  .linea { list-style: none; margin: 0; padding: 0 var(--margen) 16px; display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+  .hito { flex: 0 0 clamp(260px, 26vw, 360px); scroll-snap-align: start; min-height: 380px; padding: 24px; border-radius: var(--radio); background: var(--fondo); color: var(--texto); display: flex; flex-direction: column; gap: 14px; transition: transform 0.4s var(--ease-rebote); }
+  .hito:hover { transform: translateY(-8px) rotate(-1deg); }
+  .hito__anio { font-size: clamp(4rem, 7vw, 6.5rem); font-weight: 800; letter-spacing: -0.07em; line-height: 0.8; margin-bottom: auto; }
+  .marco__desliza { color: var(--coral); margin-top: 8px; }
+  .conpes { margin-top: 96px; }
+  .conpes__titulo { margin-bottom: 32px; }
+  .conpes__cifras { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+  .conpes__cifra { padding: 24px; border-radius: var(--radio); background: var(--papel-2); }
+  .conpes__num { display: block; font-size: clamp(2.2rem, 3.6vw, 3.6rem); font-weight: 800; letter-spacing: -0.05em; line-height: 0.95; color: var(--indigo); margin-bottom: 10px; font-variant-numeric: tabular-nums; }
+
+  /* Identidad */
+  .firmar__cabeza { grid-column: 1 / 7; }
+  .firmar__lista { grid-column: 7 / 13; grid-row: 1 / 3; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .firmar__lista li { display: flex; align-items: center; gap: 14px; padding: 16px 20px; border-radius: 18px; font-weight: 700; font-size: 1.12rem; line-height: 1.2; transition: transform 0.3s var(--ease-rebote); }
+  .firmar__lista li:hover { transform: translateX(-8px); }
+  .firmar__lista .si { background: var(--papel); }
+  .firmar__lista .no { background: var(--tinta); color: var(--papel); }
+  .firmar__chip { flex-shrink: 0; width: 46px; text-align: center; padding: 6px 0; border-radius: 999px; font-weight: 800; background: var(--lima); color: var(--tinta); }
+  .no .firmar__chip { background: var(--coral); }
+  .firmar__caso { grid-column: 1 / 7; align-self: end; padding: 28px; border-radius: var(--radio); background: var(--fondo); color: var(--texto); display: flex; flex-direction: column; gap: 12px; margin-top: 40px; }
+
+  /* Estructura */
+  .estructura__cabeza { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
+  .tabla-envoltura { overflow-x: auto; border-radius: var(--radio); background: var(--papel); }
+  .tabla { width: 100%; border-collapse: collapse; min-width: 720px; font-size: 1.02rem; }
+  .tabla th, .tabla td { text-align: left; padding: 18px 22px; vertical-align: top; }
+  .tabla thead th { background: var(--tinta); color: var(--papel); font-size: 0.95rem; }
+  .tabla tbody tr:nth-child(even) { background: #f6f2ea; }
+  .tabla tbody th { font-size: 1.15rem; color: var(--indigo); }
+  .tabla tbody tr { transition: background-color 0.2s; }
+  .tabla tbody tr:hover { background: #ece4ff; }
+  .estructura__ruta-titulo { margin: 96px 0 40px; }
+  .ruta { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; position: relative; }
+  .ruta::before { content: ''; position: absolute; left: 30px; right: 30px; top: 29px; height: 6px; border-radius: 6px; background: var(--tinta); }
+  .ruta__paso { position: relative; display: flex; flex-direction: column; gap: 8px; }
+  .ruta__punto { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--c); color: var(--papel); font-size: 1.5rem; font-weight: 800; transition: transform 0.4s var(--ease-rebote); border: 5px solid var(--papel-2); }
+  .ruta__paso:nth-child(6) .ruta__punto { color: var(--tinta); }
+  .ruta__paso:hover .ruta__punto { transform: scale(1.15) rotate(-10deg); }
+  .ruta__paso h4 { font-size: 1.15rem; letter-spacing: -0.02em; margin-top: 6px; }
+  .ruta__paso p { font-size: 0.98rem; color: var(--tinta-suave); }
+  .distritos { display: grid; grid-template-columns: 1.3fr 1fr; gap: 10px; margin-top: 72px; }
+  .distritos__caja { padding: 28px; border-radius: var(--radio); background: var(--fondo); color: var(--texto); display: flex; flex-direction: column; gap: 12px; }
+
+  /* Potestades */
+  .funciones { list-style: none; margin: 56px 0 0; padding: 0; }
+  .funciones li { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; align-items: center; padding: 14px 0; transition: transform 0.4s var(--ease-rebote); }
+  .funciones li:hover { transform: translateX(14px); }
+  .funciones__verbo { font-size: clamp(2rem, 5vw, 4.6rem); font-weight: 800; letter-spacing: -0.05em; line-height: 0.95; transition: color 0.2s; }
+  .funciones li:hover .funciones__verbo { color: var(--lima); }
+  .funciones__texto { font-size: 1.1rem; max-width: 40ch; }
+  .comision { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 80px); align-items: center; margin-top: 120px; }
+  .comision__texto { display: flex; flex-direction: column; gap: 20px; }
+  .comision__leyenda { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .comision__leyenda li { display: flex; align-items: baseline; gap: 10px; }
+  .comision__dot { flex-shrink: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--c); transform: translateY(2px); }
+  .comision__mesa { position: relative; aspect-ratio: 1; max-width: 460px; width: 100%; margin-inline: auto; border-radius: 50%; background: var(--viridian-hondo); }
+  .comision__silla { position: absolute; left: 50%; top: 50%; width: 22%; aspect-ratio: 1; margin: -11%; border-radius: 50%; background: var(--c); display: grid; place-items: center; color: var(--tinta); font-weight: 800; font-size: 0.95rem; transform: rotate(var(--a)) translateY(-170%) rotate(calc(var(--a) * -1)); transition: transform 0.5s var(--ease-rebote); }
+  .comision__mesa:hover .comision__silla { transform: rotate(var(--a)) translateY(-185%) rotate(calc(var(--a) * -1)) scale(1.08); }
+  .comision__centro { position: absolute; inset: 0; display: grid; place-items: center; font-size: clamp(1.4rem, 2.4vw, 2.2rem); font-weight: 800; letter-spacing: -0.03em; }
+  .voto { margin-top: 96px; padding: clamp(28px, 4vw, 48px); border-radius: var(--radio); background: var(--fondo); color: var(--texto); display: flex; flex-direction: column; gap: 20px; }
+  .voto__casos { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .voto__casos > div { display: flex; flex-direction: column; gap: 8px; }
+
+  /* Diagnóstico */
+  .diag__cabeza { grid-column: 1 / 6; }
+  .diag__cifras { grid-column: 6 / 13; display: flex; flex-direction: column; gap: 24px; }
+  .diag__cifra { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 20px; align-items: center; }
+  .diag__num { font-size: clamp(3rem, 6.4vw, 6.4rem); font-weight: 800; letter-spacing: -0.06em; line-height: 0.9; color: var(--lima); font-variant-numeric: tabular-nums; }
+  .diag__cifra--alerta .diag__num { color: var(--coral); }
+  .diag__balance { grid-column: 1 / 13; display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 10px; margin-top: 72px; }
+  .balance { padding: 28px; border-radius: var(--radio); background: var(--fondo); color: var(--texto); }
+  .balance ul { margin: 14px 0 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 6px; }
+  .balance--dato .diag__num { color: var(--tinta); font-size: clamp(2.6rem, 4.6vw, 4.6rem); margin-bottom: 12px; }
+
+  /* Beneficios */
+  .beneficios__pestanas { margin-top: 48px; }
+  .beneficios__tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .beneficios__tabs button { min-height: 52px; padding: 0 24px; border: 3px solid var(--tinta); border-radius: 999px; background: transparent; color: var(--tinta); font: 700 1.1rem var(--f-texto); cursor: pointer; transition: transform 0.3s var(--ease-rebote), background-color 0.2s, color 0.2s; }
+  .beneficios__tabs button:hover { transform: translateY(-3px); }
+  .beneficios__tabs button[aria-selected='true'] { background: var(--tinta); color: var(--lima); }
+  .beneficios__panel { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 48px; padding: clamp(24px, 4vw, 48px); border-radius: var(--radio); background: var(--papel); }
+  .beneficios__panel.entra { animation: entra 0.5s var(--ease-salida); }
+  @keyframes entra { from { opacity: 0; transform: translateY(14px); } }
+  .beneficios__panel h3 { grid-column: 1 / -1; font-size: clamp(1.8rem, 3.4vw, 3rem); }
+  .beneficios__panel ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .beneficios__panel li { padding-left: 1.6em; position: relative; font-weight: 600; }
+  .beneficios__panel li::before { content: '→'; position: absolute; left: 0; color: var(--indigo); font-weight: 800; }
+  .beneficios__tip { padding: 24px; border-radius: 18px; background: var(--indigo); color: var(--papel); align-self: start; transform: rotate(1.5deg); }
+  .beneficios__tip .mano { color: var(--lima); margin-bottom: 6px; }
+  .beneficios__foto { width: 100%; margin-top: 10px; border-radius: var(--radio); aspect-ratio: 21 / 8; object-fit: cover; }
+
+  /* Hoja de ruta */
+  .plan { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; align-items: end; margin-top: 56px; }
+  .plan__tile { min-height: var(--alto); padding: 26px; border-radius: var(--radio); background: var(--fondo); color: var(--texto); display: flex; flex-direction: column; justify-content: space-between; gap: 20px; transition: transform 0.4s var(--ease-rebote); }
+  .plan__tile:hover { transform: translateY(-8px); }
+  .plan__tile ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; font-weight: 600; }
+  .plan__tile li { padding-left: 1.4em; position: relative; }
+  .plan__tile li::before { content: ''; position: absolute; left: 0; top: 0.45em; width: 0.6em; height: 0.6em; border-radius: 50%; background: var(--lima); }
+  .regla { margin-top: 40px; font-size: var(--t-l); font-weight: 600; line-height: 1.3; max-width: 46ch; }
+  .regla .mano { color: var(--coral); }
+
+  .auto { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 48px; margin-top: 120px; }
+  .auto__cabeza { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 12px; }
+  .auto__lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .auto__lista label { display: flex; align-items: center; gap: 14px; min-height: 58px; padding: 10px 18px; border-radius: 16px; background: var(--papel-2); font-weight: 600; cursor: pointer; transition: background-color 0.2s, transform 0.3s var(--ease-rebote); }
+  .auto__lista label:hover { transform: translateX(6px); }
+  .auto__lista input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .auto__caja { flex-shrink: 0; width: 30px; height: 30px; border-radius: 9px; background: var(--papel); border: 3px solid var(--tinta); display: grid; place-items: center; transition: background-color 0.2s, transform 0.3s var(--ease-rebote); }
+  .auto__lista input:checked + .auto__caja { background: var(--lima); transform: rotate(-8deg) scale(1.1); }
+  .auto__lista input:checked + .auto__caja::after { content: ''; width: 8px; height: 14px; border: solid var(--tinta); border-width: 0 4px 4px 0; transform: rotate(45deg) translate(-1px, -2px); }
+  .auto__lista input:checked ~ span:last-child { text-decoration: line-through; text-decoration-color: var(--indigo); text-decoration-thickness: 2px; }
+  .auto__lista input:focus-visible + .auto__caja { outline: 3px solid var(--indigo); outline-offset: 3px; }
+  .auto__resultado { position: sticky; top: 100px; align-self: start; padding: 32px; border-radius: var(--radio); background: var(--fondo); color: var(--texto); display: flex; flex-direction: column; gap: 18px; }
+  .auto__num { font-size: clamp(4rem, 8vw, 8rem); font-weight: 800; letter-spacing: -0.06em; line-height: 0.85; }
+  .auto__barra { height: 18px; border-radius: 999px; background: var(--indigo-hondo); overflow: hidden; }
+  .auto__barra span { display: block; height: 100%; background: var(--lima); transform-origin: left; transform: scaleX(0); transition: transform 0.6s var(--ease-rebote); }
+  [data-auto-msg] { font-size: 1.15rem; font-weight: 600; }
+
+  .exigir { margin-top: 120px; }
+  .exigir__pasos { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .exigir__pasos li { padding: 26px; border-radius: var(--radio); background: var(--c); display: flex; flex-direction: column; gap: 12px; min-height: 240px; transition: transform 0.35s var(--ease-rebote); }
+  .exigir__pasos li:hover { transform: rotate(-1.5deg) translateY(-6px); }
+  .plantilla { margin-top: 24px; padding: clamp(24px, 3vw, 40px); border-radius: var(--radio); background: var(--papel-2); }
+  .plantilla__cabeza { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+  .plantilla pre { margin: 0; white-space: pre-wrap; font: 500 1.05rem/1.6 var(--f-texto); }
+
+  @media (max-width: 900px) {
+    .marco__cabeza, .comision, .voto__casos, .auto, .distritos, .diag__balance, .beneficios__panel { grid-template-columns: 1fr; }
+    .conpes__cifras { grid-template-columns: 1fr 1fr; }
+    .firmar__cabeza, .firmar__lista, .firmar__caso, .diag__cabeza, .diag__cifras { grid-column: 1 / -1; grid-row: auto; }
+    .firmar__lista { margin-top: 32px; }
+    .ruta { grid-template-columns: 1fr 1fr; gap: 28px 12px; }
+    .ruta::before { display: none; }
+    .funciones li { grid-template-columns: 1fr; gap: 4px; }
+    .diag__cifras { margin-top: 32px; }
+    .plan, .exigir__pasos { grid-template-columns: 1fr; }
+    .plan__tile { min-height: 0; }
+    .auto__resultado { position: static; }
+    .exigir__pasos li { min-height: 0; }
+  }
+  @media (max-width: 560px) {
+    .conpes__cifras, .ruta { grid-template-columns: 1fr; }
+    .diag__cifra { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>

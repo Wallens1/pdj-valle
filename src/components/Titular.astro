@@ -1,0 +1,16 @@
+---
+// Titular de dos líneas como máximo; cada línea sube desde su línea base.
+interface Props {
+  lineas: string[];
+  nivel?: 'h1' | 'h2';
+  class?: string;
+  id?: string;
+}
+const { lineas, nivel = 'h2', class: clase = 'titulo-xl', id } = Astro.props;
+const Tag = nivel;
+---
+<Tag class={clase} id={id}>
+  {lineas.map((l, i) => (
+    <span class="linea-mascara" style={`--l:${i}`}><span>{l}</span></span>
+  ))}
+</Tag>

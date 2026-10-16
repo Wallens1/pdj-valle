@@ -1,0 +1,63 @@
+---
+import { faq } from '../data/abc';
+import Titular from './Titular.astro';
+interface Props { lineas?: string[] }
+const { lineas = ['Lo que', 'nos preguntan'] } = Astro.props;
+---
+<section class="capitulo capitulo--auto c-papel faq" aria-labelledby="faq-titulo">
+  <div class="contenedor rejilla">
+    <div class="faq__cabeza">
+      <Titular lineas={lineas} id="faq-titulo" />
+      <p class="mano" style="margin-top:20px">Respuestas cortas, con la ley en la mano.</p>
+    </div>
+    <div class="faq__lista" data-revelar>
+      {faq.map((f, i) => (
+        <details name="faq" open={i === 0}>
+          <summary>
+            <span>{f.p}</span>
+            <span class="faq__signo" aria-hidden="true"><i></i><i></i></span>
+          </summary>
+          <p>{f.r}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq__cabeza { grid-column: 1 / 5; align-self: start; position: sticky; top: 110px; }
+  .faq__cabeza :global(h2) { font-size: clamp(2.2rem, 4vw, 4rem); }
+  .faq__lista { grid-column: 5 / 13; display: flex; flex-direction: column; gap: 8px; }
+  details {
+    background: var(--papel-2);
+    border-radius: var(--radio);
+    transition: background-color 0.3s, color 0.3s, transform 0.3s var(--ease-rebote);
+  }
+  details:hover { transform: translateX(6px); }
+  details[open] { background: var(--indigo); color: var(--papel); }
+  summary {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    min-height: 76px;
+    padding: 18px 26px;
+    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    cursor: pointer;
+  }
+  summary::-webkit-details-marker { display: none; }
+  .faq__signo { position: relative; width: 22px; height: 22px; flex-shrink: 0; }
+  .faq__signo i { position: absolute; left: 0; top: 9.5px; width: 22px; height: 3px; background: currentColor; border-radius: 3px; transition: transform 0.4s var(--ease-rebote); }
+  .faq__signo i:last-child { transform: rotate(90deg); }
+  details[open] .faq__signo i:last-child { transform: rotate(0deg); }
+  details[open] .faq__signo { color: var(--lima); }
+  details p { padding: 0 26px 26px; max-width: 58ch; font-size: 1.08rem; }
+  details[open] p { animation: abre 0.5s var(--ease-salida); }
+  @keyframes abre { from { opacity: 0; transform: translateY(-8px); } }
+  @media (max-width: 900px) {
+    .faq__cabeza, .faq__lista { grid-column: 1 / -1; position: static; }
+  }
+</style>

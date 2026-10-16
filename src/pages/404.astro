@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import CabezaPagina from '../components/CabezaPagina.astro';
+import Flecha from '../components/Flecha.astro';
+---
+<Base titulo="Página no encontrada">
+  <CabezaPagina lineas={['Uy, esta', 'no existe']} entrada="La página que buscas se movió o nunca estuvo. Vuelve al inicio y sigue el parche." color="c-coral" nota="error 404">
+    <a class="boton" href="/">Volver al inicio <Flecha /></a>
+  </CabezaPagina>
+</Base>

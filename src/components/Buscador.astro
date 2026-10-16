@@ -1,0 +1,176 @@
+---
+// «¿De dónde eres?»: eliges tu municipio y la página te dice cómo funciona tu
+// plataforma. Sin JavaScript queda la lista completa por subregión.
+import { subregiones, territorios, porSubregion } from '../data/territorio';
+import Pendiente from './Pendiente.astro';
+
+const datos = territorios.map((t) => {
+  const s = subregiones.find((x) => x.id === t.subregion)!;
+  return { ...t, subregionNombre: s.nombre, color: s.color, tinta: s.tinta };
+});
+---
+<div class="buscador" data-buscador>
+  <form class="buscador__form" role="search" onsubmit="return false">
+    <label for="municipio" class="titulo-l">Escribe tu municipio</label>
+    <div class="buscador__campo">
+      <input id="municipio" name="municipio" list="lista-municipios" autocomplete="off" placeholder="Ej.: Tuluá, Cartago, Buenaventura…" />
+      <datalist id="lista-municipios">
+        {territorios.map((t) => <option value={t.nombre} />)}
+      </datalist>
+    </div>
+    <p class="chico buscador__ayuda">O toca uno de los 42 de abajo.</p>
+  </form>
+
+  <output class="buscador__resultado" for="municipio" aria-live="polite" data-resultado hidden>
+    <span class="buscador__sub" data-r-sub></span>
+    <span class="buscador__nombre" data-r-nombre></span>
+    <dl class="buscador__datos">
+      <div><dt>Tu plataforma es</dt><dd data-r-tipo></dd></div>
+      <div><dt>Se registra ante</dt><dd data-r-registro></dd></div>
+      <div><dt>Sesiona</dt><dd>Mínimo 1 vez al mes</dd></div>
+      <div><dt>Hacia el Valle</dt><dd>2 delegados (1 hombre + 1 mujer) a la Departamental</dd></div>
+    </dl>
+    <p class="chico" data-r-nota></p>
+    <Pendiente id="PH-11" lado="derecha" />
+  </output>
+
+  <div class="buscador__mapa">
+    {subregiones.map((s) => (
+      <section class="buscador__grupo" style={`--g:${s.color};--gt:${s.tinta}`} aria-labelledby={`g-${s.id}`}>
+        <h3 id={`g-${s.id}`}>{s.nombre} <span class="chico">{porSubregion(s.id).length}</span></h3>
+        <ul role="list">
+          {porSubregion(s.id).map((t) => (
+            <li>
+              <a href={`/territorio#${s.id}`} data-municipio={t.nombre}>
+                {t.nombre}{t.distrito && <sup class="buscador__d" aria-label="Distrito Especial"> D</sup>}{t.confirmar && <span class="sr-only"> (subregión por confirmar)</span>}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+</div>
+
+<script type="application/json" id="datos-territorio" set:html={JSON.stringify(datos)} />
+
+<script>
+  type T = { nombre: string; subregion: string; subregionNombre: string; color: string; tinta: string; distrito?: string; confirmar?: boolean };
+  const raiz = document.querySelector<HTMLElement>('[data-buscador]');
+  const datosEl = document.getElementById('datos-territorio');
+  if (raiz && datosEl) {
+    const datos: T[] = JSON.parse(datosEl.textContent || '[]');
+    const norm = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+    const input = raiz.querySelector<HTMLInputElement>('#municipio')!;
+    const res = raiz.querySelector<HTMLElement>('[data-resultado]')!;
+    const q = (k: string) => res.querySelector<HTMLElement>(`[data-r-${k}]`)!;
+
+    const mostrar = (t: T) => {
+      res.hidden = false;
+      res.style.setProperty('--g', t.color);
+      res.style.setProperty('--gt', t.tinta);
+      q('sub').textContent = `Subregión ${t.subregionNombre}`;
+      q('nombre').textContent = t.nombre;
+      q('tipo').textContent = t.distrito ? `Distrital: ${t.distrito}` : 'Municipal';
+      q('registro').textContent = t.distrito ? 'La Personería Distrital' : `La Personería de ${t.nombre}`;
+      q('nota').textContent = t.confirmar
+        ? 'Ojo: el ABC no ubica este municipio en una subregión de forma explícita; la asignación está por confirmar.'
+        : t.distrito
+          ? 'Eres Distrito Especial: identidad institucional propia, mismo nivel de registro que un municipio.'
+          : '';
+      res.classList.remove('salta');
+      void res.offsetWidth;
+      res.classList.add('salta');
+      raiz.querySelectorAll('[data-municipio]').forEach((a) => a.classList.toggle('activo', (a as HTMLElement).dataset.municipio === t.nombre));
+    };
+
+    const buscar = () => {
+      const v = norm(input.value);
+      if (!v) return;
+      const t = datos.find((d) => norm(d.nombre) === v) || (v.length > 2 ? datos.find((d) => norm(d.nombre).startsWith(v)) : undefined);
+      if (t) mostrar(t);
+    };
+    input.addEventListener('input', buscar);
+    input.addEventListener('change', buscar);
+
+    raiz.querySelectorAll<HTMLAnchorElement>('[data-municipio]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const t = datos.find((d) => d.nombre === a.dataset.municipio);
+        if (!t) return;
+        input.value = t.nombre;
+        mostrar(t);
+        if (window.innerWidth < 900) res.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+  }
+</script>
+
+<style>
+  .buscador { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); align-items: start; }
+  .buscador__form { grid-column: 1 / 6; display: flex; flex-direction: column; gap: 14px; }
+  .buscador__campo input {
+    width: 100%;
+    min-height: 68px;
+    padding: 0 24px;
+    border: 3px solid var(--tinta);
+    border-radius: 999px;
+    background: var(--papel);
+    color: var(--tinta);
+    font: 600 clamp(1.15rem, 1.6vw, 1.45rem) var(--f-texto);
+    transition: box-shadow 0.3s var(--ease-rebote), transform 0.3s var(--ease-rebote);
+  }
+  .buscador__campo input:focus { outline: none; transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--tinta); } /* taste-skill-ignore: sombra dura solo en hover/foco/presión, nunca en reposo */
+  .buscador__campo input::placeholder { color: #6d6688; }
+  .buscador__ayuda { color: var(--suave); }
+
+  .buscador__resultado {
+    grid-column: 6 / 13;
+    grid-row: 1 / 3;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: clamp(24px, 3vw, 40px);
+    border-radius: var(--radio);
+    background: var(--g);
+    color: var(--gt);
+    position: relative;
+  }
+  .buscador__resultado[hidden] { display: none; }
+  .buscador__resultado.salta { animation: salta 0.6s var(--ease-rebote); }
+  @keyframes salta { from { transform: scale(0.94) rotate(-1deg); opacity: 0.4; } to { transform: none; opacity: 1; } }
+  .buscador__sub { font-weight: 700; font-size: 1rem; }
+  .buscador__nombre { font-size: clamp(2.6rem, 6vw, 5.5rem); font-weight: 800; letter-spacing: -0.05em; line-height: 0.9; }
+  .buscador__datos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 24px; margin: 0; }
+  .buscador__datos dt { font-size: var(--t-s); font-weight: 600; opacity: 0.85; }
+  .buscador__datos dd { margin: 2px 0 0; font-weight: 700; font-size: 1.1rem; line-height: 1.25; }
+  .buscador__resultado .pendiente { align-self: flex-start; }
+
+  .buscador__mapa { grid-column: 1 / 13; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
+  .buscador__resultado:not([hidden]) ~ .buscador__mapa { grid-column: 1 / 13; }
+  .buscador__grupo { background: var(--g); color: var(--gt); border-radius: var(--radio); padding: 18px 16px 20px; }
+  .buscador__grupo h3 { font-size: 1.35rem; letter-spacing: -0.03em; display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .buscador__grupo ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .buscador__grupo a {
+    display: inline-block;
+    padding: 6px 11px;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.22);
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.25s var(--ease-rebote), background-color 0.2s, color 0.2s;
+  }
+  .buscador__grupo a:hover { transform: translateY(-3px) rotate(-2deg); background: var(--papel); color: var(--tinta); }
+  .buscador__d { font-size: 0.8rem; font-weight: 800; }
+  .buscador__grupo a.activo { background: var(--tinta); color: var(--papel); }
+
+  @media (max-width: 1100px) { .buscador__mapa { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 900px) {
+    .buscador { display: flex; flex-direction: column; }
+    .buscador > * { min-width: 0; width: 100%; }
+    .buscador__form, .buscador__resultado { grid-column: 1 / -1; grid-row: auto; }
+    .buscador__datos { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px) { .buscador__mapa { grid-template-columns: 1fr; } }
+</style>

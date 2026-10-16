@@ -1,0 +1,159 @@
+---
+import '../styles/global.css';
+import { site, nav, creditos } from '../data/site';
+import { pendientes } from '../data/pendientes';
+import Flecha from '../components/Flecha.astro';
+import Pendiente from '../components/Pendiente.astro';
+
+interface Props {
+  titulo: string;
+  descripcion?: string;
+  pieColor?: string; // clase de capítulo para el pie
+}
+const { titulo, descripcion = site.descripcion, pieColor = 'c-indigo-hondo' } = Astro.props;
+const ruta = Astro.url.pathname.replace(/\/$/, '') || '/';
+const actual = (href: string) => (href === '/' ? ruta === '/' : ruta.startsWith(href));
+const abiertos = pendientes.filter((p) => p.estado !== 'aprobado').length;
+const [usuario, dominio] = site.correo.split('@');
+---
+<!doctype html>
+<html lang="es-CO">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo === site.nombre ? `${site.nombre} · ${site.nombreLargo}` : `${titulo} · ${site.nombre}`}</title>
+    <meta name="description" content={descripcion} />
+    <meta name="theme-color" content="#5b2adf" />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:image" content="/img/foto-jornada-departamental.webp" />
+    <meta property="og:locale" content="es_CO" />
+    <link rel="icon" type="image/png" href="/img/logo-pdj-valle.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Caveat:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+  </head>
+  <body>
+    <a class="saltar" href="#contenido">Saltar al contenido</a>
+
+    <header class="cabecera">
+      <div class="contenedor cabecera__fila">
+        <a class="marca" href="/" aria-label="PDJ Valle, inicio">
+          <img src="/img/pdj-logo-corto.png" alt="PDJ Valle" width="362" height="182" />
+          <span class="marca__texto" translate="no">Plataforma Departamental<br />de Juventudes del Valle</span>
+        </a>
+        <nav class="navegacion" aria-label="Principal">
+          {nav.map((n) => <a href={n.href} aria-current={actual(n.href) ? 'page' : undefined}>{n.label}</a>)}
+        </nav>
+        <a class="boton boton--indigo" href="/contacto">Escríbenos <Flecha /></a>
+        <button class="menu-boton" type="button" data-abrir-menu aria-expanded="false" aria-controls="menu-movil">Menú</button>
+      </div>
+    </header>
+
+    <div class="menu-movil" id="menu-movil" aria-hidden="true">
+      <div class="menu-movil__top">
+        <span class="mano" style="color:var(--lima)">¡Hola, parce!</span>
+        <button class="menu-boton" type="button" data-cerrar-menu>Cerrar</button>
+      </div>
+      <nav aria-label="Menú móvil">
+        {nav.map((n) => <a href={n.href} aria-current={actual(n.href) ? 'page' : undefined}>{n.label}</a>)}
+        <a href="/contacto" aria-current={actual('/contacto') ? 'page' : undefined}>Contacto</a>
+      </nav>
+      <div class="menu-movil__pie">
+        <a class="boton boton--lima" href="/territorio#tu-municipio">Encuentra tu plataforma <Flecha /></a>
+      </div>
+    </div>
+
+    <main id="contenido">
+      <slot />
+    </main>
+
+    <footer class:list={['capitulo', 'pie', pieColor]}>
+      <div class="contenedor">
+        <div class="pie__notas">
+          <p class="chico"><strong>{site.nombreLargo}</strong><br />Ley 1622 de 2013 · Ley 1885 de 2018</p>
+          <p class="chico">Espacio autónomo de participación juvenil.<br />Sesiones departamentales mínimo dos veces al año.</p>
+          <a class="chico enlace" href="#contenido">Volver arriba ↑</a>
+        </div>
+
+        <div class="pie__contacto">
+          <p class="mano">¿Hablamos?</p>
+          <a class="pie__correo" href={`mailto:${site.correo}`}>
+            <span>{usuario}</span><span>@{dominio}</span>
+          </a>
+          <Pendiente id="PH-05" lado="derecha" />
+        </div>
+
+        <ul class="pie__redes" role="list">
+          {site.redes.map((r) => <li><a class="enlace" href={r.url}>{r.nombre}</a></li>)}
+        </ul>
+
+        <div class="pie__meta chico">
+          <nav aria-label="Pie">
+            {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+            <a href="/revision">Revisión ({abiertos})</a>
+          </nav>
+          <p class="pie__creditos">
+            Fotos del territorio:{' '}
+            {creditos.map((c, i) => (
+              <>
+                <a href={c.url}>«{c.titulo}»</a>, {c.autor}, <a href={c.licenciaUrl}>{c.licencia}</a>{i < creditos.length - 1 ? '; ' : '.'}
+              </>
+            ))}{' '}
+            Fotos de la Plataforma e ilustraciones: ABC de las Plataformas de Juventud, 2026.
+          </p>
+          <p>{site.ciudad} · {site.anio}</p>
+        </div>
+      </div>
+    </footer>
+
+    <button class="interruptor-revision" type="button" data-interruptor-revision aria-pressed="true">
+      <span class="interruptor-revision__punto" aria-hidden="true">{abiertos}</span>
+      <span data-etiqueta>Ocultar notas de revisión</span>
+    </button>
+
+    <script>
+      import '../scripts/motion.ts';
+    </script>
+  </body>
+</html>
+
+<style>
+  .marca__texto { font-size: 0.82rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; color: var(--navy); }
+  @media (max-width: 520px) { .marca__texto { display: none; } }
+
+  .pie { min-height: 90svh; display: flex; padding-bottom: 32px; }
+  .pie > .contenedor { display: flex; flex-direction: column; gap: 40px; }
+  .pie__notas { display: grid; grid-template-columns: repeat(3, auto); justify-content: space-between; gap: 24px; align-items: start; }
+  .pie__notas p { max-width: 36ch; color: var(--texto); }
+  .pie__contacto { margin-top: auto; position: relative; }
+  .pie__contacto .pendiente { position: absolute; right: 0; top: -12px; }
+  .pie__correo {
+    display: block;
+    font-size: clamp(2.6rem, 9vw, 9rem);
+    font-weight: 800;
+    letter-spacing: -0.055em;
+    line-height: 0.9;
+    text-decoration: none;
+    color: var(--texto);
+    transition: color 0.25s;
+    overflow-wrap: anywhere;
+  }
+  .pie__correo span { display: inline-block; transition: transform 0.5s var(--ease-rebote); }
+  .pie__correo:hover { color: var(--lima); }
+  .pie__correo:hover span:last-child { transform: translateX(0.12em) rotate(-2deg); }
+  .pie__redes { display: flex; flex-wrap: wrap; gap: 12px 28px; list-style: none; padding: 0; margin: 0; font-size: var(--t-l); }
+  .pie__meta { display: grid; grid-template-columns: 1fr 1.4fr auto; gap: 24px; align-items: end; color: var(--suave); }
+  .pie__meta nav { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+  .pie__meta a { color: var(--texto); }
+  .pie__creditos a { color: var(--suave); }
+  @media (max-width: 860px) {
+    .pie__notas, .pie__meta { grid-template-columns: 1fr; }
+    .pie__correo span { display: block; }
+    .pie__contacto .pendiente { position: relative; top: 0; margin-top: 16px; }
+  }
+</style>

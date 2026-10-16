@@ -1,0 +1,98 @@
+---
+import Base from '../layouts/Base.astro';
+import CabezaPagina from '../components/CabezaPagina.astro';
+import Titular from '../components/Titular.astro';
+import Pendiente from '../components/Pendiente.astro';
+import Flecha from '../components/Flecha.astro';
+import { site } from '../data/site';
+import { territorios } from '../data/territorio';
+
+const motivos = ['Quiero que mi proceso juvenil haga parte', 'Mi plataforma municipal no está activa', 'Quiero proponer un tema para la agenda', 'Soy de una entidad o medio', 'Otro'];
+---
+<Base titulo="Contacto" descripcion="Escríbele a la Plataforma Departamental de Juventudes del Valle del Cauca.">
+  <CabezaPagina
+    lineas={['Hablemos,', 'parce']}
+    entrada="Para sumarte, reactivar la plataforma de tu municipio, proponer un tema o invitarnos. Respondemos como plataforma, no como oficina."
+    color="c-lima"
+    nota="sin formalismos, pero con acta"
+  />
+
+  <section class="capitulo capitulo--auto c-papel contacto" aria-labelledby="form-titulo">
+    <div class="contenedor rejilla">
+      <form class="formulario" data-formulario action={`mailto:${site.correo}`} method="post" enctype="text/plain">
+        <Titular lineas={['Escríbenos']} id="form-titulo" class="titulo-xl" />
+        <p class="chico suave">Hoy el formulario abre tu correo con el mensaje listo. No guardamos tus datos en esta página.</p>
+        <div class="campo"><label for="f-nombre">Tu nombre</label><input id="f-nombre" name="nombre" autocomplete="name" required /></div>
+        <div class="campo"><label for="f-correo">Tu correo</label><input id="f-correo" name="correo" type="email" autocomplete="email" spellcheck="false" required /></div>
+        <div class="campo">
+          <label for="f-municipio">Municipio</label>
+          <select id="f-municipio" name="municipio" required>
+            <option value="">Elige tu municipio</option>
+            {[...territorios].sort((a, b) => a.nombre.localeCompare(b.nombre, 'es')).map((t) => <option>{t.nombre}</option>)}
+          </select>
+        </div>
+        <fieldset class="campo">
+          <legend>¿Sobre qué?</legend>
+          <div class="motivos">
+            {motivos.map((m, i) => <label class="motivo"><input type="radio" name="motivo" value={m} checked={i === 0} /><span>{m}</span></label>)}
+          </div>
+        </fieldset>
+        <div class="campo"><label for="f-mensaje">Mensaje</label><textarea id="f-mensaje" name="mensaje" rows="5" placeholder="Cuéntanos qué necesitas…" required></textarea></div>
+        <button class="boton boton--indigo" type="submit">Abrir mi correo con el mensaje <Flecha /></button>
+      </form>
+
+      <aside class="canales" aria-labelledby="canales-titulo">
+        <h2 id="canales-titulo" class="titulo-l">O por aquí</h2>
+        <a class="canal c-indigo" href={`mailto:${site.correo}`}><span class="chico">Correo</span><span class="canal__valor">{site.correo}</span></a>
+        {site.redes.map((r, i) => (
+          <a class:list={['canal', ['c-coral', 'c-teal', 'c-azul', 'c-viridian'][i % 4]]} href={r.url}><span class="chico">{r.nombre}</span><span class="canal__valor">{r.usuario}</span></a>
+        ))}
+        <Pendiente id="PH-05" />
+        <Pendiente id="PH-18" lado="derecha" />
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Arma un mailto con asunto y cuerpo legibles, en lugar del envío por defecto.
+  const f = document.querySelector<HTMLFormElement>('[data-formulario]');
+  f?.addEventListener('submit', (e) => {
+    if (!f.checkValidity()) return;
+    e.preventDefault();
+    const d = new FormData(f);
+    const asunto = `[PDJ Valle] ${d.get('motivo')} · ${d.get('municipio')}`;
+    const cuerpo = `${d.get('mensaje')}\n\n— ${d.get('nombre')} (${d.get('correo')}), ${d.get('municipio')}`;
+    window.location.href = `${f.action.split('?')[0]}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
+  });
+</script>
+
+<style>
+  .formulario { grid-column: 1 / 8; display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
+  .campo { width: 100%; display: flex; flex-direction: column; gap: 8px; border: 0; padding: 0; margin: 0; }
+  .campo label, .campo legend { font-weight: 700; font-size: 1.05rem; padding: 0; }
+  .campo input, .campo select, .campo textarea {
+    width: 100%; min-height: 58px; padding: 14px 20px; border: 3px solid var(--tinta); border-radius: 18px;
+    background: var(--papel); color: var(--tinta); font: 500 1.08rem var(--f-texto);
+    transition: transform 0.3s var(--ease-rebote), box-shadow 0.3s var(--ease-rebote);
+  }
+  .campo textarea { resize: vertical; }
+  .campo input:focus, .campo select:focus, .campo textarea:focus { outline: none; transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--indigo); } /* taste-skill-ignore: sombra dura solo en hover/foco/presión, nunca en reposo */
+  .motivos { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .motivo input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .motivo span { display: inline-block; padding: 10px 16px; border-radius: 999px; background: var(--papel-2); font-weight: 600; cursor: pointer; transition: transform 0.3s var(--ease-rebote), background-color 0.2s, color 0.2s; }
+  .motivo span:hover { transform: translateY(-3px); }
+  .motivo input:checked + span { background: var(--indigo); color: var(--papel); }
+  .motivo input:focus-visible + span { outline: 3px solid var(--lima); outline-offset: 3px; box-shadow: 0 0 0 6px var(--tinta); } /* taste-skill-ignore: sombra dura solo en hover/foco/presión, nunca en reposo */
+
+  .canales { grid-column: 9 / 13; display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
+  .canales h2 { margin-bottom: 8px; }
+  .canal { display: flex; flex-direction: column; gap: 2px; padding: 18px 22px; border-radius: var(--radio); background: var(--fondo); color: var(--texto); text-decoration: none; transition: transform 0.35s var(--ease-rebote); }
+  .canal:hover { transform: translateX(-8px) rotate(-1deg); }
+  .canal__valor { font-size: var(--t-l); font-weight: 800; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+  .canales .pendiente { margin-top: 12px; }
+  @media (max-width: 900px) {
+    .formulario, .canales { grid-column: 1 / -1; }
+    .canales { margin-top: 64px; }
+  }
+</style>

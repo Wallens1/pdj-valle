@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+import CabezaPagina from '../components/CabezaPagina.astro';
+import Titular from '../components/Titular.astro';
+import Pendiente from '../components/Pendiente.astro';
+import Buscador from '../components/Buscador.astro';
+import Garabato from '../components/Garabato.astro';
+import CtaBanda from '../components/CtaBanda.astro';
+import { subregiones, porSubregion } from '../data/territorio';
+
+const clases: Record<string, string> = {
+  sur: 'c-coral', centro: 'c-azul', pacifico: 'c-teal', 'centro-norte': 'c-lima', tulua: 'c-viridian', norte: 'c-indigo',
+};
+---
+<Base titulo="Territorio" descripcion="Las 6 subregiones y los 42 territorios del Valle del Cauca: encuentra cómo funciona la plataforma de juventud de tu municipio.">
+  <CabezaPagina
+    lineas={['42 territorios,', '6 subregiones']}
+    entrada="El Valle tiene división subregional reconocida desde 1989 y en formalización desde 2026. Cali y Buenaventura son Distritos Especiales: eso cambia su ruta."
+    color="c-viridian"
+    nota="busca el tuyo aquí abajo"
+  />
+
+  <section class="capitulo capitulo--auto c-lima" id="tu-municipio" aria-labelledby="buscar-titulo">
+    <div class="contenedor">
+      <div class="buscar__cabeza">
+        <Titular lineas={['¿De dónde eres?']} id="buscar-titulo" class="titulo-xl" />
+        <Pendiente id="PH-10" lado="derecha" />
+      </div>
+      <Buscador />
+    </div>
+  </section>
+
+  {subregiones.map((s, i) => {
+    const lista = porSubregion(s.id);
+    return (
+      <section id={s.id} class:list={['capitulo', 'subregion', clases[s.id], i % 2 && 'subregion--invertida']} aria-labelledby={`t-${s.id}`}>
+        <div class="contenedor rejilla subregion__rejilla">
+          <div class="subregion__texto">
+            <p class="subregion__cuenta" aria-hidden="true">{lista.length}</p>
+            <Titular lineas={[s.nombre]} id={`t-${s.id}`} class="titulo-gigante" />
+            <p class="entrada">{s.resumen}</p>
+            <ul class="subregion__municipios" role="list" data-revelar>
+              {lista.map((t) => (
+                <li class:list={[t.distrito && 'distrito', t.confirmar && 'confirmar']}>
+                  {t.nombre}
+                  {t.distrito && <span class="subregion__etiqueta">Distrito</span>}
+                  {t.confirmar && <span class="subregion__etiqueta" data-solo-revision>por confirmar</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="subregion__visual">
+            {s.foto ? (
+              <figure class="foto-viva" data-revelar-solo>
+                <img src={s.foto.src} alt={s.foto.alt} width="1600" height="1200" loading="lazy" data-deriva="0.05" />
+                <figcaption class="chico">{s.foto.credito}</figcaption>
+              </figure>
+            ) : (
+              <div class="hueco-foto subregion__hueco" style="--hueco: rgb(255 255 255 / 0.35)">
+                <Pendiente id="PH-16" />
+              </div>
+            )}
+            <Garabato forma={i % 2 ? 'estrella' : 'espiral'} class="subregion__garabato flotar" />
+          </div>
+        </div>
+      </section>
+    );
+  })}
+
+  <CtaBanda palabra="Conecta" frase="¿Tu plataforma municipal no aparece activa? Cuéntanos y te ayudamos con la ruta." href="/contacto" color="c-coral" />
+</Base>
+
+<style>
+  .buscar__cabeza { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
+  .subregion { display: flex; align-items: center; overflow: hidden; }
+  .subregion__rejilla { align-items: center; }
+  .subregion__texto { grid-column: 1 / 7; display: flex; flex-direction: column; gap: 24px; position: relative; }
+  .subregion__visual { grid-column: 7 / 13; position: relative; }
+  .subregion--invertida .subregion__texto { grid-column: 7 / 13; grid-row: 1; }
+  .subregion--invertida .subregion__visual { grid-column: 1 / 7; grid-row: 1; }
+  .subregion__cuenta { position: absolute; right: 0; top: -0.2em; font-size: clamp(6rem, 16vw, 16rem); font-weight: 800; letter-spacing: -0.08em; line-height: 0.8; opacity: 0.18; z-index: -1; }
+  .subregion__municipios { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .subregion__municipios li { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; background: rgb(255 255 255 / 0.2); font-weight: 700; font-size: 1.05rem; transition: transform 0.3s var(--ease-rebote), background-color 0.2s, color 0.2s; }
+  .subregion__municipios li:hover { transform: translateY(-4px) rotate(-2deg); background: var(--papel); color: var(--tinta); }
+  .subregion__municipios .distrito { background: var(--tinta); color: var(--papel); }
+  .subregion__etiqueta { font-size: 0.75rem; padding: 2px 8px; border-radius: 999px; background: var(--lima); color: var(--tinta); }
+  .confirmar .subregion__etiqueta { background: var(--nota); }
+  .subregion figure { margin: 0; border-radius: var(--radio); overflow: hidden; position: relative; aspect-ratio: 4 / 3; }
+  .subregion figure img { width: 100%; height: 115%; object-fit: cover; }
+  .subregion figcaption { position: absolute; left: 12px; bottom: 12px; padding: 5px 10px; border-radius: 999px; background: var(--papel); color: var(--tinta); }
+  .subregion__hueco { aspect-ratio: 4 / 3; }
+  .subregion :global(.subregion__garabato) { width: 120px; right: -20px; top: -40px; color: var(--acento); }
+  @media (max-width: 900px) {
+    .subregion__texto, .subregion__visual, .subregion--invertida .subregion__texto, .subregion--invertida .subregion__visual { grid-column: 1 / -1; grid-row: auto; }
+    .subregion__visual { margin-top: 32px; }
+  }
+</style>
