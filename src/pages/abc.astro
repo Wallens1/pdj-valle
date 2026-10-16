@@ -285,8 +285,10 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
       es.forEach((e) => {
         if (!e.isIntersecting) return;
         enlaces.forEach((a) => a.classList.toggle('activo', a.dataset.indice === e.target.id));
+        // Solo desplaza la fila del índice de lado; nunca mueve la página.
         const act = document.querySelector<HTMLElement>(`[data-indice="${e.target.id}"]`);
-        act?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+        const fila = act?.parentElement;
+        if (act && fila) fila.scrollTo({ left: act.offsetLeft - (fila.clientWidth - act.offsetWidth) / 2, behavior: 'smooth' });
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
     enlaces.forEach((a) => { const s = document.getElementById(a.dataset.indice!); if (s) io.observe(s); });
@@ -348,7 +350,9 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
 
 <style>
   /* Índice */
-  .indice { position: sticky; top: 0; z-index: 30; background: var(--tinta); }
+  .indice { position: sticky; top: var(--alto-cabecera); z-index: 30; background: var(--tinta); transition: top 0.45s var(--ease-salida); }
+  :global(html.cabecera-oculta) .indice { top: 0; }
+  :global(html:has(.indice)) { scroll-padding-top: calc(var(--alto-cabecera) + 72px); }
   .indice__fila { display: flex; gap: 6px; overflow-x: auto; padding-block: 10px; scrollbar-width: none; }
   .indice a { flex: 0 0 auto; padding: 9px 16px; border-radius: 999px; color: var(--papel); font-weight: 700; font-size: 0.95rem; text-decoration: none; transition: background-color 0.2s, color 0.2s, transform 0.3s var(--ease-rebote); }
   .indice a:hover { background: rgb(255 255 255 / 0.12); transform: translateY(-2px); }

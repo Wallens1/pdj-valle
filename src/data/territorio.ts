@@ -1,22 +1,23 @@
-// Las 6 subregiones y los 42 territorios del Valle del Cauca.
-// Fuente: ABC de las Plataformas de Juventud (ed. 2026), p. 12.
-// `confirmar: true` marca los municipios que el ABC no ubica de forma explícita
-// en una subregión: la Plataforma debe validar la asignación (ver /revision).
+// Las 6 subregiones del Valle del Cauca, tal como las trae el ABC de las
+// Plataformas de Juventud (ed. 2026), tabla «Las 6 subregiones del Valle», p. 12.
+//
+// El ABC nombra 35 territorios y para el Norte agrega «y 8 más» sin decir
+// cuáles. Los municipios que el ABC no nombra quedan en `sinUbicar` hasta que la
+// Plataforma confirme su subregión (pendiente PH-10). No se asignan por cuenta propia.
 
 export type Subregion = {
   id: string;
-  nombre: string;
+  nombre: string; // como aparece en el ABC
   color: string; // token CSS de su capítulo
   tinta: string;
   foto?: { src: string; alt: string; credito?: string };
-  resumen: string;
+  notaAbc?: string; // aclaración que trae el propio ABC
 };
 
 export type Territorio = {
   nombre: string;
-  subregion: string;
+  subregion: string | null; // null = el ABC no lo ubica
   distrito?: string; // nombre oficial cuando es Distrito Especial
-  confirmar?: boolean;
 };
 
 export const subregiones: Subregion[] = [
@@ -30,14 +31,13 @@ export const subregiones: Subregion[] = [
       alt: 'Collage de calles, parques y plazas de Palmira',
       credito: '“Palmira Valle Del Cauca”, Dantiagok017, CC BY-SA 4.0',
     },
-    resumen: 'Llanura, caña y municipios que se mueven a ritmo de feria.',
   },
   {
     id: 'centro',
     nombre: 'Centro',
     color: 'var(--azul)',
     tinta: 'var(--tinta)',
-    resumen: 'Cali y su área: la mayor concentración de procesos juveniles del departamento.',
+    notaAbc: 'Incluye a Santiago de Cali, Distrito Especial: su plataforma es distrital y se registra ante la Personería Distrital.',
   },
   {
     id: 'pacifico',
@@ -49,14 +49,13 @@ export const subregiones: Subregion[] = [
       alt: 'Muelle de madera y lanchas en Buenaventura',
       credito: '“Puente de los Nayeros Buenaventura, Colombia”, Diaz.darly, CC BY-SA 4.0',
     },
-    resumen: 'Buenaventura: puerto, biodiversidad y Distrito Especial con plataforma propia.',
+    notaAbc: 'Buenaventura es Distrito Especial: su plataforma es distrital y participa en la Departamental como cualquier delegación de base.',
   },
   {
     id: 'centro-norte',
     nombre: 'Centro-Norte',
     color: 'var(--lima)',
     tinta: 'var(--tinta)',
-    resumen: 'Buga, Calima y el valle medio: lagos, montaña y tradición.',
   },
   {
     id: 'tulua',
@@ -68,19 +67,13 @@ export const subregiones: Subregion[] = [
       alt: 'Vista panorámica de Tuluá con la cordillera al fondo',
       credito: '“Tuluá, Valle del Cauca, Colombia”, Andres Garzon, CC BY 2.0',
     },
-    resumen: 'El corazón del Valle: Tuluá y los municipios cordilleranos que la rodean.',
   },
   {
     id: 'norte',
     nombre: 'Norte',
     color: 'var(--indigo)',
     tinta: 'var(--papel)',
-    foto: {
-      src: '/img/territorio-el.webp',
-      alt: 'Plaza, iglesias y tejados de El Dovio entre montañas',
-      credito: '“El Dovio, Valle del Cauca, Colombia”, Hectorangelazul, CC BY-SA 4.0',
-    },
-    resumen: 'Cartago y el norte cafetero: el territorio con más municipios del Valle.',
+    notaAbc: 'El ABC nombra estos 5 municipios «y 8 más», sin decir cuáles.',
   },
 ];
 
@@ -97,7 +90,6 @@ export const territorios: Territorio[] = [
   { nombre: 'Yumbo', subregion: 'centro' },
   { nombre: 'Jamundí', subregion: 'centro' },
   { nombre: 'Dagua', subregion: 'centro' },
-  { nombre: 'La Cumbre', subregion: 'centro', confirmar: true },
   // Pacífico
   { nombre: 'Buenaventura', subregion: 'pacifico', distrito: 'Buenaventura, Distrito Especial' },
   // Centro-Norte
@@ -110,29 +102,32 @@ export const territorios: Territorio[] = [
   // Tuluá
   { nombre: 'Tuluá', subregion: 'tulua' },
   { nombre: 'Andalucía', subregion: 'tulua' },
-  { nombre: 'Bugalagrande', subregion: 'tulua', confirmar: true },
   { nombre: 'Zarzal', subregion: 'tulua' },
   { nombre: 'Trujillo', subregion: 'tulua' },
   { nombre: 'Riofrío', subregion: 'tulua' },
   { nombre: 'San Pedro', subregion: 'tulua' },
   { nombre: 'Sevilla', subregion: 'tulua' },
   { nombre: 'Caicedonia', subregion: 'tulua' },
-  // Norte
+  // Norte (los que nombra el ABC)
   { nombre: 'Cartago', subregion: 'norte' },
   { nombre: 'Roldanillo', subregion: 'norte' },
   { nombre: 'La Unión', subregion: 'norte' },
   { nombre: 'Toro', subregion: 'norte' },
   { nombre: 'El Águila', subregion: 'norte' },
-  { nombre: 'Alcalá', subregion: 'norte', confirmar: true },
-  { nombre: 'Ansermanuevo', subregion: 'norte', confirmar: true },
-  { nombre: 'Argelia', subregion: 'norte', confirmar: true },
-  { nombre: 'Bolívar', subregion: 'norte', confirmar: true },
-  { nombre: 'El Cairo', subregion: 'norte', confirmar: true },
-  { nombre: 'El Dovio', subregion: 'norte', confirmar: true },
-  { nombre: 'La Victoria', subregion: 'norte', confirmar: true },
-  { nombre: 'Obando', subregion: 'norte', confirmar: true },
-  { nombre: 'Ulloa', subregion: 'norte', confirmar: true },
-  { nombre: 'Versalles', subregion: 'norte', confirmar: true },
+  // Sin ubicar en el ABC (8 de ellos son los «8 más» del Norte)
+  { nombre: 'Alcalá', subregion: null },
+  { nombre: 'Ansermanuevo', subregion: null },
+  { nombre: 'Argelia', subregion: null },
+  { nombre: 'Bolívar', subregion: null },
+  { nombre: 'Bugalagrande', subregion: null },
+  { nombre: 'El Cairo', subregion: null },
+  { nombre: 'El Dovio', subregion: null },
+  { nombre: 'La Cumbre', subregion: null },
+  { nombre: 'La Victoria', subregion: null },
+  { nombre: 'Obando', subregion: null },
+  { nombre: 'Ulloa', subregion: null },
+  { nombre: 'Versalles', subregion: null },
 ];
 
 export const porSubregion = (id: string) => territorios.filter((t) => t.subregion === id);
+export const sinUbicar = territorios.filter((t) => t.subregion === null);

@@ -6,7 +6,7 @@ import Pendiente from '../components/Pendiente.astro';
 import Buscador from '../components/Buscador.astro';
 import Garabato from '../components/Garabato.astro';
 import CtaBanda from '../components/CtaBanda.astro';
-import { subregiones, porSubregion } from '../data/territorio';
+import { subregiones, porSubregion, sinUbicar } from '../data/territorio';
 
 const clases: Record<string, string> = {
   sur: 'c-coral', centro: 'c-azul', pacifico: 'c-teal', 'centro-norte': 'c-lima', tulua: 'c-viridian', norte: 'c-indigo',
@@ -15,7 +15,7 @@ const clases: Record<string, string> = {
 <Base titulo="Territorio" descripcion="Las 6 subregiones y los 42 territorios del Valle del Cauca: encuentra cómo funciona la plataforma de juventud de tu municipio.">
   <CabezaPagina
     lineas={['42 territorios,', '6 subregiones']}
-    entrada="El Valle tiene división subregional reconocida desde 1989 y en formalización desde 2026. Cali y Buenaventura son Distritos Especiales: eso cambia su ruta."
+    entrada="Según el ABC, el Valle tiene 6 subregiones reconocidas desde 1989 y en formalización (LOOT) desde 2026. Cali y Buenaventura son Distritos Especiales: eso cambia su ruta."
     color="c-viridian"
     nota="busca el tuyo aquí abajo"
   />
@@ -24,7 +24,6 @@ const clases: Record<string, string> = {
     <div class="contenedor">
       <div class="buscar__cabeza">
         <Titular lineas={['¿De dónde eres?']} id="buscar-titulo" class="titulo-xl" />
-        <Pendiente id="PH-10" lado="derecha" />
       </div>
       <Buscador />
     </div>
@@ -38,13 +37,13 @@ const clases: Record<string, string> = {
           <div class="subregion__texto">
             <p class="subregion__cuenta" aria-hidden="true">{lista.length}</p>
             <Titular lineas={[s.nombre]} id={`t-${s.id}`} class="titulo-gigante" />
-            <p class="entrada">{s.resumen}</p>
+            <p class="entrada">{lista.length} {lista.length === 1 ? 'territorio' : 'territorios'} según la tabla del ABC.</p>
+            {s.notaAbc && <p class="subregion__nota">{s.notaAbc}</p>}
             <ul class="subregion__municipios" role="list" data-revelar>
               {lista.map((t) => (
-                <li class:list={[t.distrito && 'distrito', t.confirmar && 'confirmar']}>
+                <li class:list={[t.distrito && 'distrito']}>
                   {t.nombre}
                   {t.distrito && <span class="subregion__etiqueta">Distrito</span>}
-                  {t.confirmar && <span class="subregion__etiqueta" data-solo-revision>por confirmar</span>}
                 </li>
               ))}
             </ul>
@@ -67,6 +66,20 @@ const clases: Record<string, string> = {
     );
   })}
 
+  <section id="sin-ubicar" class="capitulo capitulo--auto c-papel-2 sin-ubicar" aria-labelledby="t-sin-ubicar">
+    <div class="contenedor rejilla">
+      <div class="sin-ubicar__texto">
+        <Titular lineas={['Sin ubicar', 'en el ABC']} id="t-sin-ubicar" class="titulo-xl" />
+        <p class="entrada">El ABC nombra 30 territorios en su tabla y agrega «y 8 más» al Norte, sin decir cuáles. Estos {sinUbicar.length} municipios no aparecen.</p>
+        <p class="texto">Ocho de ellos serían los «8 más» del Norte; los otros cuatro no quedan cubiertos por la tabla. La Plataforma debe confirmar la subregión de cada uno con la Secretaría de Desarrollo Social antes de publicarla.</p>
+        <Pendiente id="PH-10" />
+      </div>
+      <ul class="sin-ubicar__lista" role="list" data-revelar>
+        {sinUbicar.map((t) => <li>{t.nombre}</li>)}
+      </ul>
+    </div>
+  </section>
+
   <CtaBanda palabra="Conecta" frase="¿Tu plataforma municipal no aparece activa? Cuéntanos y te ayudamos con la ruta." href="/contacto" color="c-coral" />
 </Base>
 
@@ -84,7 +97,12 @@ const clases: Record<string, string> = {
   .subregion__municipios li:hover { transform: translateY(-4px) rotate(-2deg); background: var(--papel); color: var(--tinta); }
   .subregion__municipios .distrito { background: var(--tinta); color: var(--papel); }
   .subregion__etiqueta { font-size: 0.75rem; padding: 2px 8px; border-radius: 999px; background: var(--lima); color: var(--tinta); }
-  .confirmar .subregion__etiqueta { background: var(--nota); }
+  .subregion__nota { max-width: 46ch; font-weight: 600; padding: 14px 18px; border-radius: 18px; background: rgb(255 255 255 / 0.18); }
+  .sin-ubicar__texto { grid-column: 1 / 7; display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+  .sin-ubicar__lista { grid-column: 8 / 13; list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; align-content: flex-start; }
+  .sin-ubicar__lista li { padding: 10px 16px; border-radius: 999px; background: var(--nota); font-weight: 700; transition: transform 0.3s var(--ease-rebote); }
+  .sin-ubicar__lista li:hover { transform: translateY(-4px) rotate(-2deg); }
+  @media (max-width: 900px) { .sin-ubicar__texto, .sin-ubicar__lista { grid-column: 1 / -1; } .sin-ubicar__lista { margin-top: 28px; } }
   .subregion figure { margin: 0; border-radius: var(--radio); overflow: hidden; position: relative; aspect-ratio: 4 / 3; }
   .subregion figure img { width: 100%; height: 115%; object-fit: cover; }
   .subregion figcaption { position: absolute; left: 12px; bottom: 12px; padding: 5px 10px; border-radius: 999px; background: var(--papel); color: var(--tinta); }

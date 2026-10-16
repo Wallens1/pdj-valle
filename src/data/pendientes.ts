@@ -34,7 +34,7 @@ export const pendientes: Pendiente[] = [
   { id: 'PH-09', titulo: 'Modelo de conformación', pagina: '/abc', tipo: 'dato', estado: 'pendiente',
     falta: 'Confirmar con la Secretaría de Desarrollo Social si la Departamental se conforma por subregión o por municipio, y cuántos delegados la integran.' },
   { id: 'PH-10', titulo: 'Municipios por subregión', pagina: '/territorio', tipo: 'dato', estado: 'pendiente',
-    falta: 'Validar la subregión de los municipios marcados con «por confirmar» (el ABC no los ubica de forma explícita).' },
+    falta: 'Confirmar la subregión de los 12 municipios que el ABC no nombra (Alcalá, Ansermanuevo, Argelia, Bolívar, Bugalagrande, El Cairo, El Dovio, La Cumbre, La Victoria, Obando, Ulloa, Versalles) y cuáles son los «8 más» del Norte.' },
   { id: 'PH-11', titulo: 'Contacto de cada plataforma municipal', pagina: '/territorio', tipo: 'contacto', estado: 'pendiente',
     falta: 'Por municipio: estado (activa/inactiva), fecha de registro, contacto público de la vocería y red social.' },
   { id: 'PH-12', titulo: 'Reglamento interno', pagina: '/documentos', tipo: 'documento', estado: 'pendiente',

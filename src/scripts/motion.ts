@@ -104,7 +104,9 @@ function prepararCabecera() {
   let ultimo = window.scrollY;
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
-    cab.classList.toggle('oculta', y > ultimo && y > 240);
+    const oculta = y > ultimo && y > 240;
+    cab.classList.toggle('oculta', oculta);
+    raiz.classList.toggle('cabecera-oculta', oculta);
     ultimo = y;
   }, { passive: true });
 }
