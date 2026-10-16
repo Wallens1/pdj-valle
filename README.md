@@ -37,6 +37,32 @@ El botón abajo a la izquierda oculta/muestra las notas para ver la página como
 
 Todo el texto reutilizable vive en `src/data/`: `site.ts` (nombre, correo, redes, equipo, créditos), `abc.ts` (contenido del ABC), `territorio.ts` (subregiones y municipios), `agenda.ts`, `documentos.ts` y `pendientes.ts`.
 
+## Revisión privada (antes del lanzamiento)
+
+Mientras el sitio es borrador, solo se ve con usuario y clave. La puerta está en `functions/_middleware.js` y corre en Cloudflare Pages **antes** de entregar cualquier archivo (páginas, imágenes y el PDF). El código del sitio no cambia. GitHub Pages queda solo con ejecución manual para que no exista una copia pública.
+
+**Puesta en marcha (una vez):**
+
+1. Volver privado el repositorio (GitHub → Settings → General → Danger Zone → Change visibility). Si sigue público, cualquiera lee el contenido en github.com.
+2. Despublicar la copia actual: GitHub → Settings → Pages → *Unpublish site*.
+3. Cloudflare → Workers & Pages → Create → Pages → conectar este repositorio.
+   - Build command: `npm run build` · Output directory: `dist`
+   - Variables de compilación: `BASE_PATH` = *(vacío)*, `SITE_URL` = `https://<proyecto>.pages.dev`
+4. En Settings → Variables and Secrets (tipo **Secret**, en *Production* y *Preview*):
+   - `REVISION_CUENTAS` = `usuario:clave[:AAAA-MM-DD]`, separadas por coma. La fecha vence esa cuenta al terminar ese día (hora de Colombia). Sin `:` ni `,` en las claves.
+   - `REVISION_VENCE` = `AAAA-MM-DD`, el último día de la revisión para todos.
+5. Volver a desplegar (los cambios de variables solo aplican al siguiente despliegue).
+
+Si falta una variable o tiene mal el formato, el sitio queda **cerrado** (nunca abierto por error).
+
+**Día a día:**
+
+- Una cuenta por persona o grupo (vocería, diseño, aliados…) para poder quitarle el acceso a uno sin cambiarle la clave a todos. Claves de 12 o más caracteres generadas al azar, compartidas por un canal distinto al del enlace.
+- Revocar o ampliar: editar la variable y volver a desplegar. Basic Auth no tiene «cerrar sesión»: el navegador recuerda la clave hasta que se cierra.
+- Intentos fallidos: Cloudflare → proyecto → Functions → registros en tiempo real.
+
+**Lanzamiento:** borrar `functions/_middleware.js`, quitar las variables `REVISION_*` y decidir dónde queda el sitio público (seguir en Cloudflare, lo más simple, o volver a `on: push` en `.github/workflows/pages.yml`). Antes de abrir, cerrar los `PH-xx` de `/revision`.
+
 ## Fase 2: cuentas y subida de documentos
 
 El sitio es estático hoy (`output: 'static'` en `astro.config.mjs`). Para la fase 2:

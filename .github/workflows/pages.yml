@@ -1,8 +1,9 @@
 name: Publicar en GitHub Pages
 
+# Durante la revisión privada el sitio se sirve desde Cloudflare Pages con clave
+# (functions/_middleware.js). Publicar aquí dejaría una copia pública del borrador,
+# por eso solo corre a mano. Para el lanzamiento, ver README «Revisión privada».
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
