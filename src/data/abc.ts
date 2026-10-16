@@ -1,4 +1,4 @@
-// Contenido del «ABC de las Plataformas de Juventud», edición ampliada 2026.
+// Contenido del «ABC de las Plataformas de Juventud», edición final 2026 (32 págs.).
 // Se mantiene aquí como datos para que la página /abc (y, más adelante, un
 // gestor de contenidos) lo reutilicen sin duplicar texto.
 
@@ -48,7 +48,7 @@ export const puede = [
 export const integrantes = [
   { tipo: 'Formales', texto: 'Con personería jurídica y registro ante autoridad competente.' },
   { tipo: 'No formales', texto: 'Sin personería, pero reconocidos por documento privado.' },
-  { tipo: 'Informales', texto: 'Colectivos espontáneos sin registro. Igual cuentan.' },
+  { tipo: 'Informales', texto: 'Colectivos espontáneos, parches, barras: la ley los reconoce igual.' },
 ];
 
 export const niveles = [
@@ -142,6 +142,7 @@ export const exigibilidad = [
   { paso: 'Derecho de petición', texto: 'Formal, radicado, con copia a la oficina de juventud del territorio. Tienen 15 días hábiles para responder (Ley 1755 de 2015).' },
   { paso: 'Queja a la Personería', texto: 'Si vence el plazo sin respuesta, radica la queja sin esperar más.' },
   { paso: 'Procuraduría Regional', texto: 'Si persiste: tiene un mecanismo activo de seguimiento a las Plataformas.' },
+  { paso: 'Acción de tutela', texto: 'Cuando lo anterior no basta, o hay riesgo de un perjuicio irremediable: el mecanismo constitucional más fuerte y rápido que existe en Colombia.' },
 ];
 
 export const plantillaPeticion = `Señor(a) [Alcalde / Gobernador] de [territorio]:
@@ -161,6 +162,57 @@ export const faq = [
   { p: '¿Tenemos voto en la Comisión de Concertación?', r: 'Si el Consejo de Juventud está posesionado, la Plataforma tiene 2 veedores con voz y sin voto. Si no lo está, 3 delegados asumen las funciones del Consejo con voto. Verifícalo por escrito con la Personería.' },
   { p: '¿Cada cuánto tenemos que sesionar?', r: 'Municipal y distrital: mínimo una vez al mes. Departamental: mínimo dos veces al año. Las extraordinarias, según el reglamento interno.' },
   { p: 'Soy de Cali o Buenaventura, ¿qué cambia?', r: 'Ambos son Distritos Especiales: tu plataforma es distrital, se registra ante la Personería Distrital y participa en la Departamental como cualquier delegación de base.' },
-  { p: '¿Qué hacemos si no nos convocan?', r: 'Derecho de petición citando el Art. 61 de la Ley 1622. Si en 15 días hábiles no responden, queja a la Personería y luego a la Procuraduría Regional.' },
+  { p: '¿Qué hacemos si no nos convocan?', r: 'Derecho de petición citando el Art. 61 de la Ley 1622. Si en 15 días hábiles no responden, queja a la Personería, luego traslado a la Procuraduría Regional y, como cuarto escalón, acción de tutela.' },
+  { p: '¿Qué es ser plataformado?', r: 'No es un cargo ni un cupo. Es representar tu organización (no solo tu opinión), rendir cuentas a quien te delegó, ejercer veeduría aunque incomode y sostener el proceso más allá de tu período.' },
   { p: '¿Por qué exigir paridad en las delegaciones?', r: 'Porque es obligatoria: cada delegación a otro nivel lleva 1 hombre y 1 mujer. Una delegación sin paridad puede ser objetada en el registro.' },
 ];
+
+// --- Sección 00 · Qué es una plataforma (nueva en la edición final) ---
+export const queEs = {
+  definicion: 'Escenario de encuentro, articulación, coordinación e interlocución de las juventudes, de carácter autónomo.',
+  real: 'Esa es la definición jurídica. La real: el lugar donde parches, colectivos, semilleros, barras, grupos culturales, deportivos, ambientales, estudiantiles, étnicos y LGBTIQ+ dejan de actuar por separado y empiezan a hablar con una sola voz frente al Estado.',
+  plataformado: 'No es un cargo ni un cupo. Es representar tu organización (no solo tu opinión), rendir cuentas a quien te delegó, ejercer veeduría aunque incomode y sostener el proceso más allá de tu período.',
+  porQue: 'Antes de 1991 la juventud no era sujeto político en la ley: era objeto de protección, como un menor permanente. La Constitución rompió eso. En 1997 nació la primera Ley de la Juventud (375), sin blindaje estatutario: cualquier gobierno podía vaciarla. La Sentencia C-862 de 2012 exigió el trámite más fuerte, y en 2013 nació la Ley 1622.',
+  lucha: 'Entre 2019 y 2021, la movilización social juvenil, incluido el paro nacional de 2021, puso la exclusión en el centro del debate. El Gobierno respondió con 492 mesas y 14.600 jóvenes consultados en 32 departamentos.',
+  resultado: 'CONPES 4040: 1.272 propuestas recogidas del territorio, 142 acciones, 32 entidades del Estado comprometidas y $33,5 billones de inversión 2021-2030.',
+};
+
+export const subsistemas = [
+  { nombre: 'Institucional', texto: 'Consejo Nacional de Política Pública de Juventud y dependencias territoriales.' },
+  { nombre: 'Participación', texto: 'Procesos organizativos, espacios juveniles, Plataformas y Asambleas.' },
+  { nombre: 'Comisiones', texto: 'Comisiones de Concertación y Decisión.' },
+];
+
+export const guionVoto = [
+  'Solicito confirmar si el Consejo de Juventud de [municipio] está posesionado.',
+  'En caso afirmativo, indicar la fecha de posesión.',
+  'En caso negativo, confirmar el régimen transitorio vigente.',
+];
+
+export const roles = [
+  { rol: 'Radicar', quien: 'Vocero o vocera de la Plataforma' },
+  { rol: 'Archivar', quien: 'Secretaría técnica interna' },
+  { rol: 'Verificar', quien: 'Delegados ante la Comisión' },
+];
+
+export const tutela = {
+  protege: 'La participación juvenil es un derecho fundamental (Arts. 45 y 103 de la Constitución): su vulneración es tutelable.',
+  quien: 'Cualquier persona, sin necesidad de abogado, en nombre propio o de su organización, ante cualquier juez de la República.',
+  requisitos: [
+    'Vulneración de un derecho fundamental.',
+    'No existe otro medio de defensa judicial, o hay riesgo de perjuicio irremediable.',
+    'Explicar con claridad el hecho y el derecho afectado.',
+  ],
+  plazo: 'Fallo en máximo 10 días hábiles desde que se radica. Si no se cumple, la autoridad incurre en desacato: arresto hasta 6 meses y multa (Art. 52, Decreto 2591 de 1991).',
+  cuando: [
+    { caso: 'Nunca convocaron la conformación', detalle: 'Pese a petición y queja previas ante la Personería.' },
+    { caso: 'La Comisión no sesiona hace más de un año', detalle: 'Pese a ser obligatoria por el Art. 66.' },
+    { caso: 'Te niegan espacio y recursos sistemáticamente', detalle: 'Después de haberlo exigido por escrito más de una vez.' },
+  ],
+};
+
+export const frases = {
+  identidad: 'Nunca dejes de pelear por algo que es tu derecho: participa y defiende tus ideales.',
+  diagnostico: 'El 18,5 % de las Plataformas municipales reportadas nunca llega a sesionar: la brecha no es de ley, es de continuidad.',
+  delegados: 'Ser delegado departamental es ocupar, con voz y decisión real, una de las pocas sillas que el país sí les garantiza a los jóvenes.',
+};

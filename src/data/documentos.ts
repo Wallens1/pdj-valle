@@ -12,7 +12,7 @@ export type Documento = {
 };
 
 export const documentos: Documento[] = [
-  { titulo: 'ABC de las Plataformas de Juventud 2026', tipo: 'Guía', fecha: '2026', peso: 'PDF · 29 págs.', href: '/docs/abc-plataformas-juventud-valle.pdf' },
+  { titulo: 'ABC de las Plataformas de Juventud 2026', tipo: 'Guía', fecha: '2026', peso: 'PDF · 32 págs. · 6 MB', href: '/docs/abc-plataformas-juventud-valle.pdf' },
   { titulo: 'Reglamento interno de la Plataforma Departamental', tipo: 'Reglamento', fecha: '[fecha]', pendiente: 'PH-12' },
   { titulo: 'Plan de Acción del período', tipo: 'Plan', fecha: '[fecha]', pendiente: 'PH-13' },
   { titulo: 'Acta de conformación y registro ante la Procuraduría Regional', tipo: 'Acta', fecha: '[fecha]', pendiente: 'PH-14' },

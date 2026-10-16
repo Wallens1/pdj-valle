@@ -9,9 +9,11 @@ import Flecha from '../components/Flecha.astro';
 import {
   hitos, conpes, puede, niveles, rutaConformacion, funciones, comision,
   beneficios, planTactico, autodiagnostico, exigibilidad, plantillaPeticion,
+  queEs, subsistemas, guionVoto, roles, tutela, frases, integrantes,
 } from '../data/abc';
 
 const capitulos = [
+  ['que-es', 'Qué es'],
   ['marco-legal', 'Marco legal'],
   ['identidad', 'Identidad'],
   ['estructura', 'Estructura'],
@@ -28,7 +30,7 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
     lineas={['Tu ABC de', 'plataformas']}
     entrada="Marco legal, beneficios reales y hoja de ruta para ejercer la participación juvenil en lo municipal, lo distrital y lo departamental."
     color="c-indigo"
-    nota="edición ampliada 2026"
+    nota="edición final 2026"
     imagen={{ src: '/img/ilustra-flores.webp', alt: 'Ilustración de jóvenes entre flores gigantes de colores', w: 1200, h: 521 }}
   >
     <a class="boton boton--lima" href={pdf} download>Descarga el ABC en PDF <Flecha /></a>
@@ -39,6 +41,42 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
       {capitulos.map(([id, n]) => <a href={`#${id}`} data-indice={id}>{n}</a>)}
     </div>
   </nav>
+
+  <!-- 00 QUÉ ES UNA PLATAFORMA -->
+  <section id="que-es" class="capitulo capitulo--auto c-papel que-es" aria-labelledby="que-es-titulo">
+    <div class="contenedor rejilla">
+      <div class="que-es__texto">
+        <Titular lineas={['Qué es', 'una plataforma']} id="que-es-titulo" class="titulo-xl" />
+        <p class="entrada">El Estado la crea por ley, pero no la construye. La construyen los parches, colectivos y procesos que ya existían en el territorio.</p>
+        <blockquote class="que-es__cita">
+          <p>«{queEs.definicion}»</p>
+          <footer class="chico">Art. 60, Ley 1622 de 2013, modificada por la Ley 1885 de 2018</footer>
+        </blockquote>
+        <p class="texto">{queEs.real}</p>
+      </div>
+      <figure class="que-es__foto" data-revelar-solo>
+        <img src="/img/abc-jovenes-colegio.webp" alt="Joven con chaleco de la Plataforma Departamental frente a un grupo de estudiantes en un colegio" width="1241" height="1154" loading="lazy" data-deriva="0.04" />
+      </figure>
+      <div class="que-es__plataformado c-indigo" data-revelar-solo>
+        <p class="mano">Qué es ser plataformado</p>
+        <p class="titulo-l">{queEs.plataformado}</p>
+      </div>
+      <div class="que-es__integran">
+        <h3 class="titulo-l">Quién puede integrarla</h3>
+        <ul role="list" data-revelar>
+          {integrantes.map((t, i) => <li class={['c-lima', 'c-coral', 'c-azul'][i]}><strong>{t.tipo}</strong><span>{t.texto}</span></li>)}
+        </ul>
+      </div>
+      <div class="que-es__historia">
+        <h3 class="titulo-xl">Por qué existe esto</h3>
+        <p class="texto">{queEs.porQue}</p>
+        <div class="que-es__cajas" data-revelar>
+          <div class="c-coral"><p class="mano">La lucha de la calle llegó a la ley</p><p>{queEs.lucha}</p></div>
+          <div class="c-teal"><p class="mano">El resultado: CONPES 4040</p><p>{queEs.resultado}</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- 01 MARCO LEGAL -->
   <section id="marco-legal" class="capitulo capitulo--auto c-papel marco" aria-labelledby="marco-titulo">
@@ -59,6 +97,19 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
     </ol>
     <div class="contenedor">
       <p class="mano marco__desliza">← desliza la línea de tiempo →</p>
+      <div class="sistema">
+        <div>
+          <h3 class="titulo-xl">Tu lugar en el Sistema Nacional</h3>
+          <p class="texto">El Sistema Nacional de las Juventudes tiene 3 subsistemas (Art. 22, Ley 1622). La Plataforma vive en el de Participación. No eres una versión reducida de otra instancia: tiene naturaleza y funciones propias, y no depende jerárquicamente de nadie dentro del Subsistema.</p>
+        </div>
+        <ol class="sistema__lista" role="list" data-revelar>
+          {subsistemas.map((x, i) => <li class:list={[i === 1 && 'activo']}><span class="titulo-l">{x.nombre}</span><span>{x.texto}</span></li>)}
+        </ol>
+        <div class="sistema__vs">
+          <div><p class="titulo-l">Plataforma</p><p>Escenario permanente de encuentro y articulación. Sesiona periódicamente.</p></div>
+          <div><p class="titulo-l">Asamblea</p><p>Espacio de consulta abierta, no permanente: convoca a todos los jóvenes del territorio.</p></div>
+        </div>
+      </div>
       <div class="conpes">
         <h3 class="titulo-xl conpes__titulo">CONPES 4040, en números</h3>
         <div class="conpes__cifras" data-revelar>
@@ -88,6 +139,10 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
           </li>
         ))}
       </ul>
+      <figure class="firmar__foto" data-revelar-solo>
+        <img src="/img/abc-identidad-pareja.webp" alt="Dos jóvenes de la Plataforma Departamental posando juntos" width="1241" height="1191" loading="lazy" />
+        <figcaption class="mano">{frases.identidad}</figcaption>
+      </figure>
       <div class="firmar__caso c-tinta" data-revelar-solo>
         <p class="mano">Caso frecuente</p>
         <p class="titulo-l">«Nos ofrecieron un recurso, ¿lo recibimos?»</p>
@@ -139,7 +194,7 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
   <!-- 04 POTESTADES -->
   <section id="potestades" class="capitulo capitulo--auto c-viridian potestades" aria-labelledby="potestades-titulo">
     <div class="contenedor">
-      <Titular lineas={['Tus 7 funciones', 'legales']} id="potestades-titulo" class="titulo-gigante" />
+      <Titular lineas={['7 funciones', 'legales']} id="potestades-titulo" class="titulo-gigante" />
       <ol class="funciones" role="list" data-revelar>
         {funciones.map((f) => (
           <li><span class="funciones__verbo">{f.verbo}</span><span class="funciones__texto">{f.texto}</span></li>
@@ -169,6 +224,10 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
           <div><p class="titulo-l">Consejo aún no posesionado</p><p>3 delegados asumen las funciones del Consejo, con voto (parágrafo transitorio).</p></div>
         </div>
         <p class="chico">No lo asumas: verifícalo por escrito con la Personería o la Procuraduría Regional (Directiva 021/2021).</p>
+        <div class="guion">
+          <p class="titulo-l">Guion para verificar por escrito</p>
+          <ol>{guionVoto.map((g) => <li>{g}</li>)}</ol>
+        </div>
       </div>
     </div>
   </section>
@@ -194,6 +253,11 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
           <h3 class="titulo-l">Desafíos</h3>
           <ul><li>Sin rubro presupuestal autónomo propio</li><li>Sin decreto reglamentario único nacional</li><li>Vacíos en la renovación de delegados</li></ul>
         </div>
+        <figure class="diag__foto" data-revelar-solo>
+          <img src="/img/abc-corpovalle-2026.webp" alt="Siete jóvenes de la Plataforma de pie, sonriendo" width="758" height="523" loading="lazy" />
+          <figcaption class="chico">Invitación de CORPOVALLE a la PDJ y líderes juveniles a una charla sobre el uso de redes por los jóvenes, 2026.</figcaption>
+        </figure>
+        <p class="diag__frase">{frases.diagnostico}</p>
         <div class="balance balance--dato c-lima" data-revelar-solo>
           <p class="diag__num">13 de 122</p>
           <p>instancias de participación ciudadana garantizan representación juvenil. La Plataforma es una de las pocas puertas reales: úsala.</p>
@@ -220,7 +284,13 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
           </div>
         ))}
       </div>
-      <img class="beneficios__foto" src="/img/foto-jornada-departamental.webp" alt="Delegación del Valle en jornada departamental" width="1200" height="521" loading="lazy" />
+      <figure class="beneficios__delegados">
+        <img src="/img/abc-delegados-2026.webp" alt="Giselle Doney Sánchez, Gabriela Ceballos Aguilar y Sebastián Pineda Gallego, plataformados departamentales de 2026" width="1193" height="696" loading="lazy" />
+        <figcaption>
+          <p class="titulo-l">«{frases.delegados}»</p>
+          <p class="chico">Plataformados departamentales de 2026.</p>
+        </figcaption>
+      </figure>
       <p class="chico" style="margin-top:12px">Caso real: la Gobernación del Valle ha implementado, con cooperación AECID, 20 años de política pública de juventud con recursos de contrapartida propios.</p>
     </div>
   </section>
@@ -238,6 +308,9 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
         ))}
       </div>
       <p class="regla" data-revelar-solo><span class="mano">Regla de oro:</span> cada acción debe quedar en acta con fecha, firma y radicado. Sin registro escrito, no existe ante la Procuraduría.</p>
+      <dl class="roles" data-revelar>
+        {roles.map((r) => <div><dt>{r.rol}</dt><dd>{r.quien}</dd></div>)}
+      </dl>
 
       <div class="auto" data-autodiagnostico>
         <div class="auto__cabeza">
@@ -253,14 +326,15 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
           <p class="auto__num"><span data-auto-num>0</span>/8</p>
           <div class="auto__barra" aria-hidden="true"><span data-auto-barra></span></div>
           <p data-auto-msg>Empieza a marcar.</p>
+          <p class="chico">Si falta el acta o el registro: <a class="enlace" href="#estructura">ruta de conformación</a>. Si falta espacio o recursos: <a class="enlace" href="#exigir">cómo exigir</a>.</p>
         </div>
       </div>
 
-      <div class="exigir">
+      <div class="exigir" id="exigir">
         <h3 class="titulo-xl">Si no convocan o no responden</h3>
         <ol class="exigir__pasos" role="list" data-revelar>
           {exigibilidad.map((e, i) => (
-            <li style={`--c:${['var(--lima)', 'var(--coral)', 'var(--azul)'][i]}`}><p class="titulo-l">{e.paso}</p><p>{e.texto}</p></li>
+            <li style={`--c:${['var(--lima)', 'var(--coral)', 'var(--azul)', 'var(--menta)'][i]}`}><p class="titulo-l">{e.paso}</p><p>{e.texto}</p></li>
           ))}
         </ol>
         <div class="plantilla">
@@ -271,10 +345,28 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
           <pre id="plantilla-texto">{plantillaPeticion}</pre>
         </div>
       </div>
+
+      <div class="tutela" id="tutela">
+        <div class="tutela__cabeza">
+          <h3 class="titulo-xl">Escalón 4: acción de tutela</h3>
+          <p class="texto">Art. 86 de la Constitución y Decreto 2591 de 1991.</p>
+        </div>
+        <div class="tutela__cajas" data-revelar>
+          <div class="c-indigo"><p class="mano">Qué protege</p><p>{tutela.protege}</p></div>
+          <div class="c-teal"><p class="mano">Quién y ante quién</p><p>{tutela.quien}</p></div>
+          <div class="c-lima"><p class="mano">3 requisitos</p><ol>{tutela.requisitos.map((r) => <li>{r}</li>)}</ol></div>
+          <div class="c-coral"><p class="mano">Plazo y sanción</p><p>{tutela.plazo}</p></div>
+        </div>
+        <h4 class="titulo-l tutela__cuando-titulo">Cuándo sí usar la tutela</h4>
+        <ul class="tutela__cuando" role="list" data-revelar>
+          {tutela.cuando.map((c) => <li><strong>{c.caso}</strong><span>{c.detalle}</span></li>)}
+        </ul>
+        <p class="tutela__ruta"><span class="mano">Ruta completa:</span> derecho de petición (15 días hábiles) → queja ante la Personería → traslado a la Procuraduría Regional → acción de tutela.</p>
+      </div>
     </div>
   </section>
 
-  <CtaBanda palabra="Baja" frase="Descarga el ABC completo en PDF (29 páginas) y compártelo con tu plataforma." href={pdf} color="c-coral" />
+  <CtaBanda palabra="Baja" frase="Descarga el ABC completo en PDF (32 páginas) y compártelo con tu plataforma." href={pdf} color="c-coral" />
 </Base>
 
 <script>
@@ -480,12 +572,91 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
   [data-auto-msg] { font-size: 1.15rem; font-weight: 600; }
 
   .exigir { margin-top: 120px; }
-  .exigir__pasos { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .exigir__pasos { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
   .exigir__pasos li { padding: 26px; border-radius: var(--radio); background: var(--c); display: flex; flex-direction: column; gap: 12px; min-height: 240px; transition: transform 0.35s var(--ease-rebote); }
   .exigir__pasos li:hover { transform: rotate(-1.5deg) translateY(-6px); }
   .plantilla { margin-top: 24px; padding: clamp(24px, 3vw, 40px); border-radius: var(--radio); background: var(--papel-2); }
   .plantilla__cabeza { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
   .plantilla pre { margin: 0; white-space: pre-wrap; font: 500 1.05rem/1.6 var(--f-texto); }
+
+  /* Qué es */
+  .que-es__texto { grid-column: 1 / 8; display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
+  .que-es__cita { margin: 0; padding: 26px 30px; border-radius: var(--radio); background: var(--papel-2); font-size: var(--t-l); font-weight: 600; line-height: 1.25; letter-spacing: -0.015em; }
+  .que-es__cita footer { margin-top: 12px; color: var(--tinta-suave); font-weight: 600; }
+  .que-es__foto { grid-column: 8 / 13; margin: 0; align-self: start; border-radius: var(--radio); overflow: hidden; aspect-ratio: 4 / 5; }
+  .que-es__foto img { width: 100%; height: 110%; object-fit: cover; }
+  .que-es__plataformado { grid-column: 1 / 13; margin-top: 56px; padding: clamp(28px, 4vw, 56px); border-radius: var(--radio); background: var(--fondo); color: var(--texto); display: flex; flex-direction: column; gap: 14px; }
+  .que-es__plataformado .titulo-l { font-size: clamp(1.4rem, 2.6vw, 2.4rem); max-width: 40ch; }
+  .que-es__integran { grid-column: 1 / 13; margin-top: 56px; }
+  .que-es__integran ul { list-style: none; margin: 20px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .que-es__integran li { padding: 24px; border-radius: var(--radio); background: var(--fondo); color: var(--texto); display: flex; flex-direction: column; gap: 8px; min-height: 170px; transition: transform 0.35s var(--ease-rebote); }
+  .que-es__integran li:hover { transform: translateY(-6px) rotate(-1deg); }
+  .que-es__integran strong { font-size: var(--t-l); letter-spacing: -0.02em; }
+  .que-es__historia { grid-column: 1 / 13; margin-top: 96px; display: flex; flex-direction: column; gap: 20px; }
+  .que-es__cajas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  .que-es__cajas > div { padding: 28px; border-radius: var(--radio); background: var(--fondo); color: var(--texto); display: flex; flex-direction: column; gap: 10px; }
+  .que-es__cajas .mano { color: inherit; }
+
+  /* Sistema nacional */
+  .sistema { margin-top: 96px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px 48px; }
+  .sistema > div:first-child { display: flex; flex-direction: column; gap: 18px; }
+  .sistema__lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .sistema__lista li { display: flex; flex-direction: column; gap: 4px; padding: 20px 24px; border-radius: 18px; background: var(--papel-2); transition: transform 0.3s var(--ease-rebote); }
+  .sistema__lista li.activo { background: var(--indigo); color: var(--papel); transform: scale(1.03) rotate(-1deg); }
+  .sistema__vs { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .sistema__vs > div { padding: 24px; border-radius: var(--radio); background: var(--lima); display: flex; flex-direction: column; gap: 8px; }
+  .sistema__vs > div + div { background: var(--menta); }
+
+  /* Identidad: foto */
+  .firmar__foto { grid-column: 1 / 7; margin: 40px 0 0; position: relative; }
+  .firmar__foto img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radio); }
+  .firmar__foto figcaption { position: absolute; left: 16px; right: 16px; bottom: -18px; padding: 14px 18px; border-radius: 18px; background: var(--papel); color: var(--tinta); transform: rotate(-1.5deg); font-size: clamp(1.3rem, 1.8vw, 1.7rem); }
+
+  /* Voto: guion */
+  .guion { padding: 22px 26px; border-radius: 18px; background: rgb(255 255 255 / 0.1); }
+  .guion ol { margin: 12px 0 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 6px; }
+
+  /* Diagnóstico: foto y frase */
+  .diag__foto { margin: 0; padding: 16px; border-radius: var(--radio); background: var(--papel); color: var(--tinta); display: flex; flex-direction: column; gap: 10px; }
+  .diag__foto img { width: 100%; height: auto; }
+  .diag__frase { align-self: center; font-size: var(--t-l); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; color: var(--lima); }
+
+  /* Beneficios: delegados */
+  .beneficios__delegados { margin: 10px 0 0; display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; align-items: center; padding: clamp(20px, 3vw, 36px); border-radius: var(--radio); background: var(--papel); }
+  .beneficios__delegados img { width: 100%; height: auto; }
+  .beneficios__delegados figcaption { display: flex; flex-direction: column; gap: 12px; }
+
+  /* Roles */
+  .roles { margin: 32px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .roles > div { padding: 22px 24px; border-radius: var(--radio); background: var(--papel-2); }
+  .roles dt { font-size: var(--t-l); font-weight: 800; letter-spacing: -0.02em; color: var(--indigo); }
+  .roles dd { margin: 6px 0 0; font-weight: 600; }
+
+  /* Tutela */
+  .tutela { margin-top: 120px; }
+  .tutela__cabeza { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+  .tutela__cajas { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .tutela__cajas > div { padding: 24px; border-radius: var(--radio); background: var(--fondo); color: var(--texto); display: flex; flex-direction: column; gap: 10px; min-height: 260px; transition: transform 0.35s var(--ease-rebote); }
+  .tutela__cajas > div:hover { transform: translateY(-6px) rotate(-1deg); }
+  .tutela__cajas .mano { color: inherit; }
+  .tutela__cajas ol { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; }
+  .tutela__cuando-titulo { margin: 48px 0 16px; }
+  .tutela__cuando { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .tutela__cuando li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: center; padding: 18px 24px; border-radius: 18px; background: var(--papel-2); transition: transform 0.3s var(--ease-rebote); }
+  .tutela__cuando li:hover { transform: translateX(8px); }
+  .tutela__cuando strong { font-size: 1.15rem; }
+  .tutela__ruta { margin-top: 32px; font-size: var(--t-l); font-weight: 600; line-height: 1.3; max-width: 52ch; }
+  .tutela__ruta .mano { color: var(--coral); }
+
+  @media (max-width: 900px) {
+    .que-es__texto, .que-es__foto { grid-column: 1 / -1; }
+    .que-es__foto { margin-top: 32px; aspect-ratio: 4 / 3; }
+    .que-es__integran ul, .que-es__cajas, .sistema, .sistema__vs, .roles, .beneficios__delegados, .tutela__cuando li { grid-template-columns: 1fr; }
+    .tutela__cajas { grid-template-columns: 1fr 1fr; }
+    .tutela__cajas > div { min-height: 0; }
+    .firmar__foto { grid-column: 1 / -1; }
+  }
+  @media (max-width: 560px) { .tutela__cajas { grid-template-columns: 1fr; } }
 
   @media (max-width: 900px) {
     .marco__cabeza, .comision, .voto__casos, .auto, .distritos, .diag__balance, .beneficios__panel { grid-template-columns: 1fr; }

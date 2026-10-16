@@ -1,14 +1,12 @@
 ---
 // «¿De dónde eres?»: eliges tu municipio y la página te dice cómo funciona tu
 // plataforma. Sin JavaScript queda la lista completa por subregión.
-import { subregiones, territorios, porSubregion, sinUbicar } from '../data/territorio';
+import { subregiones, territorios, porSubregion } from '../data/territorio';
 import Pendiente from './Pendiente.astro';
 
 const datos = territorios.map((t) => {
-  const s = subregiones.find((x) => x.id === t.subregion);
-  return s
-    ? { ...t, subregionNombre: s.nombre, color: s.color, tinta: s.tinta }
-    : { ...t, subregionNombre: 'por confirmar', color: 'var(--papel)', tinta: 'var(--tinta)' };
+  const s = subregiones.find((x) => x.id === t.subregion)!;
+  return { ...t, subregionNombre: s.nombre, color: s.color, tinta: s.tinta };
 });
 ---
 <div class="buscador" data-buscador>
@@ -51,21 +49,13 @@ const datos = territorios.map((t) => {
         </ul>
       </section>
     ))}
-    <section class="buscador__grupo buscador__grupo--sin" style="--g:var(--papel);--gt:var(--tinta)" aria-labelledby="g-sin">
-      <h3 id="g-sin">Sin ubicar en el ABC <span class="chico">{sinUbicar.length}</span></h3>
-      <ul role="list">
-        {sinUbicar.map((t) => (
-          <li><a href="/territorio#sin-ubicar" data-municipio={t.nombre}>{t.nombre}</a></li>
-        ))}
-      </ul>
-    </section>
   </div>
 </div>
 
 <script type="application/json" id="datos-territorio" set:html={JSON.stringify(datos)} />
 
 <script>
-  type T = { nombre: string; subregion: string | null; subregionNombre: string; color: string; tinta: string; distrito?: string };
+  type T = { nombre: string; subregion: string; subregionNombre: string; color: string; tinta: string; distrito?: string };
   const raiz = document.querySelector<HTMLElement>('[data-buscador]');
   const datosEl = document.getElementById('datos-territorio');
   if (raiz && datosEl) {
@@ -79,14 +69,12 @@ const datos = territorios.map((t) => {
       res.hidden = false;
       res.style.setProperty('--g', t.color);
       res.style.setProperty('--gt', t.tinta);
-      q('sub').textContent = `Subregión ${t.subregionNombre}`;
+      q('sub').textContent = t.distrito ? 'Distrito Especial' : `Subregión ${t.subregionNombre}`;
       q('nombre').textContent = t.nombre;
-      q('tipo').textContent = t.distrito ? `Distrital: ${t.distrito}` : 'Municipal';
+      q('tipo').textContent = t.distrito ? 'Distrital, no municipal' : 'Municipal';
       q('registro').textContent = t.distrito ? 'La Personería Distrital' : `La Personería de ${t.nombre}`;
-      q('nota').textContent = !t.subregion
-        ? 'El ABC no nombra este municipio en su tabla de subregiones; la Plataforma debe confirmar a cuál pertenece.'
-        : t.distrito
-          ? 'Eres Distrito Especial: identidad institucional propia, mismo nivel de registro que un municipio.'
+      q('nota').textContent = t.distrito
+          ? `${t.distrito}. Identidad institucional propia, mismo nivel de registro que un municipio.`
           : '';
       res.classList.remove('salta');
       void res.offsetWidth;
@@ -156,9 +144,7 @@ const datos = territorios.map((t) => {
   .buscador__datos dd { margin: 2px 0 0; font-weight: 700; font-size: 1.1rem; line-height: 1.25; }
   .buscador__resultado .pendiente { align-self: flex-start; }
 
-  .buscador__mapa { grid-column: 1 / 13; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
-  .buscador__grupo--sin { grid-column: 1 / -1; }
-  .buscador__grupo--sin a { background: var(--papel-2); }
+  .buscador__mapa { grid-column: 1 / 13; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 12px; }
   .buscador__resultado:not([hidden]) ~ .buscador__mapa { grid-column: 1 / 13; }
   .buscador__grupo { background: var(--g); color: var(--gt); border-radius: var(--radio); padding: 18px 16px 20px; }
   .buscador__grupo h3 { font-size: 1.35rem; letter-spacing: -0.03em; display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
@@ -177,7 +163,7 @@ const datos = territorios.map((t) => {
   .buscador__d { font-size: 0.8rem; font-weight: 800; }
   .buscador__grupo a.activo { background: var(--tinta); color: var(--papel); }
 
-  @media (max-width: 1100px) { .buscador__mapa { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 1100px) { .buscador__mapa { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 900px) {
     .buscador { display: flex; flex-direction: column; }
     .buscador > * { min-width: 0; width: 100%; }

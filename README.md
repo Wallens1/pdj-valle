@@ -1,6 +1,6 @@
 # PDJ Valle · sitio web
 
-Sitio informativo y de consulta de la **Plataforma Departamental de Juventudes del Valle del Cauca**, construido sobre el *ABC de las Plataformas de Juventud* (edición 2026).
+Sitio informativo y de consulta de la **Plataforma Departamental de Juventudes del Valle del Cauca**, construido sobre el *ABC de las Plataformas de Juventud* (edición final 2026, 32 págs.).
 
 ## Empezar
 
@@ -53,4 +53,4 @@ El sitio es estático hoy (`output: 'static'` en `astro.config.mjs`). Para la fa
 
 ## Créditos de imagen
 
-Fotos del territorio (Wikimedia Commons): «Tuluá, Valle del Cauca, Colombia», Andres Garzon, CC BY 2.0 · «Palmira Valle Del Cauca», Dantiagok017, CC BY-SA 4.0 · «El Dovio, Valle del Cauca, Colombia», Hectorangelazul, CC BY-SA 4.0 · «Puente de los Nayeros Buenaventura, Colombia», Diaz.darly, CC BY-SA 4.0. Detalle en `assets/credits.json`. Fotos de la Plataforma, logo e ilustraciones: tomados del ABC 2026.
+Fotos del territorio (Wikimedia Commons): «Tuluá, Valle del Cauca, Colombia», Andres Garzon, CC BY 2.0 · «Palmira Valle Del Cauca», Dantiagok017, CC BY-SA 4.0 · «El Dovio, Valle del Cauca, Colombia», Hectorangelazul, CC BY-SA 4.0 · «Puente de los Nayeros Buenaventura, Colombia», Diaz.darly, CC BY-SA 4.0. Detalle en `assets/credits.json`. Fotos de la Plataforma (`public/img/abc-*.webp`, `foto-*.webp`), logo e ilustraciones: tomados del ABC 2026.
