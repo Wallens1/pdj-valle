@@ -17,6 +17,14 @@ export const site = {
   anio: 2026,
 };
 
+// Autoría del sitio (diseño y desarrollo). Sale en el pie de todas las páginas
+// y en <meta name="author">. El número va en el enlace de WhatsApp, no en el texto.
+export const autoria = {
+  nombre: 'Juan José Wallens Serna',
+  rol: 'Diseño y desarrollo',
+  whatsapp: '573146591664', // solo dígitos con indicativo, para wa.me (el número no se muestra)
+};
+
 export const nav = [
   { href: '/', label: 'Inicio' },
   { href: '/quienes-somos', label: 'Quiénes somos' },

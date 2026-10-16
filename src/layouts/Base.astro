@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { site, nav, creditos } from '../data/site';
+import { site, nav, creditos, autoria } from '../data/site';
 import { pendientes } from '../data/pendientes';
 import Flecha from '../components/Flecha.astro';
 import Pendiente from '../components/Pendiente.astro';
@@ -24,6 +24,7 @@ const [usuario, dominio] = site.correo.split('@');
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{titulo === site.nombre ? `${site.nombre} · ${site.nombreLargo}` : `${titulo} · ${site.nombre}`}</title>
     <meta name="description" content={descripcion} />
+    <meta name="author" content={autoria.nombre} />
     <meta name="theme-color" content="#5b2adf" />
     <meta property="og:title" content={titulo} />
     <meta property="og:description" content={descripcion} />
@@ -107,7 +108,13 @@ const [usuario, dominio] = site.correo.split('@');
             ))}{' '}
             Fotos de la Plataforma e ilustraciones: ABC de las Plataformas de Juventud, 2026.
           </p>
-          <p>{site.ciudad} · {site.anio}</p>
+          <div class="pie__autoria">
+            <p>{site.ciudad} · {site.anio}</p>
+            <p>
+              {autoria.rol}: <strong>{autoria.nombre}</strong><br />
+              <a href={`https://wa.me/${autoria.whatsapp}`} rel="noopener" target="_blank">Escríbeme por WhatsApp</a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
@@ -127,7 +134,7 @@ const [usuario, dominio] = site.correo.split('@');
   .marca__texto { font-size: 0.82rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; color: var(--navy); }
   @media (max-width: 520px) { .marca__texto { display: none; } }
 
-  .pie { min-height: 90svh; display: flex; padding-bottom: 32px; }
+  .pie { min-height: 90svh; display: flex; padding-bottom: 96px; } /* deja libre el botón flotante de revisión */
   .pie > .contenedor { display: flex; flex-direction: column; gap: 40px; }
   .pie__notas { display: grid; grid-template-columns: repeat(3, auto); justify-content: space-between; gap: 24px; align-items: start; }
   .pie__notas p { max-width: 36ch; color: var(--texto); }
@@ -152,6 +159,8 @@ const [usuario, dominio] = site.correo.split('@');
   .pie__meta nav { display: flex; flex-wrap: wrap; gap: 6px 16px; }
   .pie__meta a { color: var(--texto); }
   .pie__creditos a { color: var(--suave); }
+  .pie__autoria { display: grid; gap: 8px; }
+  .pie__autoria a { overflow-wrap: anywhere; }
   @media (max-width: 860px) {
     .pie__notas, .pie__meta { grid-template-columns: 1fr; }
     .pie__correo span { display: block; }
