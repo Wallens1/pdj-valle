@@ -254,16 +254,14 @@ const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incident
   .cifras__tile .pendiente { margin-top: auto; align-self: flex-start; }
 
   /* --- Crecer --- */
-  .crecer__fila { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 10px; align-items: end; }
-  .crecer__cabeza { grid-column: 1 / 8; grid-row: 1; align-self: start; }
-  .crecer__tiles { grid-column: 1 / 13; grid-row: 1; display: grid; grid-template-columns: 3fr 4fr 5fr; gap: 10px; align-items: end; }
+  .crecer__fila { display: flex; flex-direction: column; gap: clamp(32px, 4vw, 56px); }
+  .crecer__cabeza { max-width: 760px; }
+  .crecer__tiles { display: grid; grid-template-columns: 3fr 4fr 5fr; gap: 10px; align-items: end; }
   .crecer__tile { position: relative; border-radius: var(--radio); background: var(--fondo); color: var(--texto); padding: 22px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; transition: transform 0.4s var(--ease-rebote); }
   .crecer__tile:hover { transform: translateY(-8px) rotate(-1deg); }
   .crecer__tile.t1 { height: 30vh; min-height: 200px; }
   .crecer__tile.t2 { height: 44vh; min-height: 280px; }
   .crecer__tile.t3 { height: 60vh; min-height: 380px; }
-  .crecer__fila { grid-template-rows: auto; }
-  .crecer__cabeza { position: relative; z-index: 1; padding-bottom: calc(30vh + 40px); }
   .crecer__dato { font-size: clamp(1.6rem, 2.6vw, 2.6rem); font-weight: 800; letter-spacing: -0.04em; line-height: 0.95; }
   .crecer__tile :global(.crecer__espiral) { position: relative; align-self: flex-end; color: currentColor; opacity: 0.9; }
   .crecer__pasos { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: 3fr 4fr 5fr; gap: 10px; }
@@ -341,8 +339,7 @@ const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incident
     .bienvenida__visual { margin-top: 32px; }
     .cifras__mosaico { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; min-height: 0; }
     .cifras__foto { grid-column: 1 / -1; grid-row: 1; aspect-ratio: 4 / 3; }
-    .crecer__fila, .crecer__tiles { display: flex; flex-direction: column; align-items: stretch; }
-    .crecer__cabeza { padding-bottom: 28px; }
+    .crecer__tiles { display: flex; flex-direction: column; align-items: stretch; }
     .crecer__tile.t1, .crecer__tile.t2, .crecer__tile.t3 { height: auto; }
     .crecer__tile.t1 { min-height: 34vw; } .crecer__tile.t2 { min-height: 46vw; } .crecer__tile.t3 { min-height: 62vw; }
     .crecer__pasos { grid-template-columns: 1fr; }

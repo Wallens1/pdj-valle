@@ -55,7 +55,7 @@ export const subregiones: Subregion[] = [
   {
     id: 'distritos',
     nombre: 'Distritos Especiales',
-    color: 'var(--lima)',
+    color: 'var(--azul)',
     tinta: 'var(--tinta)',
     distritos: true,
     foto: {
