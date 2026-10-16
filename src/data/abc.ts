@@ -211,6 +211,6 @@ export const tutela = {
 
 export const frases = {
   identidad: 'Nunca dejes de pelear por algo que es tu derecho: participa y defiende tus ideales.',
-  diagnostico: 'El 18,5 % de las Plataformas municipales reportadas nunca llega a sesionar: la brecha no es de ley, es de continuidad.',
+  diagnostico: 'El 18,5 % de las Plataformas municipales reportadas nunca llega a sesionar. El problema no es la ley sino la continuidad.',
   delegados: 'Ser delegado departamental es ocupar, con voz y decisión real, una de las pocas sillas que el país sí les garantiza a los jóvenes.',
 };

@@ -72,7 +72,7 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
         <p class="texto">{queEs.porQue}</p>
         <div class="que-es__cajas" data-revelar>
           <div class="c-coral"><p class="mano">La lucha de la calle llegó a la ley</p><p>{queEs.lucha}</p></div>
-          <div class="c-teal"><p class="mano">El resultado: CONPES 4040</p><p>{queEs.resultado}</p></div>
+          <div class="c-teal"><p class="mano">De ahí salió el CONPES 4040</p><p>{queEs.resultado}</p></div>
         </div>
       </div>
     </div>
@@ -100,7 +100,7 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
       <div class="sistema">
         <div>
           <h3 class="titulo-xl">Tu lugar en el Sistema Nacional</h3>
-          <p class="texto">El Sistema Nacional de las Juventudes tiene 3 subsistemas (Art. 22, Ley 1622). La Plataforma vive en el de Participación. No eres una versión reducida de otra instancia: tiene naturaleza y funciones propias, y no depende jerárquicamente de nadie dentro del Subsistema.</p>
+          <p class="texto">El Sistema Nacional de las Juventudes tiene 3 subsistemas (Art. 22, Ley 1622). La Plataforma vive en el de Participación. No es una versión reducida de otra instancia: tiene naturaleza y funciones propias, y no depende jerárquicamente de nadie dentro del Subsistema.</p>
         </div>
         <ol class="sistema__lista" role="list" data-revelar>
           {subsistemas.map((x, i) => <li class:list={[i === 1 && 'activo']}><span class="titulo-l">{x.nombre}</span><span>{x.texto}</span></li>)}
@@ -130,7 +130,7 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
     <div class="contenedor rejilla">
       <div class="firmar__cabeza">
         <Titular lineas={['«¿Entonces qué', 'podemos firmar?»']} id="firmar-titulo" />
-        <p class="entrada" style="margin-top:24px">La pregunta más común de una plataforma nueva. La clave: distinguir lo que tú decides de lo que la administración garantiza.</p>
+        <p class="entrada" style="margin-top:24px">La pregunta más común de una plataforma nueva. Hay que distinguir lo que tú decides de lo que la administración garantiza.</p>
       </div>
       <ul class="firmar__lista" role="list" data-revelar>
         {puede.map((p) => (
