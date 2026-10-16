@@ -1,6 +1,3 @@
-// Datos generales del sitio. Los valores marcados como ejemplo están en el
-// registro de pendientes (PH-05, PH-18) y se cambian aquí una sola vez.
-
 export const site = {
   nombre: 'PDJ Valle',
   nombreLargo: 'Plataforma Departamental de Juventudes del Valle del Cauca',
@@ -17,12 +14,10 @@ export const site = {
   anio: 2026,
 };
 
-// Autoría del sitio (diseño y desarrollo). Sale en el pie de todas las páginas
-// y en <meta name="author">. El número va en el enlace de WhatsApp, no en el texto.
 export const autoria = {
   nombre: 'Juan José Wallens Serna',
   rol: 'Diseño y desarrollo',
-  whatsapp: '573146591664', // solo dígitos con indicativo, para wa.me (el número no se muestra)
+  whatsapp: '573146591664', // para wa.me
 };
 
 export const nav = [

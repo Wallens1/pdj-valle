@@ -377,7 +377,6 @@ const asientos = comision.flatMap((c) => Array.from({ length: c.cuantos }, () =>
       es.forEach((e) => {
         if (!e.isIntersecting) return;
         enlaces.forEach((a) => a.classList.toggle('activo', a.dataset.indice === e.target.id));
-        // Solo desplaza la fila del índice de lado; nunca mueve la página.
         const act = document.querySelector<HTMLElement>(`[data-indice="${e.target.id}"]`);
         const fila = act?.parentElement;
         if (act && fila) fila.scrollTo({ left: act.offsetLeft - (fila.clientWidth - act.offsetWidth) / 2, behavior: 'smooth' });

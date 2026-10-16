@@ -1,6 +1,4 @@
 ---
-// «¿De dónde eres?»: eliges tu municipio y la página te dice cómo funciona tu
-// plataforma. Sin JavaScript queda la lista completa por subregión.
 import { subregiones, territorios, porSubregion } from '../data/territorio';
 import Pendiente from './Pendiente.astro';
 
@@ -118,7 +116,7 @@ const datos = territorios.map((t) => {
     font: 600 clamp(1.15rem, 1.6vw, 1.45rem) var(--f-texto);
     transition: box-shadow 0.3s var(--ease-rebote), transform 0.3s var(--ease-rebote);
   }
-  .buscador__campo input:focus { outline: none; transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--tinta); } /* taste-skill-ignore: sombra dura solo en hover/foco/presión, nunca en reposo */
+  .buscador__campo input:focus { outline: none; transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--tinta); }
   .buscador__campo input::placeholder { color: #6d6688; }
   .buscador__ayuda { color: var(--suave); }
 

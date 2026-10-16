@@ -121,7 +121,7 @@ const [usuario, dominio] = site.correo.split('@');
 
     <button class="interruptor-revision" type="button" data-interruptor-revision aria-pressed="true">
       <span class="interruptor-revision__punto" aria-hidden="true">{abiertos}</span>
-      <span data-etiqueta>Ocultar notas de revisión</span>
+      <span data-etiqueta>Esconder notas</span>
     </button>
 
     <script>
@@ -134,7 +134,7 @@ const [usuario, dominio] = site.correo.split('@');
   .marca__texto { font-size: 0.82rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; color: var(--navy); }
   @media (max-width: 520px) { .marca__texto { display: none; } }
 
-  .pie { min-height: 90svh; display: flex; padding-bottom: 96px; } /* deja libre el botón flotante de revisión */
+  .pie { min-height: 90svh; display: flex; padding-bottom: 96px; }
   .pie > .contenedor { display: flex; flex-direction: column; gap: 40px; }
   .pie__notas { display: grid; grid-template-columns: repeat(3, auto); justify-content: space-between; gap: 24px; align-items: start; }
   .pie__notas p { max-width: 36ch; color: var(--texto); }

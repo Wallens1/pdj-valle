@@ -1,17 +1,12 @@
-// Capa de movimiento e interacción común a todas las páginas.
-// Todo lo que anima parte de contenido ya visible: si este script no carga,
-// la página se lee completa.
-
 const reducir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const raiz = document.documentElement;
 
-// --- Entradas escalonadas al entrar en pantalla -------------------------
+// Entradas escalonadas al entrar en pantalla
 function prepararEntradas() {
   document.querySelectorAll<HTMLElement>('[data-revelar]').forEach((grupo) => {
     Array.from(grupo.children).forEach((hijo, i) => (hijo as HTMLElement).style.setProperty('--i', String(i)));
   });
 
-  // Largo real de cada trazo para dibujarlo
   document.querySelectorAll<SVGPathElement>('.garabato path, .subrayado path').forEach((p) => {
     try {
       p.style.setProperty('--largo', String(Math.ceil(p.getTotalLength()) + 2));
@@ -40,7 +35,6 @@ function prepararEntradas() {
   );
   objetivos.forEach((el) => io.observe(el));
 
-  // Red de seguridad: lo que ya está en pantalla nunca se queda oculto.
   setTimeout(() => {
     objetivos.forEach((el) => {
       if (el.classList.contains('visible')) return;
@@ -52,7 +46,7 @@ function prepararEntradas() {
   }, 1500);
 }
 
-// --- Cifras que cuentan hacia arriba -------------------------------------
+// Cifras que cuentan hacia arriba
 function formatear(n: number, dec: number) {
   return n.toLocaleString('es-CO', { minimumFractionDigits: dec, maximumFractionDigits: dec });
 }
@@ -74,7 +68,7 @@ function contar(el: HTMLElement) {
   requestAnimationFrame(paso);
 }
 
-// --- Deriva suave de fotos con el scroll ---------------------------------
+// Deriva suave de fotos con el scroll
 function prepararDeriva() {
   if (reducir) return;
   const els = Array.from(document.querySelectorAll<HTMLElement>('[data-deriva]'));
@@ -97,7 +91,7 @@ function prepararDeriva() {
   mover();
 }
 
-// --- Cabecera que se esconde al bajar y vuelve al subir ------------------
+// Cabecera que se esconde al bajar y vuelve al subir
 function prepararCabecera() {
   const cab = document.querySelector<HTMLElement>('.cabecera');
   if (!cab) return;
@@ -111,7 +105,7 @@ function prepararCabecera() {
   }, { passive: true });
 }
 
-// --- Menú móvil ----------------------------------------------------------
+// Menú móvil
 function prepararMenu() {
   const menu = document.getElementById('menu-movil');
   const abrir = document.querySelector<HTMLButtonElement>('[data-abrir-menu]');
@@ -129,7 +123,7 @@ function prepararMenu() {
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('abierto')) set(false); });
 }
 
-// --- Vista limpia / vista de revisión ------------------------------------
+// Vista limpia / vista de revisión
 function prepararRevision() {
   const boton = document.querySelector<HTMLButtonElement>('[data-interruptor-revision]');
   if (!boton) return;
@@ -137,7 +131,7 @@ function prepararRevision() {
   const aplicar = (limpia: boolean) => {
     raiz.classList.toggle('vista-limpia', limpia);
     boton.setAttribute('aria-pressed', String(!limpia));
-    if (etiqueta) etiqueta.textContent = limpia ? 'Mostrar notas de revisión' : 'Ocultar notas de revisión';
+    if (etiqueta) etiqueta.textContent = limpia ? 'Mostrar notas' : 'Esconder notas';
   };
   let limpia = false;
   try { limpia = localStorage.getItem('pdj-vista-limpia') === '1'; } catch { /* sin almacenamiento */ }
@@ -155,5 +149,5 @@ prepararCabecera();
 prepararMenu();
 prepararRevision();
 requestAnimationFrame(() => document.body.classList.add('listo'));
-// Si la pestaña arranca en segundo plano, rAF no corre: el titular igual aparece.
+// En pestañas de fondo rAF no corre
 setTimeout(() => document.body.classList.add('listo'), 400);

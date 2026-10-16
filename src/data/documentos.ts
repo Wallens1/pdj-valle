@@ -1,5 +1,3 @@
-// Biblioteca pública. En la fase 2 esta lista vendrá de la base de datos y los
-// plataformados podrán subir documentos que la vocería aprueba antes de publicar.
 
 export type Documento = {
   titulo: string;

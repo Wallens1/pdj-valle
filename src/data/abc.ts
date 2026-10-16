@@ -1,6 +1,4 @@
-// Contenido del «ABC de las Plataformas de Juventud», edición final 2026 (32 págs.).
-// Se mantiene aquí como datos para que la página /abc (y, más adelante, un
-// gestor de contenidos) lo reutilicen sin duplicar texto.
+// Fuente: ABC de las Plataformas de Juventud, edición final 2026.
 
 export const hitos = [
   { anio: '1991', titulo: 'Constitución Política', texto: 'Los artículos 45 y 103 blindan el derecho de los jóvenes a participar. No es negociable.' },
@@ -167,7 +165,7 @@ export const faq = [
   { p: '¿Por qué exigir paridad en las delegaciones?', r: 'Porque es obligatoria: cada delegación a otro nivel lleva 1 hombre y 1 mujer. Una delegación sin paridad puede ser objetada en el registro.' },
 ];
 
-// --- Sección 00 · Qué es una plataforma (nueva en la edición final) ---
+// Sección 00 · Qué es una plataforma
 export const queEs = {
   definicion: 'Escenario de encuentro, articulación, coordinación e interlocución de las juventudes, de carácter autónomo.',
   real: 'Esa es la definición jurídica. La real: el lugar donde parches, colectivos, semilleros, barras, grupos culturales, deportivos, ambientales, estudiantiles, étnicos y LGBTIQ+ dejan de actuar por separado y empiezan a hablar con una sola voz frente al Estado.',

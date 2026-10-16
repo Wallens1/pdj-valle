@@ -1,5 +1,4 @@
-// AGENDA DE EJEMPLO (PH-04). Fechas, lugares y temas son ilustrativos para ver
-// el diseño con contenido completo; se reemplazan por los reales al avalar.
+// Agenda de ejemplo (PH-04).
 
 export type Evento = { hora: string; titulo: string; nota: string; lugar: string; tipo: 'Sesión' | 'Comisión' | 'Encuentro' | 'Taller' };
 export type Dia = { id: string; dia: string; fecha: string; eventos: Evento[] };
