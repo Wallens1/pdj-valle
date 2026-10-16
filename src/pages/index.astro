@@ -14,7 +14,7 @@ import { site } from '../data/site';
 const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incidente', 'Juvenil', 'Veedora', 'Propositiva'];
 ---
 <Base titulo={site.nombre}>
-  <!-- ============ PORTADA: mosaico del Valle + titular ============ -->
+  <!-- Portada -->
   <section class="portada" aria-labelledby="titulo-portada">
     <div class="mosaico" data-revelar="escala">
       <figure class="m m--a foto-viva"><img src="/img/foto-jornada-departamental.webp" alt="Delegación del Valle en una jornada departamental, reunida frente a la mesa de sesión" width="1200" height="521" fetchpriority="high" /></figure>
@@ -50,7 +50,7 @@ const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incident
     </div>
   </section>
 
-  <!-- ============ BIENVENIDA / QUIÉNES SOMOS ============ -->
+  <!-- Bienvenida -->
   <section class="capitulo c-indigo bienvenida" aria-labelledby="bienvenida-titulo">
     <div class="contenedor rejilla">
       <div class="bienvenida__texto">
@@ -58,7 +58,7 @@ const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incident
         <div class="texto bienvenida__cuerpo" data-revelar>
           <p class="entrada">Somos jóvenes de los 42 territorios del Valle que decidimos no esperar a que otros hablen por nosotros.</p>
           <p>La Plataforma es un escenario autónomo de encuentro y articulación de procesos juveniles: organizaciones formales, colectivos sin registro y parches de barrio. Nos reconoce el artículo 60 de la Ley 1622 de 2013 y somos interlocutores válidos ante la Gobernación, las alcaldías y el país.</p>
-          <p>No somos una oficina de la administración ni firmamos convenios: proponemos, hacemos veeduría y concertamos la agenda juvenil del departamento.</p>
+          <p>No somos una oficina de la administración ni firmamos convenios. Proponemos, hacemos veeduría y concertamos la agenda juvenil del departamento.</p>
           <a class="boton boton--lima" href="/quienes-somos">Conoce quiénes somos <Flecha /></a>
         </div>
       </div>
@@ -75,7 +75,7 @@ const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incident
     </div>
   </section>
 
-  <!-- ============ CIFRAS ============ -->
+  <!-- Cifras -->
   <section class="capitulo capitulo--auto c-papel cifras" aria-labelledby="cifras-titulo">
     <div class="contenedor">
       <Titular lineas={['El Valle, en cifras']} id="cifras-titulo" class="titulo-xl cifras__titulo" />
@@ -91,13 +91,13 @@ const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incident
       </div>
       <div class="cifras__tile c-lima">
         <span class="cifras__num" data-contar="86.9" data-decimales="1" data-sufijo=" %">86,9 %</span>
-        <p>de los municipios del país reportan plataforma (Procuraduría, 2023). El reto: que estén activas.</p>
+        <p>de los municipios del país reportan plataforma (Procuraduría, 2023). Falta que estén activas.</p>
         <Pendiente id="PH-03" lado="derecha" />
       </div>
     </div>
   </section>
 
-  <!-- ============ CÓMO CRECEMOS ============ -->
+  <!-- Cómo crecemos -->
   <section class="capitulo capitulo--auto c-papel-2 crecer" aria-labelledby="crecer-titulo">
     <div class="contenedor">
       <div class="crecer__fila">
@@ -119,7 +119,7 @@ const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incident
     </div>
   </section>
 
-  <!-- ============ LO QUE PODEMOS HACER ============ -->
+  <!-- Lo que podemos hacer -->
   <section class="capitulo c-viridian poderes" aria-labelledby="poderes-titulo">
     <div class="contenedor">
       <div class="poderes__mosaico" data-revelar>
@@ -133,12 +133,12 @@ const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incident
           {funciones.slice(0, 4).map((f) => <li>{f.verbo}</li>)}
         </ul>
         <p class="p p--frase c-coral">Dos veedores en la Comisión de Concertación, que debe sesionar mínimo cuatro veces al año.</p>
-        <p class="p p--frase2 c-indigo">No ejecutamos recursos: proponemos, vigilamos y concertamos.</p>
+        <p class="p p--frase2 c-indigo">La Plataforma no ejecuta recursos.</p>
       </div>
     </div>
   </section>
 
-  <!-- ============ LA PIEZA VIVA: ENCUENTRA TU PLATAFORMA ============ -->
+  <!-- Encuentra tu plataforma -->
   <section class="capitulo capitulo--auto c-lima tu-municipio" id="tu-municipio" aria-labelledby="buscador-titulo">
     <div class="contenedor">
       <div class="tu-municipio__cabeza">
@@ -151,7 +151,7 @@ const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incident
 
   <Agenda />
 
-  <!-- ============ GALERÍA DE PALABRAS ============ -->
+  <!-- Galería de palabras -->
   <section class="capitulo capitulo--auto c-tinta muro" aria-labelledby="muro-titulo">
     <h2 id="muro-titulo" class="sr-only">Lo que nos mueve</h2>
     <div class="muro__rejilla" data-revelar="escala">
@@ -172,7 +172,7 @@ const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incident
 
   <Faq />
 
-  <!-- ============ LO ÚLTIMO Y ALIADOS (pendientes) ============ -->
+  <!-- Lo último y aliados -->
   <section class="capitulo capitulo--auto c-papel-2 ultimo" aria-labelledby="ultimo-titulo">
     <div class="contenedor rejilla">
       <div class="ultimo__cabeza">
@@ -198,7 +198,7 @@ const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incident
 </Base>
 
 <style>
-  /* --- Portada --- */
+  /* Portada */
   .portada { padding-bottom: clamp(56px, 7vw, 110px); }
   .mosaico {
     display: grid;
@@ -231,7 +231,7 @@ const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incident
   .portada__titulo :global(.portada__flecha) { right: -10px; top: 0.2em; width: 70px; color: var(--coral); transform: translate(10%, 30%) rotate(10deg); display: none; }
   .subrayado { --acento: var(--coral); }
 
-  /* --- Bienvenida --- */
+  /* Bienvenida */
   .bienvenida { overflow: hidden; display: flex; flex-direction: column; justify-content: center; gap: 72px; }
   .bienvenida__texto { grid-column: 1 / 8; }
   .bienvenida__cuerpo { display: flex; flex-direction: column; gap: 18px; margin-top: 40px; align-items: flex-start; }
@@ -241,7 +241,7 @@ const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incident
   .bienvenida__cinta { font-size: clamp(2.4rem, 6vw, 5.5rem); font-weight: 800; letter-spacing: -0.04em; color: var(--lima); line-height: 1.1; }
   .cinta__punto { display: inline-block; width: 0.55em; height: 0.55em; fill: var(--coral); vertical-align: middle; margin-inline: 0.35em; }
 
-  /* --- Cifras --- */
+  /* Cifras */
   .cifras { padding-bottom: 0; }
   .cifras :global(.cifras__titulo) { margin-bottom: 40px; }
   .cifras__mosaico { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr; min-height: min(66vw, 860px); }
@@ -253,7 +253,7 @@ const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incident
   .cifras__tile p { max-width: 28ch; font-size: 1.08rem; }
   .cifras__tile .pendiente { margin-top: auto; align-self: flex-start; }
 
-  /* --- Crecer --- */
+  /* Crecer */
   .crecer__fila { display: flex; flex-direction: column; gap: clamp(32px, 4vw, 56px); }
   .crecer__cabeza { max-width: 760px; }
   .crecer__tiles { display: grid; grid-template-columns: 3fr 4fr 5fr; gap: 10px; align-items: end; }
@@ -268,7 +268,7 @@ const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incident
   .crecer__pasos h3 { font-size: 1.3rem; letter-spacing: -0.02em; margin-bottom: 6px; }
   .crecer__pasos p { color: var(--tinta-suave); max-width: 36ch; }
 
-  /* --- Poderes --- */
+  /* Poderes */
   .poderes__mosaico {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -296,11 +296,11 @@ const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incident
   .p--frase { grid-area: s; font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.12; }
   .p--frase2 { grid-area: z; font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.12; }
 
-  /* --- Buscador --- */
+  /* Buscador */
   .tu-municipio__cabeza { position: relative; margin-bottom: 48px; display: inline-block; }
   .tu-municipio__cabeza :global(.tu-municipio__circulo) { inset: -18% -6% -22% -5%; width: 112%; height: 140%; color: var(--indigo); }
 
-  /* --- Muro --- */
+  /* Muro */
   .muro { padding: 8px; }
   .muro__rejilla { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
   .w { aspect-ratio: 1; margin: 0; position: relative; display: grid; place-items: center; background: var(--fondo); color: var(--texto); border-radius: var(--radio); overflow: hidden; transition: transform 0.45s var(--ease-rebote); }
@@ -310,7 +310,7 @@ const palabras = ['Autónoma', 'Diversa', 'Paritaria', 'Vallecaucana', 'Incident
   .w--foto img { width: 100%; height: 100%; object-fit: cover; }
   .w.hueco-foto { min-height: 0; }
 
-  /* --- Lo último --- */
+  /* Lo último */
   .ultimo__cabeza { grid-column: 1 / 5; display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
   .ultimo__lista { grid-column: 5 / 13; list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
   .ultimo__lista li { display: grid; grid-template-columns: 110px 1fr 120px; gap: 20px; align-items: center; padding: 14px 14px 14px 24px; background: var(--papel); border-radius: var(--radio); }

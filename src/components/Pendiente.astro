@@ -1,7 +1,5 @@
 ---
-// Nota de revisión: marca un contenido de ejemplo que la Plataforma debe
-// avalar o entregar. Lee el texto del registro (src/data/pendientes.ts).
-import { pendiente } from '../data/pendientes';
+import { pendiente, frase } from '../data/pendientes';
 
 interface Props {
   id: string;
@@ -12,8 +10,7 @@ const { id, lado = 'izquierda', class: clase = '' } = Astro.props;
 const p = pendiente(id);
 if (!p) throw new Error(`Pendiente desconocido: ${id}`);
 ---
-<aside class:list={['pendiente', lado === 'derecha' && 'pendiente--derecha', clase]} aria-label={`Nota de revisión ${p.id}: ${p.titulo}`}>
-  <span class="pendiente__cabeza"><span class="pendiente__id">{p.id}</span> {p.titulo}</span>
-  <span>{p.falta}</span>
-  <a href={`/revision#${p.id}`}>Ver en el registro</a>
+<aside class:list={['pendiente', lado === 'derecha' && 'pendiente--derecha', clase]} aria-label={`${p.id}: ${frase(p)}`}>
+  <span class="pendiente__cabeza"><span class="pendiente__id">{p.id}</span> {frase(p)}</span>
+  <a href={`/revision#${p.id}`}>¿Qué falta?</a>
 </aside>

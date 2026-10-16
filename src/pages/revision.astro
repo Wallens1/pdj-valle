@@ -3,41 +3,41 @@ import Base from '../layouts/Base.astro';
 import CabezaPagina from '../components/CabezaPagina.astro';
 import { pendientes } from '../data/pendientes';
 
-const etiquetas = { pendiente: 'Pendiente', 'en-revision': 'En revisión', aprobado: 'Aprobado' } as const;
-const tipos = { texto: 'Texto', foto: 'Foto', dato: 'Dato', documento: 'Documento', contacto: 'Contacto', funcion: 'Función' } as const;
+const etiquetas = { pendiente: 'Falta', 'en-revision': 'Lo estoy viendo', aprobado: 'Listo' } as const;
+const tipos = { texto: 'Texto', foto: 'Foto', dato: 'Dato', documento: 'Documento', contacto: 'Contacto', funcion: 'Algo nuevo' } as const;
 const cuenta = (e: string) => pendientes.filter((p) => p.estado === e).length;
 ---
-<Base titulo="Revisión" descripcion="Registro de contenidos pendientes de aval por parte de la Plataforma.">
+<Base titulo="Revisión" descripcion="Lo que todavía falta en la página.">
   <CabezaPagina
     lineas={['Registro de', 'revisión']}
-    entrada="Todo lo que en el sitio está como ejemplo o falta por entregar. La Plataforma avala cada punto y lo cerramos aquí."
+    entrada="Aquí está todo lo que todavía es de ejemplo o que me falta. Ustedes me dicen y lo voy cambiando."
     color="c-tinta"
-    nota="cada nota amarilla del sitio sale de esta lista"
+    nota="las notas amarillas salen de aquí"
   />
 
   <section class="capitulo capitulo--auto c-papel registro" aria-labelledby="registro-titulo">
     <div class="contenedor">
-      <h2 id="registro-titulo" class="titulo-xl">Estado del sitio</h2>
+      <h2 id="registro-titulo" class="titulo-xl">¿Cómo va?</h2>
       <div class="resumen" data-revelar>
-        <div class="c-coral"><span>{cuenta('pendiente')}</span>pendientes</div>
-        <div class="c-lima"><span>{cuenta('en-revision')}</span>en revisión</div>
-        <div class="c-teal"><span>{cuenta('aprobado')}</span>aprobados</div>
+        <div class="c-coral"><span>{cuenta('pendiente')}</span>faltan</div>
+        <div class="c-lima"><span>{cuenta('en-revision')}</span>lo estoy viendo</div>
+        <div class="c-teal"><span>{cuenta('aprobado')}</span>listos</div>
       </div>
 
       <div class="como">
-        <h3 class="titulo-l">Cómo hacer correcciones</h3>
+        <h3 class="titulo-l">¿Cómo me mandan los cambios?</h3>
         <ol>
-          <li>Navega el sitio con las notas amarillas visibles (botón abajo a la izquierda).</li>
-          <li>Para cada nota, envía el contenido real o la corrección citando su código, por ejemplo <strong>PH-04</strong>.</li>
-          <li>Para cambios en textos que no tienen nota, indica la página y la frase exacta.</li>
-          <li>Cuando el punto queda aprobado, desaparece su nota del sitio.</li>
+          <li>Recorran la página con las notas amarillas prendidas (el botón de abajo a la izquierda).</li>
+          <li>Mándenme lo que va, diciendo el código de la nota. Por ejemplo: «<strong>PH-04</strong>: la sesión es el 12 de marzo en Tuluá».</li>
+          <li>Si quieren cambiar algo que no tiene nota, díganme en qué página está y qué frase es.</li>
+          <li>Cuando algo queda listo, su nota desaparece.</li>
         </ol>
       </div>
 
       <div class="tabla-envoltura">
         <table class="tabla-registro">
           <caption class="sr-only">Pendientes del sitio</caption>
-          <thead><tr><th scope="col">Código</th><th scope="col">Qué falta</th><th scope="col">Tipo</th><th scope="col">Página</th><th scope="col">Estado</th></tr></thead>
+          <thead><tr><th scope="col">Código</th><th scope="col">Qué falta</th><th scope="col">Qué es</th><th scope="col">Dónde</th><th scope="col">Cómo va</th></tr></thead>
           <tbody>
             {pendientes.map((p) => (
               <tr id={p.id}>

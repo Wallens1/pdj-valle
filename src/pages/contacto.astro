@@ -55,7 +55,7 @@ const motivos = ['Quiero que mi proceso juvenil haga parte', 'Mi plataforma muni
 </Base>
 
 <script>
-  // Arma un mailto con asunto y cuerpo legibles, en lugar del envío por defecto.
+  // Arma el mailto
   const f = document.querySelector<HTMLFormElement>('[data-formulario]');
   f?.addEventListener('submit', (e) => {
     if (!f.checkValidity()) return;
@@ -77,13 +77,13 @@ const motivos = ['Quiero que mi proceso juvenil haga parte', 'Mi plataforma muni
     transition: transform 0.3s var(--ease-rebote), box-shadow 0.3s var(--ease-rebote);
   }
   .campo textarea { resize: vertical; }
-  .campo input:focus, .campo select:focus, .campo textarea:focus { outline: none; transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--indigo); } /* taste-skill-ignore: sombra dura solo en hover/foco/presión, nunca en reposo */
+  .campo input:focus, .campo select:focus, .campo textarea:focus { outline: none; transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--indigo); }
   .motivos { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
   .motivo input { position: absolute; opacity: 0; width: 1px; height: 1px; }
   .motivo span { display: inline-block; padding: 10px 16px; border-radius: 999px; background: var(--papel-2); font-weight: 600; cursor: pointer; transition: transform 0.3s var(--ease-rebote), background-color 0.2s, color 0.2s; }
   .motivo span:hover { transform: translateY(-3px); }
   .motivo input:checked + span { background: var(--indigo); color: var(--papel); }
-  .motivo input:focus-visible + span { outline: 3px solid var(--lima); outline-offset: 3px; box-shadow: 0 0 0 6px var(--tinta); } /* taste-skill-ignore: sombra dura solo en hover/foco/presión, nunca en reposo */
+  .motivo input:focus-visible + span { outline: 3px solid var(--lima); outline-offset: 3px; box-shadow: 0 0 0 6px var(--tinta); }
 
   .canales { grid-column: 9 / 13; display: flex; flex-direction: column; gap: 8px; align-items: stretch; }
   .canales h2 { margin-bottom: 8px; }

@@ -1,6 +1,4 @@
-// Subregiones del Valle del Cauca según el ABC de las Plataformas de Juventud,
-// edición final 2026, «Las subregiones del Valle — completas», p. 12:
-// 3 subregiones + 2 Distritos Especiales = 42 territorios.
+// Fuente: ABC 2026, p. 12.
 
 export type Subregion = {
   id: string;

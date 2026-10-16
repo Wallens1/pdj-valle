@@ -1,6 +1,3 @@
-// Datos generales del sitio. Los valores marcados como ejemplo están en el
-// registro de pendientes (PH-05, PH-18) y se cambian aquí una sola vez.
-
 export const site = {
   nombre: 'PDJ Valle',
   nombreLargo: 'Plataforma Departamental de Juventudes del Valle del Cauca',
@@ -15,6 +12,12 @@ export const site = {
   ],
   ciudad: 'Valle del Cauca, Colombia',
   anio: 2026,
+};
+
+export const autoria = {
+  nombre: 'Juan José Wallens Serna',
+  rol: 'Diseño y desarrollo',
+  whatsapp: '573146591664', // para wa.me
 };
 
 export const nav = [
