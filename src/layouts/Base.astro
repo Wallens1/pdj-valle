@@ -87,12 +87,12 @@ const [usuario, dominio] = site.correo.split('@');
           <a class="pie__correo" href={`mailto:${site.correo}`}>
             <span>{usuario}</span><span>@{dominio}</span>
           </a>
-          <Pendiente id="PH-05" lado="derecha" />
         </div>
 
         <ul class="pie__redes" role="list">
           {site.redes.map((r) => <li><a class="enlace" href={r.url}>{r.nombre}</a></li>)}
         </ul>
+        <Pendiente id="PH-05" />
 
         <div class="pie__meta chico">
           <nav aria-label="Pie">
